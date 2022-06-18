@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MarkdownLinkCheckLogParserCli": {
+      "commandName": "Project",
+      "commandLineArgs": "parse-log --auth-token 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 --repo edumserrano/dotnet-sdk-extensions --run-id 2481867680 --job-name \"Markdown link check\" --step-name \"Markdown link check\""
+    }
+  }
+}
