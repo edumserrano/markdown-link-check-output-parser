@@ -5,6 +5,7 @@ using MarkdownLinkCheckLogParserCli.CliCommands;
 
 namespace MarkdownLinkCheckLogParserCli.Benchmarks;
 
+[MarkdownExporterAttribute.GitHub]
 [MemoryDiagnoser]
 public class ParsingBenchmark
 {
