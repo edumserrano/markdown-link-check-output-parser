@@ -1,9 +1,8 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;
 
-internal class NotValidLogLine : MarkdownLinkCheckLogLine
+internal sealed class NotValidLogLine : MarkdownLinkCheckLogLine
 {
-    public NotValidLogLine()
-        : base(MarkdownLinkCheckLogLineTypes.NotValid)
+    public override void Handle(ParserState state)
     {
     }
 }

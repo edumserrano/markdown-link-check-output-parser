@@ -1,12 +1,17 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;
 
-internal class LinksCheckedLogLine : MarkdownLinkCheckLogLine
+internal sealed class LinksCheckedLogLine : MarkdownLinkCheckLogLine
 {
     public LinksCheckedLogLine(int linksChecked)
-        : base(MarkdownLinkCheckLogLineTypes.LinesChecked)
     {
         LinksChecked = linksChecked.Positive();
     }
 
     public int LinksChecked { get; }
+
+    public override void Handle(ParserState state)
+    {
+        state.NotNull();
+        state.VisitLinksCheckedLogLine(this);
+    }
 }

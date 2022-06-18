@@ -1,19 +1,18 @@
-﻿namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
+namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
 internal class MarkdownFileLog
 {
-    public string Filename { get; set; } = default!;
+    public MarkdownFileLog(string filename)
+    {
+        Filename = filename;
+        Errors = new List<MarkdownLinkError>();
+    }
+
+    public string Filename { get; }
 
     public int LinksChecked { get; set; }
 
-    public int Errors => MarkdownLinkErrors.Count;
-
-    public List<MarkdownLinkError> MarkdownLinkErrors { get; set; } = new List<MarkdownLinkError>();
+    public List<MarkdownLinkError> Errors { get; }
 }
 
-internal class MarkdownLinkError
-{
-    public string Link { get; set; } = default!;
-
-    public int StatusCode { get; set; }
-}
+internal record MarkdownLinkError(string Link, int StatusCode);

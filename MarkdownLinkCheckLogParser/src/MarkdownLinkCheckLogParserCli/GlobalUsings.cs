@@ -11,3 +11,4 @@ global using CliFx.Extensibility;
 global using CliFx.Infrastructure;
 global using MarkdownLinkCheckLogParserCli.ArgumentValidations;
 global using MarkdownLinkCheckLogParserCli.GitHub;
+global using MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;

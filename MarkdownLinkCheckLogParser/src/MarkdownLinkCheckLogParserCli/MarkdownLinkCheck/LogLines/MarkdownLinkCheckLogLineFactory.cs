@@ -69,11 +69,7 @@ internal static class MarkdownLinkCheckLogLineFactory
         {
             var link = linkNamedGroup.Value;
             var statusCode = int.Parse(statusCodeNamedGroup.Value, CultureInfo.InvariantCulture);
-            error = new MarkdownLinkError
-            {
-                Link = link,
-                StatusCode = statusCode,
-            };
+            error = new MarkdownLinkError(link, statusCode);
             return true;
         }
 
