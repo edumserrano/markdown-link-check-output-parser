@@ -7,9 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B2FC893D-347
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C908E9CF-F974-4281-9B09-2C7E8237B79D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownLinkCheckLogParserCli.Tests", "tests\MarkdownLinkCheckLogParserCli.Tests\MarkdownLinkCheckLogParserCli.Tests.csproj", "{E7A0E118-FB2C-4C1D-9494-7B7E7B2F3AC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownLinkCheckLogParserCli.Tests", "tests\MarkdownLinkCheckLogParserCli.Tests\MarkdownLinkCheckLogParserCli.Tests.csproj", "{E7A0E118-FB2C-4C1D-9494-7B7E7B2F3AC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownLinkCheckLogParserCli", "src\MarkdownLinkCheckLogParserCli\MarkdownLinkCheckLogParserCli.csproj", "{B2A846D8-D25F-4025-B370-031C8C30A098}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownLinkCheckLogParserCli", "src\MarkdownLinkCheckLogParserCli\MarkdownLinkCheckLogParserCli.csproj", "{B2A846D8-D25F-4025-B370-031C8C30A098}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownLinkCheckLogParserCli.Benchmarks", "tests\MarkdownLinkCheckLogParserCli.Benchmarks\MarkdownLinkCheckLogParserCli.Benchmarks.csproj", "{CD9231AB-052A-4E6A-BCF7-24E20CB16539}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{B2A846D8-D25F-4025-B370-031C8C30A098}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A846D8-D25F-4025-B370-031C8C30A098}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2A846D8-D25F-4025-B370-031C8C30A098}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD9231AB-052A-4E6A-BCF7-24E20CB16539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD9231AB-052A-4E6A-BCF7-24E20CB16539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD9231AB-052A-4E6A-BCF7-24E20CB16539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD9231AB-052A-4E6A-BCF7-24E20CB16539}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E7A0E118-FB2C-4C1D-9494-7B7E7B2F3AC2} = {C908E9CF-F974-4281-9B09-2C7E8237B79D}
 		{B2A846D8-D25F-4025-B370-031C8C30A098} = {B2FC893D-3479-4097-9F8B-447E867CD5E1}
+		{CD9231AB-052A-4E6A-BCF7-24E20CB16539} = {C908E9CF-F974-4281-9B09-2C7E8237B79D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE69B846-FAFD-4138-B736-66201810EE95}

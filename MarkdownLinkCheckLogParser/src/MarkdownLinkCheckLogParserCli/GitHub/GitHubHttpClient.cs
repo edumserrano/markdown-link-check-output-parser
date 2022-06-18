@@ -18,8 +18,8 @@ internal class GitHubHttpClient
     public async Task<ZipArchive> DownloadWorkflowRunLogsAsync(string repo, string runId)
     {
         using var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"repos/{repo}/actions/runs/{runId}/logs");
-        using var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
-        using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
+        var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
+        var responseStream = await httpResponse.Content.ReadAsStreamAsync();
         return new ZipArchive(responseStream, ZipArchiveMode.Read);
     }
 }
