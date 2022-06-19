@@ -60,16 +60,16 @@ public class ParseLogCommand : ICommand
         try
         {
             console.NotNull();
-            AuthToken.NotNullOrWhiteSpace();
-            Repo.NotNullOrWhiteSpace();
-            RunId.NotNullOrWhiteSpace();
-            JobName.NotNullOrWhiteSpace();
-            StepName.NotNullOrWhiteSpace();
+            var authToken = new GitHubAuthToken(AuthToken);
+            var repo = new GitHubRepository(Repo);
+            var runId = new GitHubRunId(RunId);
+            var jobName = new GitHubJobName(JobName);
+            var stepName = new GitHubStepName(StepName);
 
-            using var httpClient = _httpClient ?? GitHubHttpClient.Create(AuthToken);
+            using var httpClient = _httpClient ?? GitHubHttpClient.Create(authToken);
             var gitHubHttpClient = new GitHubHttpClient(httpClient);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
-            var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(Repo, RunId, JobName, StepName);
+            var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(repo, runId, jobName, stepName);
             var parsed = MarkdownLinkCheckOutputParser.Parse(stepLog);
             var b = "2";
 

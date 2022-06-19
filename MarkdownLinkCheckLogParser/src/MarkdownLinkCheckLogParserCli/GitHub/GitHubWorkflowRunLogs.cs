@@ -10,10 +10,10 @@ internal class GitHubWorkflowRunLogs
     }
 
     public async Task<GitHubStepLog> GetStepLogAsync(
-        string repo,
-        string runId,
-        string jobName,
-        string stepName)
+        GitHubRepository repo,
+        GitHubRunId runId,
+        GitHubJobName jobName,
+        GitHubStepName stepName)
     {
         using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
         var markdownLinkCheckLogsZipEntrys = workflowRunLogsZip.Entries.

@@ -9,7 +9,7 @@ internal class GitHubHttpClient
         _httpClient = httpClient.NotNull();
     }
 
-    public static HttpClient Create(string authToken)
+    public static HttpClient Create(GitHubAuthToken authToken)
     {
         authToken.NotNull();
         var httpClient = new HttpClient();
@@ -21,7 +21,7 @@ internal class GitHubHttpClient
     }
 
     // see https://docs.github.com/en/rest/actions/workflow-runs#download-workflow-run-logs
-    public async Task<ZipArchive> DownloadWorkflowRunLogsAsync(string repo, string runId)
+    public async Task<ZipArchive> DownloadWorkflowRunLogsAsync(GitHubRepository repo, GitHubRunId runId)
     {
         using var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"repos/{repo}/actions/runs/{runId}/logs");
         var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
