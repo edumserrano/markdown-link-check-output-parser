@@ -9,9 +9,13 @@ internal class GitHubWorkflowRunLogs
         _gitHubHttpClient = gitHubHttpClient.NotNull();
     }
 
-    public async Task<ZipArchiveEntry> GetWorkflowRunLogForStepAsync(string repo, string runId, string jobName, string stepName)
+    public async Task<GitHubStepLog> GetStepLogAsync(
+        string repo,
+        string runId,
+        string jobName,
+        string stepName)
     {
-        var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
+        using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
         var markdownLinkCheckLogsZipEntrys = workflowRunLogsZip.Entries.
             Where(e => e.FullName.Contains($"{jobName}/", StringComparison.Ordinal) && e.Name.Contains(stepName, StringComparison.Ordinal))
             .ToList();
@@ -27,6 +31,11 @@ internal class GitHubWorkflowRunLogs
             throw new Exception("TODO more than one match");
         }
 
-        return markdownLinkCheckLogsZipEntrys[0];      
+        var logAsZip = markdownLinkCheckLogsZipEntrys[0];
+        var logAsStream = logAsZip.Open();
+        using var streamReader = new StreamReader(logAsStream, Encoding.UTF8);
+        var memory = new Memory<char>(new char[logAsZip.Length]);
+        await streamReader.ReadAsync(memory);
+        return new GitHubStepLog(memory);
     }
 }

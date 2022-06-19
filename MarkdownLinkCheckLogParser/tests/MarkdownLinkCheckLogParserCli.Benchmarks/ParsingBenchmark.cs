@@ -24,7 +24,7 @@ public class ParsingBenchmark
         };
         var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-    } 
+    }
 }
 
 public class InMemoryGitHubWorkflowRunHandler : DelegatingHandler

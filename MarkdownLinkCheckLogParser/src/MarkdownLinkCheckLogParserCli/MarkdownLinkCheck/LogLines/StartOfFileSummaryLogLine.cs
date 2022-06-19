@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;
 
-internal sealed class StartOfFileSummaryLogLine : MarkdownLinkCheckLogLine
+internal sealed class StartOfFileSummaryLogLine : IMarkdownLinkCheckLogLine
 {
     public StartOfFileSummaryLogLine(string filename)
     {
@@ -9,7 +9,7 @@ internal sealed class StartOfFileSummaryLogLine : MarkdownLinkCheckLogLine
 
     public string Filename { get; }
 
-    public override void Handle(ParserState state)
+    public void Handle(ParserState state)
     {
         state.NotNull();
         state.VisitStartOfFileSummaryLogLine(this);

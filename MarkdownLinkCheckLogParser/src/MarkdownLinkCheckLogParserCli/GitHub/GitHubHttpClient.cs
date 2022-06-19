@@ -4,14 +4,20 @@ internal class GitHubHttpClient
 {
     private readonly HttpClient _httpClient;
 
-    public GitHubHttpClient(HttpClient httpClient, string authToken)
+    public GitHubHttpClient(HttpClient httpClient)
+    {
+        _httpClient = httpClient.NotNull();
+    }
+
+    public static HttpClient Create(string authToken)
     {
         authToken.NotNull();
-        _httpClient = httpClient.NotNull();
-        _httpClient.BaseAddress = new Uri("https://api.github.com");
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", authToken);
-        _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/vnd.github.v3+json");
-        _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "markdown-link-check-log-parser");
+        var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("https://api.github.com");
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", authToken);
+        httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/vnd.github.v3+json");
+        httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "markdown-link-check-log-parser");
+        return httpClient;
     }
 
     // see https://docs.github.com/en/rest/actions/workflow-runs#download-workflow-run-logs

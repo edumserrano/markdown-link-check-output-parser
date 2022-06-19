@@ -1,8 +1,15 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;
 
-internal sealed class NotValidLogLine : MarkdownLinkCheckLogLine
+internal sealed class UnknownLogLine : IMarkdownLinkCheckLogLine
 {
-    public override void Handle(ParserState state)
+    private UnknownLogLine()
     {
     }
+
+    public void Handle(ParserState state)
+    {
+    }
+
+    // used as a singleton, no need to have multiple instances of this
+    public static UnknownLogLine Instance { get; } = new UnknownLogLine();
 }

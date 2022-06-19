@@ -1,79 +1,90 @@
-//namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;
+namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;
 
-//internal static class MarkdownLinkCheckLogLineFactory
-//{
-//    public static MarkdownLinkCheckLogLine Create(ReadOnlyMemory<char> logLine)
-//    {
-//        (var isStartOfFileSummary, var filename) = IsStartOfFileSummary(logLine);
-//        if (isStartOfFileSummary)
-//        {
-//            return new StartOfFileSummaryLogLine(filename);
-//        }
+internal static class MarkdownLinkCheckLogLineFactory
+{
+    public static IMarkdownLinkCheckLogLine Create(ReadOnlyMemory<char> line)
+    {
+        (var isStartOfFileSummary, var filename) = IsStartOfFileSummary(line.Span);
+        if (isStartOfFileSummary)
+        {
+            return new StartOfFileSummaryLogLine(filename);
+        }
 
-//        (var isLinksChecked, var linksChecked) = IsLinksCheckedLine(logLine);
-//        if (isLinksChecked)
-//        {
-//            return new LinksCheckedLogLine(linksChecked);
-//        }
+        (var isLinksChecked, var linksChecked) = IsLinksCheckedLine(line.Span);
+        if (isLinksChecked)
+        {
+            return new LinksCheckedLogLine(linksChecked);
+        }
 
-//        if (IsErrorLine(logLine, out var error))
-//        {
-//            return new ErrorLogLine(error);
-//        }
+        if (IsErrorLine(line.Span, out var link, out var statusCode))
+        {
+            return new ErrorLogLine(link, statusCode);
+        }
 
-//        return MarkdownLinkCheckLogLine.NotValidLogLine;
-//    }
+        return UnknownLogLine.Instance;
+    }
 
-//    private static (bool isStartOfFile, string filename) IsStartOfFileSummary(ReadOnlyMemory<char> logLine)
-//    {
-//        var b = logLine.Span.IndexOf(' ');
+    private static (bool isStartOfFile, string filename) IsStartOfFileSummary(ReadOnlySpan<char> line)
+    {
+        // example line:
+        // FILE: ./tests/liquid-test-logger-template.md
+        const string marker = "FILE: ";
+        var startOfFileSummaryIdx = line.IndexOf(marker);
+        if (startOfFileSummaryIdx >= 0)
+        {
+            var filename = line
+                .Slice(startOfFileSummaryIdx + marker.Length)
+                .ToString();
+            return (true, filename);
+        }
 
-//        //const string pattern = "FILE: (?<filename>.*)";
-//        //var matches = Regex.Matches(logLine, pattern, RegexOptions.None);
-//        //if (matches.Count > 0)
-//        //{
-//        //    var filename = matches[0].Value;
-//        //    return (true, filename);
-//        //}
+        return (false, string.Empty);
+    }
 
-//        //return (false, string.Empty);
-//    }
+    private static (bool isLinksChecked, int linksChecked) IsLinksCheckedLine(ReadOnlySpan<char> line)
+    {
+        // example line:
+        // 0 links checked.
+        const string marker = " links checked.";
+        var linksCheckedIdx = line.IndexOf(marker);
+        if (linksCheckedIdx >= 0)
+        {
+            var endOfLinesCheckedIdx = line.Length - marker.Length;
+            var linesCheckedSpan = line.Slice(0, endOfLinesCheckedIdx);
+            if (int.TryParse(linesCheckedSpan, out var linesChecked))
+            {
+                return (true, linesChecked);
+            }
+        }
 
-//    private static (bool isLinksChecked, int linksChecked) IsLinksCheckedLine(string logLine)
-//    {
-//        const string pattern = @"(?<linksChecked>\d+) links checked.";
-//        var namedGroup = Regex
-//            .Matches(logLine, pattern, RegexOptions.None)
-//            .SelectMany<Match, Group>(x => x.Groups)
-//            .FirstOrDefault(x => "linksChecked".Equals(x.Name, StringComparison.Ordinal));
-//        if (namedGroup is not null)
-//        {
-//            var linksChecked = namedGroup!.Value;
-//            return (true, int.Parse(linksChecked, CultureInfo.InvariantCulture));
-//        }
+        return (false, -1);
+    }
 
-//        return (false, -1);
-//    }
+    private static bool IsErrorLine(
+        ReadOnlySpan<char> line,
+        out string link,
+        out int statusCode)
+    {
+        // example line:
+        // [✖] https://github.com/edumserrano/dotnet-sdk-extensions/actions/workflows/pr-dotnet-format-check.yml/badge.svg → Status: 404
+        const string errorMarker = "[✖] ";
+        const string statusCodeMarker = " → Status: ";
+        var errorIdx = line.IndexOf(errorMarker);
+        var statusCodeIdx = line.IndexOf(statusCodeMarker);
+        if (errorIdx >= 0 && statusCodeIdx >= 0)
+        {
+            var range = new Range(errorIdx + errorMarker.Length, statusCodeIdx);
+            var linkSpan = line[range];
+            var statusSpan = line.Slice(statusCodeIdx + statusCodeMarker.Length);
+            if (int.TryParse(statusSpan, out statusCode))
+            {
+                link = linkSpan.ToString();
+                return true;
+            }
+        }
 
-//    private static bool IsErrorLine(
-//        string logLine,
-//        [NotNullWhen(returnValue: true)] out MarkdownLinkError? error)
-//    {
-//        const string pattern = @"\[✖\] (?<link>.*) → Status: (?<statusCode>\d+)";
-//        var groups = Regex
-//            .Matches(logLine, pattern, RegexOptions.None)
-//            .SelectMany<Match, Group>(x => x.Groups);
-//        var linkNamedGroup = groups.FirstOrDefault(x => "link".Equals(x.Name, StringComparison.Ordinal));
-//        var statusCodeNamedGroup = groups.FirstOrDefault(x => "statusCode".Equals(x.Name, StringComparison.Ordinal));
-//        if (linkNamedGroup is not null && statusCodeNamedGroup is not null)
-//        {
-//            var link = linkNamedGroup.Value;
-//            var statusCode = int.Parse(statusCodeNamedGroup.Value, CultureInfo.InvariantCulture);
-//            error = new MarkdownLinkError(link, statusCode);
-//            return true;
-//        }
-
-//        error = null;
-//        return false;
-//    }
-//}
+        link = string.Empty;
+        statusCode = -1;
+        return false;
+    }
+}
