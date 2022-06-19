@@ -70,8 +70,8 @@ public class ParseLogCommand : ICommand
 
             var gitHubHttpClient = new GitHubHttpClient(_httpClient, AuthToken);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
-            var stepLogLines = gitHubWorkflowRunLogs.GetWorkflowRunLogForStepAsync(Repo, RunId, JobName, StepName);
-            var parsed = await MarkdownLinkCheckOutputParser.ParseAsync(stepLogLines);
+            var stepLogLines = await gitHubWorkflowRunLogs.GetWorkflowRunLogForStepAsync(Repo, RunId, JobName, StepName);
+            var parsed = MarkdownLinkCheckOutputParser.Parse(stepLogLines);
             var b = "2";
 
             // var yamlTemplateAsString = await File.ReadAllTextAsync(RunId);
