@@ -1,13 +1,21 @@
+using MarkdownLinkCheckLogParserCli.CliCommands;
+
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
 internal static class MarkdownLinkCheckOutputParser
 {
-    public static IReadOnlyList<MarkdownFileLog> Parse(ReadOnlyMemory<char> log)
+    public static IReadOnlyList<MarkdownFileLog> Parse(ZipArchiveEntry logAsZip)
     {
+        var stream = logAsZip.Open();
+        var logAsSpan = stream.ToSpan(logAsZip.Length);
+            
+
+
+
         MarkdownFileLog? current = null;
         var logs = new List<MarkdownFileLog>();
 
-        foreach (ReadOnlySpan<char> line in log.SplitLines())
+        foreach (ReadOnlySpan<char> line in logAsSpan.SplitLines())
         // foreach (var line in log.Span.EnumerateLines())
         {
             var indexOfSpace = line.IndexOf(' ');

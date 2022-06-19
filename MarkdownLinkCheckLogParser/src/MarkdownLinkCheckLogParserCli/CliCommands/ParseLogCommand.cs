@@ -70,8 +70,8 @@ public class ParseLogCommand : ICommand
 
             var gitHubHttpClient = new GitHubHttpClient(_httpClient, AuthToken);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
-            var stepLogLines = await gitHubWorkflowRunLogs.GetWorkflowRunLogForStepAsync(Repo, RunId, JobName, StepName);
-            var parsed = MarkdownLinkCheckOutputParser.Parse(stepLogLines);
+            var logAsZip = await gitHubWorkflowRunLogs.GetWorkflowRunLogForStepAsync(Repo, RunId, JobName, StepName);
+            var parsed = MarkdownLinkCheckOutputParser.Parse(logAsZip);
             var b = "2";
 
             // var yamlTemplateAsString = await File.ReadAllTextAsync(RunId);
@@ -89,5 +89,17 @@ Error:
 - {e.Message}";
             throw new CommandException(message, innerException: e);
         }
+    }
+}
+
+
+internal static class StreamExtensions
+{
+    public static ReadOnlySpan<char> ToSpan(this Stream stream, long length)
+    {
+        using var streamReader = new StreamReader(stream, Encoding.UTF8);
+        var span = new Span<char>(new char[length]);
+        streamReader.Read(span);
+        return span;
     }
 }

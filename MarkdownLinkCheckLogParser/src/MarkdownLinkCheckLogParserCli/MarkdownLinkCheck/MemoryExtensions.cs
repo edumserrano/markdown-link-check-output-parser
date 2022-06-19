@@ -3,10 +3,10 @@ namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 // copied from https://www.meziantou.net/split-a-string-into-lines-without-allocation.htm
 internal static class MemoryExtensions
 {
-    public static LineSplitEnumerator SplitLines(this ReadOnlyMemory<char> memory)
+    public static LineSplitEnumerator SplitLines(this ReadOnlySpan<char> span)
     {
         // LineSplitEnumerator is a struct so there is no allocation here
-        return new LineSplitEnumerator(memory.Span);
+        return new LineSplitEnumerator(span);
     }
 
     // Must be a ref struct as it contains a ReadOnlySpan<char>
