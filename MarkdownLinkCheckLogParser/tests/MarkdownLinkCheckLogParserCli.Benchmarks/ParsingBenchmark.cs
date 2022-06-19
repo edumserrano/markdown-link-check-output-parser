@@ -14,6 +14,7 @@ public class ParsingBenchmark
     {
         var handler = new InMemoryGitHubWorkflowRunHandler();
         var httpClient = new HttpClient(handler);
+        httpClient.BaseAddress = new Uri("https://api.github.com");
         var command = new ParseLogCommand(httpClient)
         {
             AuthToken = "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",
