@@ -34,6 +34,7 @@ internal static class MarkdownLinkCheckLogLineFactory
         {
             var filename = line
                 .Slice(startOfFileSummaryIdx + marker.Length)
+                .Trim()
                 .ToString();
             return (true, filename);
         }
@@ -50,7 +51,9 @@ internal static class MarkdownLinkCheckLogLineFactory
         if (linksCheckedIdx >= 0)
         {
             var endOfLinesCheckedIdx = line.Length - marker.Length;
-            var linesCheckedSpan = line.Slice(0, endOfLinesCheckedIdx);
+            var linesCheckedSpan = line
+                .Slice(0, endOfLinesCheckedIdx)
+                .Trim();
             if (int.TryParse(linesCheckedSpan, out var linesChecked))
             {
                 return (true, linesChecked);
@@ -73,9 +76,11 @@ internal static class MarkdownLinkCheckLogLineFactory
         var statusCodeIdx = line.IndexOf(statusCodeMarker);
         if (errorIdx >= 0 && statusCodeIdx >= 0)
         {
-            var range = new Range(errorIdx + errorMarker.Length, statusCodeIdx);
-            var linkSpan = line[range];
-            var statusSpan = line.Slice(statusCodeIdx + statusCodeMarker.Length);
+            var range = new Range(start: errorIdx + errorMarker.Length, end: statusCodeIdx);
+            var linkSpan = line[range].Trim();
+            var statusSpan = line
+                .Slice(statusCodeIdx + statusCodeMarker.Length)
+                .Trim();
             if (int.TryParse(statusSpan, out statusCode))
             {
                 link = linkSpan.ToString();
