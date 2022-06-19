@@ -3,12 +3,12 @@ namespace MarkdownLinkCheckLogParserCli.GitHub;
 internal class GitHubLogLine
 {
     private readonly string _logLine;
-    private readonly Lazy<string> _logLineWithoutTimestamp;
+    private readonly Lazy<ReadOnlyMemory<char>> _logLineWithoutTimestamp;
 
     public GitHubLogLine(string logLine)
     {
         _logLine = logLine;
-        _logLineWithoutTimestamp = new Lazy<string>(() => TrimTimestamp(logLine));
+        _logLineWithoutTimestamp = new Lazy<ReadOnlyMemory<char>>(() => TrimTimestamp(logLine));
     }
 
     public static implicit operator string(GitHubLogLine logLine)
@@ -16,11 +16,17 @@ internal class GitHubLogLine
         return logLine._logLine;
     }
 
-    public string WithoutTimestamp => _logLineWithoutTimestamp.Value;
+    public ReadOnlyMemory<char> WithoutTimestamp => _logLineWithoutTimestamp.Value;
 
-    private static string TrimTimestamp(string logLine)
+    private static ReadOnlyMemory<char> TrimTimestamp(string logLine)
     {
-        var splits = logLine.Split(" ");
-        return string.Join(" ", splits.Skip(1));
+        var indexOfFirstSpace = logLine.IndexOf(' ', StringComparison.InvariantCulture);
+        var spanWithoutTimestamp = logLine.AsMemory(start: indexOfFirstSpace);
+        
+
+        //var splits = logLine.Split(" ");
+        //return string.Join(" ", splits.Skip(1));
+
+        return spanWithoutTimestamp;
     }
 }

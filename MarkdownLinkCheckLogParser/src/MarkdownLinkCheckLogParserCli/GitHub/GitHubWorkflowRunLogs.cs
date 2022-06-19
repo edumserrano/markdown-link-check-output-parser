@@ -9,7 +9,7 @@ internal class GitHubWorkflowRunLogs
         _gitHubHttpClient = gitHubHttpClient.NotNull();
     }
 
-    public async IAsyncEnumerable<GitHubLogLine> GetWorkflowRunLogForStepAsync(string repo, string runId, string jobName, string stepName)
+    public async Task<ReadOnlyMemory<char>> GetWorkflowRunLogForStepAsync(string repo, string runId, string jobName, string stepName)
     {
         using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
         var markdownLinkCheckLogsZipEntrys = workflowRunLogsZip.Entries.
@@ -30,10 +30,8 @@ internal class GitHubWorkflowRunLogs
         var stepLogZipEntry = markdownLinkCheckLogsZipEntrys[0];
         using var stepLogStream = stepLogZipEntry.Open();
         using var streamReader = new StreamReader(stepLogStream, Encoding.UTF8);
-        string? line;
-        while ((line = await streamReader.ReadLineAsync()) is not null)
-        {
-            yield return new GitHubLogLine(line);
-        }
+        var stepLogMemory = new Memory<char>(new char[stepLogZipEntry.Length]);
+        await streamReader.ReadAsync(stepLogMemory);
+        return stepLogMemory;
     }
 }
