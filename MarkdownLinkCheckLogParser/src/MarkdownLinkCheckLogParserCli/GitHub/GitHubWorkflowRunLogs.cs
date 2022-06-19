@@ -32,7 +32,7 @@ internal class GitHubWorkflowRunLogs
         }
 
         var logAsZip = markdownLinkCheckLogsZipEntrys[0];
-        var logAsStream = logAsZip.Open();
+        using var logAsStream = logAsZip.Open();
         using var streamReader = new StreamReader(logAsStream, Encoding.UTF8);
         var memory = new Memory<char>(new char[logAsZip.Length]);
         await streamReader.ReadAsync(memory);
