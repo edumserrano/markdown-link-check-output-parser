@@ -1,17 +1,15 @@
-using MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
-
 namespace MarkdownLinkCheckLogParserCli.CliCommands;
 
 [Command("parse-log")]
 public class ParseLogCommand : ICommand
 {
-    private readonly HttpClient _httpClient;
+    private readonly HttpClient? _httpClient;
 
     public ParseLogCommand()
-        : this(new HttpClient())
     {
     }
 
+    // used for test purposes to be able to mock the HttpClient calls
     public ParseLogCommand(HttpClient httpClient)
     {
         _httpClient = httpClient;
@@ -68,10 +66,11 @@ public class ParseLogCommand : ICommand
             JobName.NotNullOrWhiteSpace();
             StepName.NotNullOrWhiteSpace();
 
-            var gitHubHttpClient = new GitHubHttpClient(_httpClient, AuthToken);
+            using var httpClient = _httpClient ?? GitHubHttpClient.Create(AuthToken);
+            var gitHubHttpClient = new GitHubHttpClient(httpClient);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
-            var logAsZip = await gitHubWorkflowRunLogs.GetWorkflowRunLogForStepAsync(Repo, RunId, JobName, StepName);
-            var parsed = MarkdownLinkCheckOutputParser.Parse(logAsZip);
+            var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(Repo, RunId, JobName, StepName);
+            var parsed = MarkdownLinkCheckOutputParser.Parse(stepLog);
             var b = "2";
 
             // var yamlTemplateAsString = await File.ReadAllTextAsync(RunId);
@@ -89,17 +88,5 @@ Error:
 - {e.Message}";
             throw new CommandException(message, innerException: e);
         }
-    }
-}
-
-
-internal static class StreamExtensions
-{
-    public static ReadOnlySpan<char> ToSpan(this Stream stream, long length)
-    {
-        using var streamReader = new StreamReader(stream, Encoding.UTF8);
-        var span = new Span<char>(new char[length]);
-        streamReader.Read(span);
-        return span;
     }
 }

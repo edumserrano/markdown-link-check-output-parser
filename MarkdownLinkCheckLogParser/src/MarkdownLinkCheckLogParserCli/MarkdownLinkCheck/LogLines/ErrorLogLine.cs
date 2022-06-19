@@ -1,15 +1,18 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;
 
-internal sealed class ErrorLogLine : MarkdownLinkCheckLogLine
+internal sealed class ErrorLogLine : IMarkdownLinkCheckLogLine
 {
-    public ErrorLogLine(MarkdownLinkError error)
+    public ErrorLogLine(string link, int statusCode)
     {
-        Error = error.NotNull();
+        Link = link;
+        StatusCode = statusCode;
     }
 
-    public MarkdownLinkError Error { get; }
+    public string Link { get; }
 
-    public override void Handle(ParserState state)
+    public int StatusCode { get; }
+
+    public void Handle(ParserState state)
     {
         state.NotNull();
         state.VisitErrorLogLine(this);
