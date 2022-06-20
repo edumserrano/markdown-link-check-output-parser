@@ -2,10 +2,10 @@ namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
 internal class ParserState
 {
-    private MarkdownFileLog? _current;
-    private readonly List<MarkdownFileLog> _logs = new List<MarkdownFileLog>();
+    private MarkdownFileCheck? _current;
+    private readonly List<MarkdownFileCheck> _files = new List<MarkdownFileCheck>();
 
-    public IReadOnlyList<MarkdownFileLog> Logs => _logs;
+    public IReadOnlyList<MarkdownFileCheck> Files => _files;
 
     public void VisitStartOfFileSummaryLogLine(StartOfFileSummaryLogLine logLine)
     {
@@ -14,10 +14,10 @@ internal class ParserState
         // it to the parsed logs lines before we start tracking a new current
         if (_current is not null)
         {
-            _logs.Add(_current);
+            _files.Add(_current);
         }
 
-        _current = new MarkdownFileLog(logLine.Filename);
+        _current = new MarkdownFileCheck(logLine.Filename);
     }
 
     public void VisitLinksCheckedLogLine(LinksCheckedLogLine logLine)
@@ -45,7 +45,7 @@ internal class ParserState
         // make sure we don't loose the current item (last log line we parsed)
         if (_current is not null)
         {
-            _logs.Add(_current);
+            _files.Add(_current);
             _current = null;
         }
     }

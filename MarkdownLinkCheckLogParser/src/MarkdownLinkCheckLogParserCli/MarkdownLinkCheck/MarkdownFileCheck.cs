@@ -1,10 +1,10 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
-internal class MarkdownFileLog
+internal class MarkdownFileCheck
 {
     private readonly List<MarkdownLinkError> _errors;
 
-    public MarkdownFileLog(string filename)
+    public MarkdownFileCheck(string filename)
     {
         Filename = filename;
         _errors = new List<MarkdownLinkError>();
@@ -13,6 +13,10 @@ internal class MarkdownFileLog
     public string Filename { get; }
 
     public int LinksChecked { get; set; }
+
+    public int ErrorCount => Errors.Count;
+
+    public bool HasErrors => ErrorCount > 0;
 
     public IReadOnlyList<MarkdownLinkError> Errors => _errors;
 

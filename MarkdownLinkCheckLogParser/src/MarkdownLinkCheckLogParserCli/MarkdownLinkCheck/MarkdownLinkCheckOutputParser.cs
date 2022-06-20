@@ -2,7 +2,7 @@ namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
 internal static class MarkdownLinkCheckOutputParser
 {
-    public static IReadOnlyList<MarkdownFileLog> Parse(GitHubStepLog log)
+    public static MarkdownLinkCheckOutput Parse(GitHubStepLog log, bool captureErrorsOnly)
     {
         log.NotNull();
         var parserState = new ParserState();
@@ -16,6 +16,6 @@ internal static class MarkdownLinkCheckOutputParser
         }
 
         parserState.EndOfLog();
-        return parserState.Logs;
+        return new MarkdownLinkCheckOutput(parserState.Files, captureErrorsOnly);
     }
 }

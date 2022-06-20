@@ -55,6 +55,12 @@ public class ParseLogCommand : ICommand
         Description = "The name of the markdown link check step.")]
     public string StepName { get; init; } = default!;
 
+    [CommandOption(
+        "only-errors",
+        'e',
+        Description = "Don't output file information unless it's an error.")]
+    public bool CaptureErrorsOnly { get; init; } = default!;
+
     public async ValueTask ExecuteAsync(IConsole console)
     {
         try
@@ -70,16 +76,9 @@ public class ParseLogCommand : ICommand
             var gitHubHttpClient = new GitHubHttpClient(httpClient);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
             var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(repo, runId, jobName, stepName);
-            var parsed = MarkdownLinkCheckOutputParser.Parse(stepLog);
-            var b = "2";
-
-            // var yamlTemplateAsString = await File.ReadAllTextAsync(RunId);
-            // var issueFormBodyText = new IssueFormBodyText(AuthToken);
-            // var issueFormTemplateText = new IssueFormYamlTemplateText(yamlTemplateAsString);
-            // var issueFormTemplate = IssueFormYamlTemplateParser.Parse(issueFormTemplateText);
-            // var issueFormBody = IssueFormBodyParser.Parse(issueFormBodyText, issueFormTemplate);
-            // var issueFormBodyAsJson = issueFormBody.ToJson();
-            // await console.Output.WriteLineAsync(issueFormBodyAsJson);
+            var output = MarkdownLinkCheckOutputParser.Parse(stepLog, CaptureErrorsOnly);
+            var outputAsJson = output.ToJson();
+            await console.Output.WriteLineAsync(outputAsJson);
         }
         catch (Exception e)
         {
