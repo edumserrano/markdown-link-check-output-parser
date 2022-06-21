@@ -1,4 +1,4 @@
-﻿namespace MarkdownLinkCheckLogParserCli.CliCommands;
+﻿namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Validators;
 
 #pragma warning disable CA1812 // Avoid uninstantiated internal classes. Referenced via typeof(NotNullOrWhitespaceOptionValidator) usage
 internal class NotNullOrWhitespaceOptionValidator : BindingValidator<string>

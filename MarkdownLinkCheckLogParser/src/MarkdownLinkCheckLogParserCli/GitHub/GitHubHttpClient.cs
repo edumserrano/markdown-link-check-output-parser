@@ -12,8 +12,10 @@ internal class GitHubHttpClient
     public static HttpClient Create(GitHubAuthToken authToken)
     {
         authToken.NotNull();
-        var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("https://api.github.com");
+        var httpClient = new HttpClient
+        {
+            BaseAddress = new Uri("https://api.github.com"),
+        };
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", authToken);
         httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/vnd.github.v3+json");
         httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "markdown-link-check-log-parser");

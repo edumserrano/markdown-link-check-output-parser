@@ -1,68 +1,80 @@
-namespace MarkdownLinkCheckLogParserCli.CliCommands;
+using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
+using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Validators;
+
+namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog;
 
 [Command("parse-log")]
 public class ParseLogCommand : ICommand
 {
     private readonly HttpClient? _httpClient;
+    private readonly IFile _file;
 
     public ParseLogCommand()
     {
+        _file = new OutputFile();
     }
 
-    // used for test purposes to be able to mock the HttpClient calls
-    public ParseLogCommand(HttpClient httpClient)
+    // used for test purposes to be able to mock external dependencies
+    public ParseLogCommand(HttpClient httpClient, IFile file)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClient.NotNull();
+        _file = file.NotNull();
     }
 
     [CommandOption(
         "auth-token",
-        't',
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "GitHub token used to access workflow run logs.")]
-    public string AuthToken { get; init; } = default!;
+    public string AuthToken { get; init; } = string.Empty;
 
     [CommandOption(
         "repo",
-        'r',
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The repository for the workflow run in the format of {owner}/{repo}.")]
-    public string Repo { get; init; } = default!;
+    public string Repo { get; init; } = string.Empty;
 
     [CommandOption(
         "run-id",
-        'i',
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The unique identifier of the workflow run that contains the markdown link check step.")]
-    public string RunId { get; init; } = default!;
+    public string RunId { get; init; } = string.Empty;
 
     [CommandOption(
         "job-name",
-        'j',
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The name of the job that contains the markdown link check step.")]
-    public string JobName { get; init; } = default!;
+    public string JobName { get; init; } = string.Empty;
 
     [CommandOption(
         "step-name",
-        's',
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The name of the markdown link check step.")]
     public string StepName { get; init; } = default!;
 
-    [CommandOption("only-errors", 'e', Description = "Don't output file information unless it's an error.")]
-    public bool CaptureErrorsOnly { get; init; } = default!;
+    [CommandOption("only-errors", 'e', Description = "Whether the output information contains file errors only or all files.")]
+    public bool CaptureErrorsOnly { get; init; } = true;
 
     [CommandOption(
-        "only-errors",
-        'e',
-        Description = "Don't output file information unless it's an error.")]
-    public string OutputOptions { get; init; } = default!;
+        "output",
+        Description = "How to output the markdown file check result.")]
+    public string OutputOptions { get; init; } = "step";
+
+    [CommandOption(
+        "json-filepath",
+        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
+        Description = "The filepath for the output JSON file.")]
+    public string OutputJsonFilepath { get; init; } = string.Empty;
+
+    [CommandOption(
+        "markdown-filepath",
+        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
+        Description = "The filepath for the output markdown file.")]
+    public string OutputMarkdownFilepath { get; init; } = string.Empty;
 
     public async ValueTask ExecuteAsync(IConsole console)
     {
@@ -74,16 +86,20 @@ public class ParseLogCommand : ICommand
             var runId = new GitHubRunId(RunId);
             var jobName = new GitHubJobName(JobName);
             var stepName = new GitHubStepName(StepName);
+            var outputOptions = new OutputOptions(OutputOptions);
+            var outputJsonFilePath = new OutputJsonFilepath(OutputJsonFilepath);
+            var outputMarkdownFilePath = new OutputMarkdownFilepath(OutputMarkdownFilepath);
 
             using var httpClient = _httpClient ?? GitHubHttpClient.Create(authToken);
             var gitHubHttpClient = new GitHubHttpClient(httpClient);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
             var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(repo, runId, jobName, stepName);
             var output = MarkdownLinkCheckOutputParser.Parse(stepLog, CaptureErrorsOnly);
-            var outputAsJson = output.ToJson();
-            await console.Output.WriteLineAsync(outputAsJson);
-            output.ToMarkdownFile();
-            output.ToJsonFile();
+            var outputFormats = OutputFormats.Create(outputOptions, _file, console, outputJsonFilePath, outputMarkdownFilePath);
+            foreach (var outputFormat in outputFormats)
+            {
+                await outputFormat.WriteAsync(output);
+            }
         }
         catch (Exception e)
         {

@@ -1,7 +1,7 @@
 using System.Net;
 using BenchmarkDotNet.Attributes;
 using CliFx.Infrastructure;
-using MarkdownLinkCheckLogParserCli.CliCommands;
+using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog;
 
 namespace MarkdownLinkCheckLogParserCli.Benchmarks;
 
@@ -13,9 +13,12 @@ public class ParsingBenchmark
     public async Task Parse()
     {
         var handler = new InMemoryGitHubWorkflowRunHandler();
-        var httpClient = new HttpClient(handler);
-        httpClient.BaseAddress = new Uri("https://api.github.com");
-        var command = new ParseLogCommand(httpClient)
+        var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.github.com"),
+        };
+        var file = new FileOutputTest();
+        var command = new ParseLogCommand(httpClient, file)
         {
             AuthToken = "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",
             Repo = "edumserrano/dotnet-sdk-extensions",
