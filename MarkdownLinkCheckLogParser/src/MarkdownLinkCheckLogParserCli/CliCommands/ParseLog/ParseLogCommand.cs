@@ -1,6 +1,3 @@
-using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
-using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Validators;
-
 namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog;
 
 [Command("parse-log")]
@@ -54,26 +51,18 @@ public class ParseLogCommand : ICommand
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The name of the markdown link check step.")]
-    public string StepName { get; init; } = default!;
+    public string StepName { get; init; } = string.Empty;
 
-    [CommandOption("only-errors", 'e', Description = "Whether the output information contains file errors only or all files.")]
+    [CommandOption("only-errors", Description = "Whether the output information contains file errors only or all files.")]
     public bool CaptureErrorsOnly { get; init; } = true;
 
-    [CommandOption(
-        "output",
-        Description = "How to output the markdown file check result.")]
+    [CommandOption("output", Description = "How to output the markdown file check result.")]
     public string OutputOptions { get; init; } = "step";
 
-    [CommandOption(
-        "json-filepath",
-        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
-        Description = "The filepath for the output JSON file.")]
+    [CommandOption("json-filepath", Description = "The filepath for the output JSON file.")]
     public string OutputJsonFilepath { get; init; } = string.Empty;
 
-    [CommandOption(
-        "markdown-filepath",
-        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
-        Description = "The filepath for the output markdown file.")]
+    [CommandOption("markdown-filepath", Description = "The filepath for the output markdown file.")]
     public string OutputMarkdownFilepath { get; init; } = string.Empty;
 
     public async ValueTask ExecuteAsync(IConsole console)

@@ -1,5 +1,3 @@
-using System.Collections;
-
 namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
 
 internal sealed class OutputFormats : IReadOnlyList<IOutputFormat>
