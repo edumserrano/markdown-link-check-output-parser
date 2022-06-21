@@ -4,7 +4,7 @@ internal sealed class ErrorLogLine : IMarkdownLinkCheckLogLine
 {
     public ErrorLogLine(string link, int statusCode)
     {
-        Link = link;
+        Link = link.NotNull();
         StatusCode = statusCode;
     }
 

@@ -23,6 +23,9 @@ internal class GitHubHttpClient
     // see https://docs.github.com/en/rest/actions/workflow-runs#download-workflow-run-logs
     public async Task<ZipArchive> DownloadWorkflowRunLogsAsync(GitHubRepository repo, GitHubRunId runId)
     {
+        repo.NotNull();
+        runId.NotNull();
+
         using var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"repos/{repo}/actions/runs/{runId}/logs");
         var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
         var responseStream = await httpResponse.Content.ReadAsStreamAsync();

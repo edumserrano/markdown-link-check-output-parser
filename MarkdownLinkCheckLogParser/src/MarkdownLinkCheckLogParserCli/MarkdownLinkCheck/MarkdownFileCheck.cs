@@ -6,7 +6,7 @@ internal class MarkdownFileCheck
 
     public MarkdownFileCheck(string filename)
     {
-        Filename = filename;
+        Filename = filename.NotNull();
         _errors = new List<MarkdownLinkError>();
     }
 
@@ -22,6 +22,7 @@ internal class MarkdownFileCheck
 
     internal void AddError(string link, int statusCode)
     {
+        link.NotNullOrWhiteSpace();
         var error = new MarkdownLinkError(link, statusCode);
         _errors.Add(error);
     }

@@ -15,6 +15,11 @@ internal class GitHubWorkflowRunLogs
         GitHubJobName jobName,
         GitHubStepName stepName)
     {
+        repo.NotNull();
+        runId.NotNull();
+        jobName.NotNull();
+        stepName.NotNull();
+
         using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
         var markdownLinkCheckLogsZipEntrys = workflowRunLogsZip.Entries.
             Where(e => e.FullName.Contains($"{jobName}/", StringComparison.Ordinal) && e.Name.Contains(stepName, StringComparison.Ordinal))

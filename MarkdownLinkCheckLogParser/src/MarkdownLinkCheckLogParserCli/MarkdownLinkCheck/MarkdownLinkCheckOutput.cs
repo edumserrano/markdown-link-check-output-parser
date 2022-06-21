@@ -4,6 +4,7 @@ internal class MarkdownLinkCheckOutput
 {
     public MarkdownLinkCheckOutput(IReadOnlyList<MarkdownFileCheck> files, bool captureErrorsOnly)
     {
+        files.NotNull();
         Files = captureErrorsOnly
             ? files.Where(x => x.HasErrors).ToList()
             : files;

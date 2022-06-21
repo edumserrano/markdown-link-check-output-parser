@@ -58,6 +58,12 @@ public class ParseLogCommand : ICommand
     [CommandOption("only-errors", 'e', Description = "Don't output file information unless it's an error.")]
     public bool CaptureErrorsOnly { get; init; } = default!;
 
+    [CommandOption(
+        "only-errors",
+        'e',
+        Description = "Don't output file information unless it's an error.")]
+    public string OutputOptions { get; init; } = default!;
+
     public async ValueTask ExecuteAsync(IConsole console)
     {
         try
@@ -76,8 +82,8 @@ public class ParseLogCommand : ICommand
             var output = MarkdownLinkCheckOutputParser.Parse(stepLog, CaptureErrorsOnly);
             var outputAsJson = output.ToJson();
             await console.Output.WriteLineAsync(outputAsJson);
-            File.Delete("test.txt");
-            using var _ = File.Create("test.txt");
+            output.ToMarkdownFile();
+            output.ToJsonFile();
         }
         catch (Exception e)
         {

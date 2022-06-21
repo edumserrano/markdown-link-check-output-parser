@@ -9,6 +9,7 @@ internal class ParserState
 
     public void VisitStartOfFileSummaryLogLine(StartOfFileSummaryLogLine logLine)
     {
+        logLine.NotNull();
         // if there is no current then set the current.
         // if there's already a current being tracked then it means we need to save
         // it to the parsed logs lines before we start tracking a new current
@@ -22,6 +23,7 @@ internal class ParserState
 
     public void VisitLinksCheckedLogLine(LinksCheckedLogLine logLine)
     {
+        logLine.NotNull();
         if (_current is null)
         {
             return;
@@ -32,6 +34,7 @@ internal class ParserState
 
     public void VisitErrorLogLine(ErrorLogLine logLine)
     {
+        logLine.NotNull();
         if (_current is null)
         {
             return;
