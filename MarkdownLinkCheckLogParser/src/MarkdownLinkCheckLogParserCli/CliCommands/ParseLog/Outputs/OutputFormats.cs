@@ -25,7 +25,7 @@ internal sealed class OutputFormats : IReadOnlyList<IOutputFormat>
         var outputFormats = new List<IOutputFormat>();
         if (outputOptions.HasOption(OutputOptionsTypes.Step))
         {
-            outputFormats.Add(new JsonTextOutputFormat(console));
+            outputFormats.Add(new JsonConsoleOutputFormat(console));
         }
 
         if (outputOptions.HasOption(OutputOptionsTypes.JsonFile))

@@ -1,10 +1,10 @@
 namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
 
-internal class JsonTextOutputFormat : IOutputFormat
+internal class JsonConsoleOutputFormat : IOutputFormat
 {
     private readonly IConsole _console;
 
-    public JsonTextOutputFormat(IConsole console)
+    public JsonConsoleOutputFormat(IConsole console)
     {
         _console = console.NotNull();
     }
