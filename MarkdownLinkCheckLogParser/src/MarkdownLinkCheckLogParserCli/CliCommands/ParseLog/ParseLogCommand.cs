@@ -23,35 +23,35 @@ public class ParseLogCommand : ICommand
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "GitHub token used to access workflow run logs.")]
-    public string AuthToken { get; init; } = string.Empty;
+    public string AuthToken { get; init; } = default!;
 
     [CommandOption(
         "repo",
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The repository for the workflow run in the format of {owner}/{repo}.")]
-    public string Repo { get; init; } = string.Empty;
+    public string Repo { get; init; } = default!;
 
     [CommandOption(
         "run-id",
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The unique identifier of the workflow run that contains the markdown link check step.")]
-    public string RunId { get; init; } = string.Empty;
+    public string RunId { get; init; } = default!;
 
     [CommandOption(
         "job-name",
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The name of the job that contains the markdown link check step.")]
-    public string JobName { get; init; } = string.Empty;
+    public string JobName { get; init; } = default!;
 
     [CommandOption(
         "step-name",
         IsRequired = true,
         Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
         Description = "The name of the markdown link check step.")]
-    public string StepName { get; init; } = string.Empty;
+    public string StepName { get; init; } = default!;
 
     [CommandOption("only-errors", Description = "Whether the output information contains file errors only or all files.")]
     public bool CaptureErrorsOnly { get; init; } = true;

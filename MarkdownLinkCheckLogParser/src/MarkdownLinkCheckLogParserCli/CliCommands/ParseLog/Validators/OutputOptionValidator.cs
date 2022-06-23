@@ -19,7 +19,7 @@ internal class OutputOptionValidator : BindingValidator<string>
             return null;
         }
 
-        return new BindingValidationError("--output must contain a valid value. It accepts a comma separated list of values which can be: step,json,md.");
+        return new BindingValidationError("--output must contain a valid value. It must be one of or a comma separated list of values which can be: step,json,md.");
     }
 }
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes. Referenced via typeof(OutputOptionValidator) usage
