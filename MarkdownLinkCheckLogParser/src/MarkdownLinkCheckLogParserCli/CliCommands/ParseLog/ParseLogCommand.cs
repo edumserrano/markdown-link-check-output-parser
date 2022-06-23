@@ -56,7 +56,10 @@ public class ParseLogCommand : ICommand
     [CommandOption("only-errors", Description = "Whether the output information contains file errors only or all files.")]
     public bool CaptureErrorsOnly { get; init; } = true;
 
-    [CommandOption("output", Description = "How to output the markdown file check result.")]
+    [CommandOption(
+        "output",
+        Validators = new Type[] { typeof(OutputOptionValidator) },
+        Description = "How to output the markdown file check result.")]
     public string OutputOptions { get; init; } = "step";
 
     [CommandOption("json-filepath", Description = "The filepath for the output JSON file.")]

@@ -8,17 +8,18 @@ internal class OutputOptions
     {
         value.NotNullOrWhiteSpace();
         _values = new List<OutputOptionsTypes>();
-        if (value.Contains("step", StringComparison.InvariantCultureIgnoreCase))
+        var outputOptions = value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (outputOptions.Contains("step"))
         {
             _values.Add(OutputOptionsTypes.Step);
         }
 
-        if (value.Contains("json", StringComparison.InvariantCultureIgnoreCase))
+        if (outputOptions.Contains("json"))
         {
             _values.Add(OutputOptionsTypes.JsonFile);
         }
 
-        if (value.Contains("md", StringComparison.InvariantCultureIgnoreCase))
+        if (outputOptions.Contains("md"))
         {
             _values.Add(OutputOptionsTypes.MarkdownFile);
         }
