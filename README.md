@@ -1,7 +1,7 @@
 # Markdown link check log parser
 
 [![Build and test](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/build-test.yml/badge.svg)](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/build-test.yml)
-
+[![codecov](https://codecov.io/gh/edumserrano/markdown-link-check-log-parser/branch/main/graph/badge.svg?token=4gWKUGwz7V)](https://codecov.io/gh/edumserrano/markdown-link-check-log-parser)
 <!-- 
 [![Test GitHub action](https://github.com/edumserrano/github-issue-forms-parser/workflows/Test%20GitHub%20action/badge.svg)](https://github.com/edumserrano/github-issue-forms-parser/actions/workflows/test-action.yml)
 [![codecov](https://codecov.io/gh/edumserrano/github-issue-forms-parser/branch/main/graph/badge.svg?token=B9nrGE2Ine)](https://codecov.io/gh/edumserrano/github-issue-forms-parser)
