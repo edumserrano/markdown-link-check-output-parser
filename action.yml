@@ -1,4 +1,4 @@
-name: 'Markdown link check logs parser'
+name: 'Markdown link check log parser'
 description: 'Parses the log from the gaurav-nelson/github-action-markdown-link-check action and outputs it as JSON or markdown.'
 branding:
   icon: file-text
