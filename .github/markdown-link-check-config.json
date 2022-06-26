@@ -5,8 +5,8 @@
         "description": "Linkedin returns 999, can't figure out how to make this work past Linkedin's 'are you a human?' check."
       },
       {
-        "pattern": "^./MarkdownLinkCheckLogParser/tests/MarkdownLinkCheckLogParserCli.Tests/TestFiles/output-with-errors-all-files.md",
-        "description": "Ignore md files from the test project."
+        "pattern": "^https://github.com/edumserrano/dotnet-sdk-extensions",
+        "description": "Ignore links that should only be on the MD files from the test project at /MarkdownLinkCheckLogParser/tests/MarkdownLinkCheckLogParserCli.Tests/TestFiles"
       }
     ],
     "replacementPatterns": [
