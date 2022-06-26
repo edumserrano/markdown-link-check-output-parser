@@ -49,7 +49,8 @@ jobs:
       with:
         use-quiet-mode: yes
         config-file: .github/markdown-link-check-config.json
-        folder-path: 'docs,.'
+        folder-path: 'docs'
+        file-path: './README.md'
     # - name: Run Markdown Link Check log parser
     #   id: mlc-log-parser
     #   uses: edumserrano/markdown-link-check-logs-parser@v1
