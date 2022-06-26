@@ -18,6 +18,7 @@ global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Types;
 global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Validators;
 global using MarkdownLinkCheckLogParserCli.Files;
 global using MarkdownLinkCheckLogParserCli.GitHub;
+global using MarkdownLinkCheckLogParserCli.GitHub.Exceptions;
 global using MarkdownLinkCheckLogParserCli.GitHub.Types;
 global using MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 global using MarkdownLinkCheckLogParserCli.MarkdownLinkCheck.LogLines;

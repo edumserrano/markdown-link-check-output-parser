@@ -1,5 +1,3 @@
-using MarkdownLinkCheckLogParserCli.GitHub.Types;
-
 namespace MarkdownLinkCheckLogParserCli.GitHub;
 
 internal class GitHubHttpClient

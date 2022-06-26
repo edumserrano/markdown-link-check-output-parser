@@ -1,5 +1,3 @@
-using MarkdownLinkCheckLogParserCli.GitHub.Exceptions;
-
 namespace MarkdownLinkCheckLogParserCli.GitHub;
 
 internal class GitHubWorkflowRunLogs
