@@ -1,6 +1,7 @@
 global using System.Collections;
 global using System.Diagnostics.CodeAnalysis;
 global using System.IO.Compression;
+global using System.Net;
 global using System.Net.Http.Headers;
 global using System.Runtime.CompilerServices;
 global using System.Text;
@@ -13,6 +14,7 @@ global using CliFx.Infrastructure;
 global using MarkdownLinkCheckLogParserCli.ArgumentValidations;
 global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Exceptions;
 global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
+global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs.Exceptions;
 global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs.Types;
 global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Types;
 global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Validators;

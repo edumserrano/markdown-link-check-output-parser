@@ -14,6 +14,18 @@ internal class MarkdownFileOutputFormat : IOutputFormat
     public async Task WriteAsync(MarkdownLinkCheckOutput output)
     {
         output.NotNull();
+        try
+        {
+            await WriteMarkdownToFileAsync(output);
+        }
+        catch (Exception e)
+        {
+            throw new FailedToCreateMarkdownFileException(_filepath, e);
+        }
+    }
+
+    private async Task WriteMarkdownToFileAsync(MarkdownLinkCheckOutput output)
+    {
         using var streamWriter = _file.CreateFileStreamWriter(_filepath);
         await streamWriter.WriteLineAsync("## Markdown link check results");
         await streamWriter.WriteLineAsync();

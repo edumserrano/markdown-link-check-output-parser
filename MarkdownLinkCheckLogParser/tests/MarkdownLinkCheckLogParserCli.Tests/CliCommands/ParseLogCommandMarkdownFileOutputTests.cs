@@ -128,7 +128,6 @@ public class ParseLogCommandMarkdownFileOutputTests
         markdownAsString.ShouldBe(expectedMarkdown);
     }
 
-
     /// <summary>
     /// Tests that the <see cref="ParseLogCommand"/> throws an error if output is set to markdown file but no filepath is provided.
     /// </summary>

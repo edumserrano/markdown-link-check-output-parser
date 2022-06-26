@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.Auxiliary;
 
-public class InMemoryGitHubWorkflowRunHandler : DelegatingHandler
+internal class InMemoryGitHubWorkflowRunHandler : DelegatingHandler
 {
     private readonly string _logZipFilepath;
 

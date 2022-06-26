@@ -1,5 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.Auxiliary;
-internal class OsDependantOutput
+
+internal static class OsDependantOutput
 {
     public static string ReadAllText(string filepath)
     {

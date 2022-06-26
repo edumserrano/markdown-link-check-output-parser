@@ -24,6 +24,6 @@ internal class MarkdownLinkCheckOutput
     public int FilesWithErrors { get; }
 
     public int TotalErrors { get; }
-        
+
     public IReadOnlyList<MarkdownFileCheck> Files { get; }
 }

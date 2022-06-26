@@ -19,6 +19,13 @@ internal class JsonFileOutputFormat : IOutputFormat
             WriteIndented = true,
         };
         var outputAsJson = JsonSerializer.Serialize(output, serializeOptions);
-        await _file.WriteAllTextAsync(filename: _filepath, text: outputAsJson);
+        try
+        {
+            await _file.WriteAllTextAsync(filename: _filepath, text: outputAsJson);
+        }
+        catch (Exception e)
+        {
+            throw new FailedToCreateJsonFileException(_filepath, e);
+        }
     }
 }

@@ -32,8 +32,9 @@ internal class GitHubHttpClient
         var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
         if (!httpResponse.IsSuccessStatusCode)
         {
-            throw new GitHubHttpClientException($"Failed to download workflow run logs. Got {(int)httpResponse.StatusCode} {httpResponse.StatusCode} from {httpRequest.Method} {httpRequest.RequestUri}");
+            throw new GitHubHttpClientException(httpResponse.StatusCode, httpRequest.Method, httpRequest.RequestUri);
         }
+
         var responseStream = await httpResponse.Content.ReadAsStreamAsync();
         return new ZipArchive(responseStream, ZipArchiveMode.Read);
     }
