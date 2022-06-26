@@ -59,7 +59,7 @@ public class ParseLogCommand : ICommand
     [CommandOption(
         "output",
         Validators = new Type[] { typeof(OutputOptionValidator) },
-        Description = "How to output the markdown file check result.")]
+        Description = "How to output the markdown file check result. It must be one of or a comma separated list of the following values: step,json,md.")]
     public string OutputOptions { get; init; } = "step";
 
     [CommandOption("json-filepath", Description = "The filepath for the output JSON file.")]
@@ -79,15 +79,16 @@ public class ParseLogCommand : ICommand
             var jobName = new GitHubJobName(JobName);
             var stepName = new GitHubStepName(StepName);
             var outputOptions = new OutputOptions(OutputOptions);
-            var outputJsonFilePath = new OutputJsonFilepath(OutputJsonFilepath);
-            var outputMarkdownFilePath = new OutputMarkdownFilepath(OutputMarkdownFilepath);
+            var outputJsonFilePath = new OutputJsonFilepathOption(OutputJsonFilepath);
+            var outputMarkdownFilePath = new OutputMarkdownFilepathOption(OutputMarkdownFilepath);
+            var outputFormats = OutputFormats.Create(outputOptions, _file, console, outputJsonFilePath, outputMarkdownFilePath);
 
             using var httpClient = _httpClient ?? GitHubHttpClient.Create(authToken);
             var gitHubHttpClient = new GitHubHttpClient(httpClient);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
             var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(repo, runId, jobName, stepName);
             var output = MarkdownLinkCheckOutputParser.Parse(stepLog, CaptureErrorsOnly);
-            var outputFormats = OutputFormats.Create(outputOptions, _file, console, outputJsonFilePath, outputMarkdownFilePath);
+            
             foreach (var outputFormat in outputFormats)
             {
                 await outputFormat.WriteAsync(output);

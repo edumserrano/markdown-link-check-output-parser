@@ -3,6 +3,7 @@ namespace MarkdownLinkCheckLogParserCli.Tests.CliIntegration;
 /// <summary>
 /// These tests make sure that the CLI interface is as expected.
 /// IE: if the command name changes or the options change then these tests would pick that up.
+/// These tests also test the <see cref="IBindingValidator"/> validators of the command options.
 /// </summary>
 [Trait("Category", XUnitCategories.Integration)]
 public class CliIntegrationTests
@@ -274,6 +275,60 @@ public class CliIntegrationTests
         await app.RunAsync(args);
         var error = console.ReadErrorString();
         var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-step-name-validation.txt");
+        error.ShouldBe(expectedError);
+    }
+
+    /// <summary>
+    /// Tests the validation of the --output option for the 'parse-log' command.
+    /// </summary>
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public async Task OutputOptionValidation1(string output)
+    {
+        using var console = new FakeInMemoryConsole();
+        var app = new MlcLogParserCli();
+        app.CliApplicationBuilder.UseConsole(console);
+
+        var args = new[]
+        {
+            "parse-log",
+            "--auth-token", "some token",
+            "--repo", "some repo",
+            "--run-id", "some run id",
+            "--job-name", "some job name",
+            "--step-name", "some-step",
+            "--output", output,
+        };
+        await app.RunAsync(args);
+        var error = console.ReadErrorString();
+        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-output-validation1.txt");
+        error.ShouldBe(expectedError);
+    }
+
+    /// <summary>
+    /// Tests the validation of the --output option for the 'parse-log' command.
+    /// </summary>
+    [Fact]
+    public async Task OutputOptionValidation2()
+    {
+        using var console = new FakeInMemoryConsole();
+        var app = new MlcLogParserCli();
+        app.CliApplicationBuilder.UseConsole(console);
+
+        var args = new[]
+        {
+            "parse-log",
+            "--auth-token", "some token",
+            "--repo", "some repo",
+            "--run-id", "some run id",
+            "--job-name", "some job name",
+            "--step-name", "some step",
+            "--output", "invalid-output",
+        };
+        await app.RunAsync(args);
+        var error = console.ReadErrorString();
+        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-output-validation2.txt");
         error.ShouldBe(expectedError);
     }
 }

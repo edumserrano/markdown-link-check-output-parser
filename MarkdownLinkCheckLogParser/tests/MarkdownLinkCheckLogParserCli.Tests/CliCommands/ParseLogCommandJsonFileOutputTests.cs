@@ -70,4 +70,40 @@ public class ParseLogCommandJsonFileOutputTests
         markdownLinkCheckOutputJson.Files[1].Errors[0].Link.ShouldBe("file:///github/workspace/.github/workflows/pr-pr-test-results-comment.yml");
         markdownLinkCheckOutputJson.Files[1].Errors[0].StatusCode.ShouldBe(400);
     }
+
+    /// <summary>
+    /// Tests that the <see cref="ParseLogCommand"/> throws an error if output is set to JSON file but no filepath is provided.
+    /// </summary>
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public async Task ParseLogCommandJsonFileTest2(string jsonFilepath)
+    {
+        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.github.com"),
+        };
+        var file = Substitute.For<IFile>();
+        var command = new ParseLogCommand(httpClient, file)
+        {
+            AuthToken = "auth-token",
+            Repo = "repo-name",
+            RunId = "run-id",
+            JobName = "Markdown link check",
+            StepName = "Markdown link check",
+            OutputOptions = "json",
+            OutputJsonFilepath = jsonFilepath,
+        };
+        using var console = new FakeInMemoryConsole();
+        var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
+        const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
+Error:
+- --json-filepath must have a value if --output contains 'json'";
+
+        exception.Message.ShouldBe(expectedErrorMessage);
+        exception.InnerException.ShouldNotBeNull();
+        exception.InnerException.ShouldBeAssignableTo<OutputJsonFilepathException>();
+        exception.InnerException.Message.ShouldBe("--json-filepath must have a value if --output contains 'json'");
+    }
 }

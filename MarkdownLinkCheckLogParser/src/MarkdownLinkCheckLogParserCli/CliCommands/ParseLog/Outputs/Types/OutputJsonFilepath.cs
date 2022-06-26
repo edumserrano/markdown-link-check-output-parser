@@ -6,7 +6,7 @@ internal sealed class OutputJsonFilepath
 
     public OutputJsonFilepath(string value)
     {
-        _value = value.NotNull();
+        _value = value.NotNullOrWhiteSpace();
     }
 
     public static implicit operator string(OutputJsonFilepath filepath)

@@ -6,7 +6,7 @@ internal sealed class OutputMarkdownFilepath
 
     public OutputMarkdownFilepath(string value)
     {
-        _value = value.NotNull();
+        _value = value.NotNullOrWhiteSpace();
     }
 
     public static implicit operator string(OutputMarkdownFilepath filepath)

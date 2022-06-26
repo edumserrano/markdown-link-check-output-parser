@@ -1,5 +1,3 @@
-using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs.Types;
-
 namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
 
 internal sealed class OutputFormats : IReadOnlyList<IOutputFormat>
@@ -19,8 +17,8 @@ internal sealed class OutputFormats : IReadOnlyList<IOutputFormat>
         OutputOptions outputOptions,
         IFile file,
         IConsole console,
-        OutputJsonFilepath outputJsonFilepath,
-        OutputMarkdownFilepath outputMarkdownFilepath)
+        OutputJsonFilepathOption jsonFilepathOption,
+        OutputMarkdownFilepathOption markdownFilepathOption)
     {
         var outputFormats = new List<IOutputFormat>();
         if (outputOptions.HasOption(OutputOptionsTypes.Step))
@@ -30,12 +28,24 @@ internal sealed class OutputFormats : IReadOnlyList<IOutputFormat>
 
         if (outputOptions.HasOption(OutputOptionsTypes.JsonFile))
         {
-            outputFormats.Add(new JsonFileOutputFormat(file, outputJsonFilepath));
+            if (string.IsNullOrWhiteSpace(jsonFilepathOption.Value))
+            {
+                throw new OutputJsonFilepathException();
+            }
+
+            var jsonFilePath = new OutputJsonFilepath(jsonFilepathOption);
+            outputFormats.Add(new JsonFileOutputFormat(file, jsonFilePath));
         }
 
         if (outputOptions.HasOption(OutputOptionsTypes.MarkdownFile))
         {
-            outputFormats.Add(new MarkdownFileOutputFormat(file, outputMarkdownFilepath));
+            if (string.IsNullOrWhiteSpace(markdownFilepathOption.Value))
+            {
+                throw new OutputMarkdownFilepathException();
+            }
+
+            var markdownFilePath = new OutputMarkdownFilepath(markdownFilepathOption);
+            outputFormats.Add(new MarkdownFileOutputFormat(file, markdownFilePath));
         }
 
         return new OutputFormats(outputFormats);

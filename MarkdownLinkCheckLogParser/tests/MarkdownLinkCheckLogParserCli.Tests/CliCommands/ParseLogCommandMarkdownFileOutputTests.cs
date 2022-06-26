@@ -127,4 +127,41 @@ public class ParseLogCommandMarkdownFileOutputTests
         var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-without-errors-capture-errors-only.md");
         markdownAsString.ShouldBe(expectedMarkdown);
     }
+
+
+    /// <summary>
+    /// Tests that the <see cref="ParseLogCommand"/> throws an error if output is set to markdown file but no filepath is provided.
+    /// </summary>
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public async Task ParseLogCommandMarkdownFileTest4(string markdownFilepath)
+    {
+        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.github.com"),
+        };
+        var file = Substitute.For<IFile>();
+        var command = new ParseLogCommand(httpClient, file)
+        {
+            AuthToken = "auth-token",
+            Repo = "repo-name",
+            RunId = "run-id",
+            JobName = "Markdown link check",
+            StepName = "Markdown link check",
+            OutputOptions = "md",
+            OutputJsonFilepath = markdownFilepath,
+        };
+        using var console = new FakeInMemoryConsole();
+        var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
+        const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
+Error:
+- --markdown-filepath must have a value if --output contains 'md'";
+
+        exception.Message.ShouldBe(expectedErrorMessage);
+        exception.InnerException.ShouldNotBeNull();
+        exception.InnerException.ShouldBeAssignableTo<OutputMarkdownFilepathException>();
+        exception.InnerException.Message.ShouldBe("--markdown-filepath must have a value if --output contains 'md'");
+    }
 }
