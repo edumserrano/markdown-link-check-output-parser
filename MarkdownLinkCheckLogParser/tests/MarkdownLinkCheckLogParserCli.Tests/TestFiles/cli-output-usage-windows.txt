@@ -1,0 +1,14 @@
+USAGE
+  testhost parse-log --auth-token <value> --repo <value> --run-id <value> --job-name <value> --step-name <value> [options]
+
+OPTIONS
+* --auth-token      GitHub token used to access workflow run logs. 
+* --repo            The repository for the workflow run in the format of {owner}/{repo}. 
+* --run-id          The unique identifier of the workflow run that contains the markdown link check step. 
+* --job-name        The name of the job that contains the markdown link check step. 
+* --step-name       The name of the markdown link check step. 
+  --only-errors     Whether the output information contains file errors only or all files. Default: "True".
+  --output          How to output the markdown file check result. Default: "step".
+  --json-filepath   The filepath for the output JSON file. Default: "".
+  --markdown-filepath  The filepath for the output markdown file. Default: "".
+  -h|--help         Shows help text. 

@@ -1,5 +1,8 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.CliCommands;
 
+/// <summary>
+/// These tests check the validation on the options for the the <see cref="ParseLogCommand"/>.
+/// </summary>
 [Trait("Category", XUnitCategories.Validation)]
 public class ParseLogCommandValidatonTests
 {

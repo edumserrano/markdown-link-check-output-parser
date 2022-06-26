@@ -1,5 +1,8 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.CliCommands;
 
+/// <summary>
+/// These tests make sure that the <see cref="ParseLogCommand"/> outputs as expected to a markdown file.
+/// </summary>
 [Trait("Category", XUnitCategories.Commands)]
 public class ParseLogCommandMarkdownFileOutputTests
 {

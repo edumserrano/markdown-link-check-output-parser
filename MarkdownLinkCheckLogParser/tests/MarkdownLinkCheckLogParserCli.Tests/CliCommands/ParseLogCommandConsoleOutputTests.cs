@@ -1,5 +1,8 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.CliCommands;
 
+/// <summary>
+/// These tests make sure that the <see cref="ParseLogCommand"/> outputs the expected JSON value to the console.
+/// </summary>
 [Trait("Category", XUnitCategories.Commands)]
 public class ParseLogCommandConsoleOutputTests
 {
