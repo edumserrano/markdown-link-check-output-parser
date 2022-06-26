@@ -5,7 +5,7 @@
         "description": "Linkedin returns 999, can't figure out how to make this work past Linkedin's 'are you a human?' check."
       },
       {
-        "pattern": ".*\/TestFiles\/.*",
+        "pattern": "^.*\/TestFiles\/.*",
         "description": "Ignore test files at MarkdownLinkCheckLogParser/tests/MarkdownLinkCheckLogParserCli.Tests/TestFiles"
       }
     ],
