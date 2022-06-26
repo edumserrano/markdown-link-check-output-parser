@@ -1,3 +1,5 @@
+using MarkdownLinkCheckLogParserCli.GitHub.Exceptions;
+
 namespace MarkdownLinkCheckLogParserCli.GitHub;
 
 internal class GitHubWorkflowRunLogs
@@ -26,14 +28,12 @@ internal class GitHubWorkflowRunLogs
             .ToList();
         if (markdownLinkCheckLogsZipEntrys.Count == 0)
         {
-            // warning no match
-            throw new Exception("TODO no matches");
+            throw new JobOrStepNotFoundException(jobName, stepName);
         }
 
         if (markdownLinkCheckLogsZipEntrys.Count > 1)
         {
-            // warning if there is more than one and fail
-            throw new Exception("TODO more than one match");
+            throw new JobOrStepMoreThanOneMatchException(jobName, stepName);
         }
 
         var logAsZip = markdownLinkCheckLogsZipEntrys[0];

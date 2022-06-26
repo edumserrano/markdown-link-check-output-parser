@@ -1,8 +1,8 @@
-﻿namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Exceptions;
+namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Exceptions;
 
 public sealed class OutputMarkdownFilepathException : Exception
 {
-    public OutputMarkdownFilepathException()
+    internal OutputMarkdownFilepathException()
         : base("--markdown-filepath must have a value if --output contains 'md'")
     {
     }
