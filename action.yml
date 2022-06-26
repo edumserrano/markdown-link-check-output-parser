@@ -1,0 +1,52 @@
+name: 'Markdown link check logs parser'
+description: 'Parses the log from the gaurav-nelson/github-action-markdown-link-check action and outputs it as JSON or markdown.'
+branding:
+  icon: file-text
+  color: blue
+inputs:
+  auth-token:
+    description: 'GitHub token used to access workflow run logs.'
+    required: true
+  repo:
+    description: 'The repository for the workflow run in the format of {owner}/{repo}.'
+    required: true
+  run-id:
+    description: 'The unique identifier of the workflow run that contains the markdown link check step.'
+    required: true
+  job-name:
+    description: 'The unique identifier of the workflow run that contains the markdown link check step.'
+    required: true
+  step-name:
+    description: ' name of the markdown link check step.'
+    required: true
+  only-errors:
+    description: ' Whether the output information contains file errors only or all files.'
+    required: false
+    default: 'true'
+  output:
+    description: ' How to output the markdown file check result. It must be one of or a comma separated list of the following values: step,json,md.'
+    required: false
+    default: 'step'
+  json-filepath:
+    description: ' The filepath for the output JSON file.'
+    required: false
+    default: ''
+  markdown-filepath:
+    description: ' The filepath for the output markdown file.'
+    required: false
+    default: ''
+outputs:
+  mlc-result:
+    description: 'The result from the Markdown Link Check action in JSON format.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '--auth-token ${{ inputs.auth-token }}'
+    - '--repo ${{ inputs.repo }}'
+    - '--run-id ${{ inputs.run-id }}'
+    - '--step-name ${{ inputs.step-name }}'
+    - '--only-errors ${{ inputs.only-errors }}'
+    - '--output ${{ inputs.output }}'
+    - '--json-filepath ${{ inputs.json-filepath }}'
+    - '--markdown-filepath ${{ inputs.markdown-filepath }}'
