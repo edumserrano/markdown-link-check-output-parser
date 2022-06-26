@@ -1,6 +1,12 @@
+global using System.Net;
+global using System.Text;
+global using System.Text.Json;
 global using CliFx.Exceptions;
 global using CliFx.Infrastructure;
 global using MarkdownLinkCheckLogParserCli.CliCommands.ParseLog;
+global using MarkdownLinkCheckLogParserCli.Files;
+global using MarkdownLinkCheckLogParserCli.Tests.Auxiliary;
+global using NSubstitute;
 global using Shouldly;
 global using Xunit;
 global using static MarkdownLinkCheckLogParserCli.Tests.Auxiliary.NewLines;

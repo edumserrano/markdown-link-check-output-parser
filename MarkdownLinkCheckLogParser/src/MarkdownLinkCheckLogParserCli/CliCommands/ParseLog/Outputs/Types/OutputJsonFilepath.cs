@@ -1,6 +1,6 @@
-namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
+namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs.Types;
 
-internal class OutputJsonFilepath
+internal sealed class OutputJsonFilepath
 {
     private readonly string _value;
 

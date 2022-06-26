@@ -1,3 +1,5 @@
+using MarkdownLinkCheckLogParserCli.GitHub.Types;
+
 namespace MarkdownLinkCheckLogParserCli.GitHub;
 
 internal class GitHubHttpClient
@@ -30,6 +32,10 @@ internal class GitHubHttpClient
 
         using var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"repos/{repo}/actions/runs/{runId}/logs");
         var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            throw new GitHubHttpClientException($"Failed to download workflow run logs. Got {(int)httpResponse.StatusCode} {httpResponse.StatusCode} from {httpRequest.Method} {httpRequest.RequestUri}");
+        }
         var responseStream = await httpResponse.Content.ReadAsStreamAsync();
         return new ZipArchive(responseStream, ZipArchiveMode.Read);
     }

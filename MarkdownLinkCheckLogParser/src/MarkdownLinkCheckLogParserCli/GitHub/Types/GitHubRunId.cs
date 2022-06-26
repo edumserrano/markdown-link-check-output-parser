@@ -1,15 +1,15 @@
-namespace MarkdownLinkCheckLogParserCli.GitHub;
+namespace MarkdownLinkCheckLogParserCli.GitHub.Types;
 
-internal class GitHubRepository
+internal sealed class GitHubRunId
 {
     private readonly string _value;
 
-    public GitHubRepository(string value)
+    public GitHubRunId(string value)
     {
         _value = value.NotNullOrWhiteSpace();
     }
 
-    public static implicit operator string(GitHubRepository gitHubAuthToken)
+    public static implicit operator string(GitHubRunId gitHubAuthToken)
     {
         return gitHubAuthToken._value;
     }

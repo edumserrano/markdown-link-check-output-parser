@@ -1,6 +1,6 @@
-namespace MarkdownLinkCheckLogParserCli.GitHub;
+namespace MarkdownLinkCheckLogParserCli.GitHub.Types;
 
-internal class GitHubStepName
+internal sealed class GitHubStepName
 {
     private readonly string _value;
 
