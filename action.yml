@@ -42,13 +42,12 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - --auth-token '${{ inputs.auth-token }}' --repo '${{ inputs.repo }}' --run-id '${{ inputs.run-id }}' --job-name '${{ inputs.job-name }}' --step-name '${{ inputs.step-name }}' --only-errors ${{ inputs.only-errors }} --output '${{ inputs.output }}'
-    # - --auth-token '${{ inputs.auth-token }}'
-    # - --repo '${{ inputs.repo }}'
-    # - --run-id '${{ inputs.run-id }}'
-    # - --job-name '${{ inputs.job-name }}'
-    # - --step-name '${{ inputs.step-name }}'
-    # - --only-errors ${{ inputs.only-errors }}
-    # - --output '${{ inputs.output }}'
-    # - '--json-filepath ${{ inputs.json-filepath }}'
-    # - '--markdown-filepath ${{ inputs.markdown-filepath }}'
+    - ${{ inputs.auth-token }}
+    - ${{ inputs.repo }}
+    - ${{ inputs.run-id }}
+    - ${{ inputs.job-name }}
+    - ${{ inputs.step-name }}
+    - ${{ inputs.only-errors }}
+    - ${{ inputs.output }}
+    - ${{ inputs.json-filepath }}
+    - ${{ inputs.markdown-filepath }}
