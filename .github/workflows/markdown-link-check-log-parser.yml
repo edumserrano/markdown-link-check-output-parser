@@ -26,10 +26,20 @@ jobs:
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
     - name: Run markdown link check log parser
+      id: mlc-log-parser
       uses: ./
       with:
         auth-token:  ${{ secrets.GITHUB_TOKEN }}
         repo: '${{ github.repository }}'
-        run-id: '${{ github.repository }}'
-        job-name: '<job-name>'
-        step-name: '<step-name>'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Markdown link check'
+        step-name: 'Markdown link check'
+    - name: Dump outputs from previous step
+      shell: pwsh
+      run: |
+        $result = '${{ steps.mlc-log-parser.outputs.mlc-result }}' | ConvertFrom-Json
+        Write-Output "Total files checked: $($result.TotalFilesChecked)"
+        Write-Output "Total links chedked: $($result.TotalLinksChecked)"
+        Write-Output "Has erros: $($result.HasErrors)"
+        $resultAsJsonIndented = ConvertTo-Json $result
+        Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
