@@ -32,8 +32,8 @@ jobs:
         auth-token:  ${{ secrets.GITHUB_TOKEN }}
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
-        job-name: 'Markdown link check'
-        step-name: 'Markdown link check'
+        job-name: 'Markdown Link Check'
+        step-name: 'Markdown Link Check'
     - name: Dump outputs from previous step
       shell: pwsh
       run: |
@@ -41,5 +41,5 @@ jobs:
         Write-Output "Total files checked: $($result.TotalFilesChecked)"
         Write-Output "Total links chedked: $($result.TotalLinksChecked)"
         Write-Output "Has erros: $($result.HasErrors)"
-        $resultAsJsonIndented = ConvertTo-Json $result
+        $resultAsJsonIndented = ConvertTo-Json -Depth 3 $result 
         Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string

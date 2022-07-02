@@ -23,10 +23,10 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
-    - name: Markdown link check
+    - name: Markdown Link Check
       continue-on-error: true
       uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
-        use-quiet-mode: yes
         config-file: .github/markdown-link-check-config.json
         folder-path: .github/workflows/markdown-link-check-files/without-errors/
+
