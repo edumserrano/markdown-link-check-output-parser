@@ -34,11 +34,11 @@ As of writing this, the [GitHub Action - Markdown link check](https://github.com
   shell: pwsh
   run: |
     $result = '${{ steps.mlc-log-parser.outputs.mlc-result }}' | ConvertFrom-Json
-    $resultAsJsonIndented = ConvertTo-Json $result
-    Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
     Write-Output "Total files checked: $($result.TotalFilesChecked)"
     Write-Output "Total links chedked: $($result.TotalLinksChecked)"
     Write-Output "Has erros: $($result.HasErrors)"
+    $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result
+    Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
     ...
 ```
 

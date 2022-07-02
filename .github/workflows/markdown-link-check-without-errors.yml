@@ -29,4 +29,5 @@ jobs:
       with:
         config-file: .github/markdown-link-check-config.json
         folder-path: .github/workflows/markdown-link-check-files/without-errors/
+        use-verbose-mode: yes
 
