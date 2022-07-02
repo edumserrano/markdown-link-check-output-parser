@@ -36,6 +36,14 @@ internal class MarkdownFileOutputFormat : IOutputFormat
         else
         {
             await streamWriter.WriteLineAsync(":heavy_check_mark: Markdown link check didn't findany broken links in your markdown files.");
+            /* The Markdown Link Check action doesn't output anything when there aren't any broken links.
+             * It only outputs:
+             * =========================> MARKDOWN LINK CHECK <=========================
+             * [✔] All links are good!
+             * =========================================================================
+             * As such the statistics will all be zero so there's no point in outputting anyting else to the markdown file.
+             */
+            return;
         }
 
         await streamWriter.WriteLineAsync();

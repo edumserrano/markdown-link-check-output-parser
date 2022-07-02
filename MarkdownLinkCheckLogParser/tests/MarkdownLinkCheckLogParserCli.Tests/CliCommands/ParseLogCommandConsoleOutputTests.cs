@@ -119,6 +119,8 @@ public class ParseLogCommandConsoleOutputTests
     /// Tests that the <see cref="ParseLogCommand"/> produces the expected JSON output to the console.
     /// Uses all the default options.
     /// Uses logs that do NOT contain files with markdown errors.
+    /// When there are zero errors, the Markdown Link Check action does NOT output any information about the files checked
+    /// so all the statistics will be zero.
     /// </summary>
     [Fact]
     public async Task ParseLogCommandConsoleTest3()
@@ -143,8 +145,8 @@ public class ParseLogCommandConsoleOutputTests
 
         var markdownLinkCheckOutputJson = JsonSerializer.Deserialize<MarkdownLinkCheckOutputJsonModel>(output);
         markdownLinkCheckOutputJson.ShouldNotBeNull();
-        markdownLinkCheckOutputJson.TotalFilesChecked.ShouldBe(23);
-        markdownLinkCheckOutputJson.TotalLinksChecked.ShouldBe(127);
+        markdownLinkCheckOutputJson.TotalFilesChecked.ShouldBe(0);
+        markdownLinkCheckOutputJson.TotalLinksChecked.ShouldBe(0);
         markdownLinkCheckOutputJson.HasErrors.ShouldBeFalse();
         markdownLinkCheckOutputJson.FilesWithErrors.ShouldBe(0);
         markdownLinkCheckOutputJson.TotalErrors.ShouldBe(0);

@@ -2,7 +2,8 @@
   "profiles": {
     "MarkdownLinkCheckLogParserCli": {
       "commandName": "Project",
-      "commandLineArgs": "parse-log --auth-token <token> --repo edumserrano/dotnet-sdk-extensions --run-id 2481867680 --job-name \"Markdown link check\" --step-name \"Markdown link check\""
+      //"commandLineArgs": "parse-log --auth-token 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 --repo edumserrano/dotnet-sdk-extensions --run-id 2481867680 --job-name \"Markdown link check\" --step-name \"Markdown link check\" --only-errors false --output \"step,json,md\" --json-filepath \"filename.json\" --markdown-filepath \"filename.md\""
+      "commandLineArgs": "parse-log --auth-token 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 --repo edumserrano/markdown-link-check-log-parser --run-id 2602989819 --job-name \"Markdown link check\" --step-name \"Markdown link check\" --only-errors true --output step"
     }
   }
 }

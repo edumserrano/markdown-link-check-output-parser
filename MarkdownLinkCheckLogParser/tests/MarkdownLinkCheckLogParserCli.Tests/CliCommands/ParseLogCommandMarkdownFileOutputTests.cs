@@ -90,7 +90,7 @@ public class ParseLogCommandMarkdownFileOutputTests
     /// <summary>
     /// Tests that the <see cref="ParseLogCommand"/> produces the expected output to a markdown file.
     /// Uses default option for --only-errors.
-    /// Uses logs that does NOT contain files with markdown errors.
+    /// Uses logs that do NOT contain files with markdown errors.
     /// </summary>
     [Fact]
     public async Task ParseLogCommandMarkdownFileTest3()
@@ -112,7 +112,6 @@ public class ParseLogCommandMarkdownFileOutputTests
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            CaptureErrorsOnly = false,
             OutputOptions = "md",
             OutputMarkdownFilepath = mdFilepath,
         };
@@ -124,7 +123,7 @@ public class ParseLogCommandMarkdownFileOutputTests
         markdownMemoryStream.Seek(0, SeekOrigin.Begin);
         var markdownStreamReader = new StreamReader(markdownMemoryStream);
         var markdownAsString = await markdownStreamReader.ReadToEndAsync();
-        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-without-errors-capture-errors-only.md");
+        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-without-errors.md");
         markdownAsString.ShouldBe(expectedMarkdown);
     }
 
