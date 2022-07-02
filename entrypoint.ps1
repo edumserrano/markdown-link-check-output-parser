@@ -12,11 +12,11 @@ param
 )
 
 $output = dotnet '/app/MarkdownLinkCheckLogParserCli.dll' parse-log `
---authToken $authToken `
+--auth-token $authToken `
 --repo $repo `
 --run-id $runId `
 --job-name $jobName `
---stepName $stepName `
+--step-name $stepName `
 --only-errors $onlyErrors `
 --output $output `
 # --json-filepath $jsonFilepath `
