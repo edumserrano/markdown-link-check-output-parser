@@ -2,9 +2,9 @@ namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Types;
 
 internal sealed class OutputMarkdownFilepathOption
 {
-    public OutputMarkdownFilepathOption(string value)
+    public OutputMarkdownFilepathOption(string markdownFilePathOption)
     {
-        Value = value.NotNull();
+        Value = markdownFilePathOption.NotNull();
     }
 
     public string Value { get; }

@@ -19,8 +19,8 @@ $output = dotnet '/app/MarkdownLinkCheckLogParserCli.dll' parse-log `
 --step-name $stepName `
 --only-errors $onlyErrors `
 --output $output `
-# --json-filepath $jsonFilepath `
-# --markdown-filepath $markdownFilepath
+--json-filepath $jsonFilepath `
+--markdown-filepath $markdownFilepath
 
 if($LASTEXITCODE -ne 0 ) {
     Write-Output "::error::Markdown link check log parser didn't complete successfully. See the step's log for more details."

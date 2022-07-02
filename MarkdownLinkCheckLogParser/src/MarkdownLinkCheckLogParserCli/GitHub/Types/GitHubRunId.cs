@@ -4,9 +4,9 @@ internal sealed class GitHubRunId
 {
     private readonly string _value;
 
-    public GitHubRunId(string value)
+    public GitHubRunId(string gitHubRunId)
     {
-        _value = value.NotNullOrWhiteSpace();
+        _value = gitHubRunId.NotNullOrWhiteSpace();
     }
 
     public static implicit operator string(GitHubRunId gitHubAuthToken)

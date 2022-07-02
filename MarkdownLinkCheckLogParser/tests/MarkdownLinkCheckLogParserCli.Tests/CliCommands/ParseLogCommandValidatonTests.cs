@@ -27,12 +27,12 @@ public class ParseLogCommandValidatonTests
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- value cannot be null or whitespace.";
+- gitHubAuthToken cannot be null or whitespace.";
 
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<ArgumentException>();
-        exception.InnerException.Message.ShouldBe("value cannot be null or whitespace.");
+        exception.InnerException.Message.ShouldBe("gitHubAuthToken cannot be null or whitespace.");
     }
 
     /// <summary>
@@ -56,12 +56,12 @@ Error:
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- value cannot be null or whitespace.";
+- gitHubRepository cannot be null or whitespace.";
 
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<ArgumentException>();
-        exception.InnerException.Message.ShouldBe("value cannot be null or whitespace.");
+        exception.InnerException.Message.ShouldBe("gitHubRepository cannot be null or whitespace.");
     }
 
     /// <summary>
@@ -85,12 +85,12 @@ Error:
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- value cannot be null or whitespace.";
+- gitHubRunId cannot be null or whitespace.";
 
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<ArgumentException>();
-        exception.InnerException.Message.ShouldBe("value cannot be null or whitespace.");
+        exception.InnerException.Message.ShouldBe("gitHubRunId cannot be null or whitespace.");
     }
 
     /// <summary>
@@ -114,12 +114,12 @@ Error:
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- value cannot be null or whitespace.";
+- gitHubJobName cannot be null or whitespace.";
 
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<ArgumentException>();
-        exception.InnerException.Message.ShouldBe("value cannot be null or whitespace.");
+        exception.InnerException.Message.ShouldBe("gitHubJobName cannot be null or whitespace.");
     }
 
     /// <summary>
@@ -143,12 +143,12 @@ Error:
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- value cannot be null or whitespace.";
+- gitHubStepName cannot be null or whitespace.";
 
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<ArgumentException>();
-        exception.InnerException.Message.ShouldBe("value cannot be null or whitespace.");
+        exception.InnerException.Message.ShouldBe("gitHubStepName cannot be null or whitespace.");
     }
 
     /// <summary>
@@ -173,11 +173,11 @@ Error:
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- value cannot be null or whitespace.";
+- outputOptions cannot be null or whitespace.";
 
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<ArgumentException>();
-        exception.InnerException.Message.ShouldBe("value cannot be null or whitespace.");
+        exception.InnerException.Message.ShouldBe("outputOptions cannot be null or whitespace.");
     }
 }

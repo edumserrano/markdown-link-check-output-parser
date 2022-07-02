@@ -623,7 +623,6 @@ dotnet_diagnostic.RCS1243.severity = none       # RCS1243: Duplicate word in a c
 # Rules for StyleCop.Analyzers
 # See https://dotnetanalyzers.github.io/StyleCopAnalyzers/ or https://github.com/DotNetAnalyzers/StyleCopAnalyzers/tree/master/documentation
 ##########################################
-dotnet_diagnostic.SA1515.severity = none        # SA1515: Single-line comment should be preceded by blank line
 dotnet_diagnostic.CS1591.severity = none        # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.SA1611.severity = none        # SA1611: The documentation for parameter is missing
 dotnet_diagnostic.SA1615.severity = none        # SA1615: Element return value should be documented.

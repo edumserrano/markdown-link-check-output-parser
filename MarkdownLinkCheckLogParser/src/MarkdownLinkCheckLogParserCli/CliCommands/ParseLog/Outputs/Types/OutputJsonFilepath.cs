@@ -4,9 +4,9 @@ internal sealed class OutputJsonFilepath
 {
     private readonly string _value;
 
-    public OutputJsonFilepath(string value)
+    public OutputJsonFilepath(string jsonFilePath)
     {
-        _value = value.NotNullOrWhiteSpace();
+        _value = jsonFilePath.NotNullOrWhiteSpace();
     }
 
     public static implicit operator string(OutputJsonFilepath filepath)

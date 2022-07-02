@@ -4,22 +4,22 @@ internal sealed class OutputOptions
 {
     private readonly List<OutputOptionsTypes> _values;
 
-    public OutputOptions(string value)
+    public OutputOptions(string outputOptions)
     {
-        value.NotNullOrWhiteSpace();
+        outputOptions.NotNullOrWhiteSpace();
         _values = new List<OutputOptionsTypes>();
-        var outputOptions = value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-        if (outputOptions.Contains("step"))
+        var outputOptionsSplit = outputOptions.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (outputOptionsSplit.Contains("step"))
         {
             _values.Add(OutputOptionsTypes.Step);
         }
 
-        if (outputOptions.Contains("json"))
+        if (outputOptionsSplit.Contains("json"))
         {
             _values.Add(OutputOptionsTypes.JsonFile);
         }
 
-        if (outputOptions.Contains("md"))
+        if (outputOptionsSplit.Contains("md"))
         {
             _values.Add(OutputOptionsTypes.MarkdownFile);
         }

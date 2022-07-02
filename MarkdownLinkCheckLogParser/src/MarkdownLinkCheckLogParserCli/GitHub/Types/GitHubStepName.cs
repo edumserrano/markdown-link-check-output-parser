@@ -4,9 +4,9 @@ internal sealed class GitHubStepName
 {
     private readonly string _value;
 
-    public GitHubStepName(string value)
+    public GitHubStepName(string gitHubStepName)
     {
-        _value = value.NotNullOrWhiteSpace();
+        _value = gitHubStepName.NotNullOrWhiteSpace();
     }
 
     public static implicit operator string(GitHubStepName gitHubAuthToken)

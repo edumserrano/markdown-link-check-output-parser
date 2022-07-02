@@ -4,9 +4,9 @@ internal sealed class GitHubAuthToken
 {
     private readonly string _value;
 
-    public GitHubAuthToken(string value)
+    public GitHubAuthToken(string gitHubAuthToken)
     {
-        _value = value.NotNullOrWhiteSpace();
+        _value = gitHubAuthToken.NotNullOrWhiteSpace();
     }
 
     public static implicit operator string(GitHubAuthToken gitHubAuthToken)

@@ -4,9 +4,9 @@ internal sealed class OutputMarkdownFilepath
 {
     private readonly string _value;
 
-    public OutputMarkdownFilepath(string value)
+    public OutputMarkdownFilepath(string markdownFilePath)
     {
-        _value = value.NotNullOrWhiteSpace();
+        _value = markdownFilePath.NotNullOrWhiteSpace();
     }
 
     public static implicit operator string(OutputMarkdownFilepath filepath)

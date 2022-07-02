@@ -2,9 +2,9 @@ namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Types;
 
 internal sealed class OutputJsonFilepathOption
 {
-    public OutputJsonFilepathOption(string value)
+    public OutputJsonFilepathOption(string jsonFilePathOption)
     {
-        Value = value.NotNull();
+        Value = jsonFilePathOption.NotNull();
     }
 
     public string Value { get; }
