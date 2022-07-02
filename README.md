@@ -44,7 +44,8 @@ As of writing this, the [GitHub Action - Markdown link check](https://github.com
 
 ### Action inputs
 
-| Name | Description | Required | Default
+<!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
+| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description | Required | Default
 | --- | --- | --- | --- |
 | `auth-token` | GitHub token used to access workflow run logs. | yes | ---
 | `repo` | The repository for the workflow run in the format of {owner}/{repo}. | yes | ---
