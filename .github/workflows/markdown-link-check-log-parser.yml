@@ -1,0 +1,35 @@
+name: Markdown Link Check log parser
+
+on:
+  workflow_run:
+    workflows: [
+      "Markdown Link Check with errors",
+      "Markdown Link Check without errors",
+    ]
+    types:
+    - completed
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  main:
+    name: Markdown Link Check
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github co ntext for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+    - name: Run markdown link check log parser
+      uses: ./
+      with:
+        auth-token:  ${{ secrets.GITHUB_TOKEN }}
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.repository }}'
+        job-name: '<job-name>'
+        step-name: '<step-name>'
