@@ -13,7 +13,7 @@ defaults:
 
 jobs:
   main:
-    name: Markdown Link Check
+    name: Run Markdown Link Check
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -30,4 +30,3 @@ jobs:
         config-file: .github/markdown-link-check-config.json
         folder-path: .github/workflows/markdown-link-check-files/without-errors/
         use-quiet-mode: no
-
