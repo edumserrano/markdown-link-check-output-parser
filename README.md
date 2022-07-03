@@ -113,7 +113,7 @@ Error:
 | `job-name` | The name of the job that contains the markdown link check step. | yes | ---
 | `step-name` | The name of the markdown link check step. | yes | ---
 | `only-errors` | Whether the output information contains file errors only or all files. | no | true
-| `output` | How to output the markdown file check result. It must be one of or a comma separated list of the following values: step,json,md. | no | step
+| `output` | How to output the markdown file check result. It must be one of or a comma separated list of the following values: step-json, step-md file-json, file-md. | no | step-json
 | `json-filepath` | The filepath for the output JSON file, relative to the github workspace folder.  | no | ---
 | `markdown-filepath` | The filepath for the output markdown file, relative to the github workspace folder. | no | ---
 
