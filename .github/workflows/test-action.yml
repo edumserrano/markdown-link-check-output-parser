@@ -35,7 +35,7 @@ jobs:
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
         only-errors: 'true'
-        output: 'step, json, md'
+        output: 'step-json, file-json, file-md'
         json-filepath: './mlc-json-result-1.json'
         markdown-filepath: './mlc-md-result-1.md'
     - name: Dump outputs from previous step
@@ -114,7 +114,6 @@ jobs:
         {
           Write-Output "Output Markdown file matches expected Markdown file."
         }
-    - uses: actions/checkout@v3
     - name: Run markdown link check log parser with only errors set to false
       id: mlc-log-parser-2
       uses: ./
@@ -125,7 +124,7 @@ jobs:
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
         only-errors: 'false'
-        output: 'step, json, md'
+        output: 'step-json, file-json, file-md'
         json-filepath: './mlc-json-result-2.json'
         markdown-filepath: './mlc-md-result-2.md'
     - name: Dump outputs from previous step
@@ -203,6 +202,56 @@ jobs:
         else
         {
           Write-Output "Output Markdown file matches expected Markdown file."
+        }
+    - name: Run markdown link check log parser with markdown step output
+      id: mlc-log-parser-3
+      uses: ./
+      with:
+        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+        only-errors: 'false'
+        output: 'step-md'
+        json-filepath: './mlc-json-result-3.json'
+        markdown-filepath: './mlc-md-result-3.md'
+    - name: Dump outputs from previous step
+      run: |
+        Write-Output '${{ steps.mlc-log-parser-3.outputs.mlc-result }}'
+    - name: Verify md file output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
+        $stepOutput ='${{ steps.mlc-log-parser-3.outputs.mlc-result }}'
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Markdown step output doesn't match expected Markdown. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Markdown step output matches expected Markdown."
+        }   
+    - name: Verify md file output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
+        $stepOutput ='${{ steps.mlc-log-parser-3.outputs.mlc-result }}'
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Markdown step output doesn't match expected Markdown. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Markdown step output matches expected Markdown."
         }
     - name: Run markdown link check log parser with bad input
       id: mlc-log-parser-bad-input

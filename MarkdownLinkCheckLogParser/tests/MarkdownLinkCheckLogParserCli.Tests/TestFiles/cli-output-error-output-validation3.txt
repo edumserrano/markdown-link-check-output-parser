@@ -1,0 +1,3 @@
+Option --output has been provided with an invalid value.
+Error(s):
+- Invalid value. Cannot specify 'step-json' and 'step-md' at the same time. They are mutually exclusive.

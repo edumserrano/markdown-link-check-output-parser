@@ -117,12 +117,12 @@ Error:
 | `json-filepath`                                                                                                                    | The filepath for the output JSON file, relative to the github workspace folder.                                                                           | no       | ---                          |
 | `markdown-filepath`                                                                                                                | The filepath for the output markdown file, relative to the github workspace folder.                                                                       | no       | ---                          |
 
-| Output option | Description                                                     |
-| ------------- | --------------------------------------------------------------- |
-| `step-json`   | Writes the log parser result as JSON to the step's outputs.     |
-| `step-md`     | Writes the log parser result as markdown to the step's outputs. |
-| `file-json`   | Writes the log parser result as JSON to a file.                 |
-| `file-md`     | Writes the log parser result as markdown to a file.             |
+| Output option | Description                                                                                                                 |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `step-json`   | Writes the log parser result as JSON to the step's outputs. Cannot be specified in combination with `step-md` option.       |
+| `step-md`     | Writes the log parser result as markdown to the step's outputs. Cannot be specified in combination with `step-json` option. |
+| `file-json`   | Writes the log parser result as JSON to a file.                                                                             |
+| `file-md`     | Writes the log parser result as markdown to a file.                                                                         |
 
 ## Action outputs
 

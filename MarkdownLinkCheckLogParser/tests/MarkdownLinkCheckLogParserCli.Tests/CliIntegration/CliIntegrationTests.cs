@@ -280,6 +280,7 @@ public class CliIntegrationTests
 
     /// <summary>
     /// Tests the validation of the --output option for the 'parse-log' command.
+    /// Option cannot be empty or whitespace.
     /// </summary>
     [Theory]
     [InlineData("")]
@@ -308,6 +309,7 @@ public class CliIntegrationTests
 
     /// <summary>
     /// Tests the validation of the --output option for the 'parse-log' command.
+    /// Option must be a valid value.
     /// </summary>
     [Fact]
     public async Task OutputOptionValidation2()
@@ -329,6 +331,33 @@ public class CliIntegrationTests
         await app.RunAsync(args);
         var error = console.ReadErrorString();
         var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-output-validation2.txt");
+        error.ShouldBe(expectedError);
+    }
+
+    /// <summary>
+    /// Tests the validation of the --output option for the 'parse-log' command.
+    /// Option values step-json and step-md are mutually exclusive.
+    /// </summary>
+    [Fact]
+    public async Task OutputOptionValidation3()
+    {
+        using var console = new FakeInMemoryConsole();
+        var app = new MlcLogParserCli();
+        app.CliApplicationBuilder.UseConsole(console);
+
+        var args = new[]
+        {
+            "parse-log",
+            "--auth-token", "some token",
+            "--repo", "some repo",
+            "--run-id", "some run id",
+            "--job-name", "some job name",
+            "--step-name", "some step",
+            "--output", "step-json, step-md",
+        };
+        await app.RunAsync(args);
+        var error = console.ReadErrorString();
+        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-output-validation3.txt");
         error.ShouldBe(expectedError);
     }
 }
