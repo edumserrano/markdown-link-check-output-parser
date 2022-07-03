@@ -30,25 +30,4 @@ jobs:
         config-file: .github/markdown-link-check-config.json
         folder-path: .github/workflows/markdown-link-check-files/with-errors/
         use-quiet-mode: no
-    - name: Run markdown link check log parser
-      id: mlc-log-parser
-      uses: ./
-      with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
-        repo: '${{ github.repository }}'
-        run-id: '${{ github.run_id }}'
-        job-name: 'Run Markdown Link Check'
-        step-name: 'Markdown Link Check'
-        only-errors: 'true'
-        output: 'step, json, md'
-        json-filepath: '${{ github.workspace }}\mlc-json-result.json'
-        markdown-filepath: '${{ github.workspace }}\mlc-md-result.md'
-    - name: Dump outputs from previous step
-      shell: pwsh
-      run: |
-        $result = '${{ steps.mlc-log-parser.outputs.mlc-result }}' | ConvertFrom-Json
-        Write-Output "Total files checked: $($result.TotalFilesChecked)"
-        Write-Output "Total links chedked: $($result.TotalLinksChecked)"
-        Write-Output "Has erros: $($result.HasErrors)"
-        $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result 
-        Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
+
