@@ -224,24 +224,19 @@ jobs:
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
         $stepOutput = "${{ steps.mlc-log-parser-3.outputs.mlc-result }}"
-
-        Write-Output "-----------FILE-----------------------"
-        Write-Output $file
-        Write-Output "-----------STEP-------------------"
-        Write-Output $stepOutput
-        Write-Output "----------------------------------"
-
-        # $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput -IncludeEqual
-        # Write-Output $compareResult
-        # Write-Output ''
-        if($file -eq $stepOutput )
-        {
-          Write-Output "Markdown step output matches expected Markdown."
-        }
-        else
+        $stepOutput = $stepOutput -replace "%0A","`n"
+        $stepOutput = $stepOutput -replace "%0D","`r"
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
         {
           Write-Output "::error::Markdown step output doesn't match expected Markdown. See failed step for more information."
           Exit 1
+        }
+        else
+        {
+          Write-Output "Markdown step output matches expected Markdown."
         }   
     - name: Verify md file output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
