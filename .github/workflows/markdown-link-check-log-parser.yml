@@ -15,7 +15,7 @@ defaults:
 
 jobs:
   main:
-    name: Markdown Link Check
+    name: Markdown Link Check log parser
     permissions:
       contents: read
     runs-on: ubuntu-latest
