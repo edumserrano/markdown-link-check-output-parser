@@ -36,8 +36,8 @@ jobs:
         step-name: 'Markdown Link Check'
         only-errors: 'true'
         output: 'step, json, md'
-        json-filepath: '${{ env.GITHUB_WORKSPACE }}\mlc-json-result-1.json'
-        markdown-filepath: '${{ env.GITHUB_WORKSPACE }}\mlc-md-result-1.md'
+        json-filepath: '${{ github.workspace }}\mlc-json-result-1.json'
+        markdown-filepath: '${{ github.workspace }}\mlc-md-result-1.md'
     - name: Dump outputs from previous step
       shell: pwsh
       run: |

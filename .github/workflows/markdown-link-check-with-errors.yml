@@ -36,13 +36,13 @@ jobs:
       with:
         auth-token:  '${{ secrets.GITHUB_TOKEN }}'
         repo: '${{ github.repository }}'
-        run-id: '${{ env.GITHUB_RUN_ID }}'
+        run-id: '${{ github.run_id }}'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
         only-errors: 'true'
         output: 'step, json, md'
-        json-filepath: '${{ env.GITHUB_WORKSPACE }}\mlc-json-result.json'
-        markdown-filepath: '${{ env.GITHUB_WORKSPACE }}\mlc-md-result.md'
+        json-filepath: '${{ github.workspace }}\mlc-json-result.json'
+        markdown-filepath: '${{ github.workspace }}\mlc-md-result.md'
     - name: Dump outputs from previous step
       shell: pwsh
       run: |
