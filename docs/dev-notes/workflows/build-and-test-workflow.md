@@ -33,4 +33,4 @@ When running tests we use 3 loggers:
 
 - `trx`: normal logger, produces test result files which can be downloaded and viewed on Visual Studio.
 - `GitHubActions`: used to produce annotations on the workflow to give more visibility when tests fail. For more info see [GitHub Actions Test Logger](https://github.com/Tyrrrz/GitHubActionsTestLogger). It also adds annotations on PRs.
-- `liquid.custom`: Uses a [template](/GitHubIssueFormsParser/tests/liquid-test-logger-template.md) to create a markdown reports for the test results. These markdown reports are uploaded as workflow artifacts and in case of Pull Requests they are added as comments. For more info see [Liquid Test Reports](https://github.com/kurtmkurtm/LiquidTestReports).
+- `liquid.custom`: Uses a [template](/MarkdownLinkCheckLogParser/tests/liquid-test-logger-template.md) to create a markdown reports for the test results. These markdown reports are uploaded as workflow artifacts and in case of Pull Requests they are added as comments. For more info see [Liquid Test Reports](https://github.com/kurtmkurtm/LiquidTestReports).
