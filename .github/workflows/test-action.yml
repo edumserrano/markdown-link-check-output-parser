@@ -231,7 +231,7 @@ jobs:
         Write-Output $stepOutput
         Write-Output "----------------------------------"
 
-        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput -IncludeEqual
         Write-Output $compareResult
         Write-Output ''
         if($compareResult)
