@@ -198,7 +198,6 @@ jobs:
         run-id: '1'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
-        only-errors: 'true'
         output: 'step, json, md'
         json-filepath: './mlc-json-result-1.json'
         markdown-filepath: './mlc-md-result-1.md'
