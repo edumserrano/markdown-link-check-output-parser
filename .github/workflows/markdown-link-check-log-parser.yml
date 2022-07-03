@@ -50,8 +50,8 @@ jobs:
     - name: Output json and md file contents
       shell: pwsh
       run: |
-        cat ${{ env.GITHUB_WORKSPACE }}\mlc-json-result-1.json
-        cat ${{ env.GITHUB_WORKSPACE }}\mlc-md-result-1.md
+        cat ${{ github.workspace }}/mlc-json-result-1.json
+        cat ${{ github.workspace }}/mlc-md-result-1.md
     - uses: actions/checkout@v3
     - name: Run markdown link check log parser 2
       id: mlc-log-parser-2
@@ -78,5 +78,5 @@ jobs:
     - name: Output json and md file contents
       shell: pwsh
       run: |
-        cat ${{ env.GITHUB_WORKSPACE }}\mlc-json-result-2.json
-        cat ${{ env.GITHUB_WORKSPACE }}\mlc-md-result-2.md
+        cat ${{ github.workspace }}/mlc-json-result-2.json
+        cat ${{ github.workspace }}/mlc-md-result-2.md
