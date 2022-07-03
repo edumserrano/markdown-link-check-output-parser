@@ -1,8 +1,21 @@
 {
-    "TotalFilesChecked": 0,
-    "TotalLinksChecked": 0,
-    "HasErrors": false,
-    "FilesWithErrors": 0,
-    "TotalErrors": 0,
-    "Files": []
+    "TotalFilesChecked": 2,
+    "TotalLinksChecked": 3,
+    "HasErrors": true,
+    "FilesWithErrors": 1,
+    "TotalErrors": 1,
+    "Files": [
+        {
+            "Filename": ".github/workflows/markdown-link-check-files/with-errors/with-errors.md",
+            "LinksChecked": 2,
+            "ErrorCount": 1,
+            "HasErrors": true,
+            "Errors": [
+                {
+                    "Link": "file:///github/workspace/docs/some-file.md",
+                    "StatusCode": 400
+                }
+            ]
+        }
+    ]
 }

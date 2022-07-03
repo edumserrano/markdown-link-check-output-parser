@@ -25,7 +25,7 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
-    - name: Run markdown link check log parser 1
+    - name: Run markdown link check log parser with only errors set to true
       id: mlc-log-parser-1
       uses: ./
       with:
@@ -39,7 +39,6 @@ jobs:
         json-filepath: './mlc-json-result-1.json'
         markdown-filepath: './mlc-md-result-1.md'
     - name: Dump outputs from previous step
-      shell: pwsh
       run: |
         $result = '${{ steps.mlc-log-parser-1.outputs.mlc-result }}' | ConvertFrom-Json
         Write-Output "Total files checked: $($result.TotalFilesChecked)"
@@ -48,12 +47,35 @@ jobs:
         $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result 
         Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
     - name: Output json and md file contents
-      shell: pwsh
       run: |
         cat ${{ github.workspace }}/mlc-json-result-1.json
         cat ${{ github.workspace }}/mlc-md-result-1.md
+    - name: Verify json file output
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
+    - name: Verify md file output
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.md
+        Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
+    - name: Verify json file output
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
+    - name: Verify md file output
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.md
+        Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
     - uses: actions/checkout@v3
-    - name: Run markdown link check log parser 2
+    - name: Run markdown link check log parser with only errors set to false
       id: mlc-log-parser-2
       uses: ./
       with:
@@ -67,7 +89,6 @@ jobs:
         json-filepath: './mlc-json-result-2.json'
         markdown-filepath: './mlc-md-result-2.md'
     - name: Dump outputs from previous step
-      shell: pwsh
       run: |
         $result = '${{ steps.mlc-log-parser-2.outputs.mlc-result }}' | ConvertFrom-Json
         Write-Output "Total files checked: $($result.TotalFilesChecked)"
@@ -76,7 +97,6 @@ jobs:
         $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result 
         Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
     - name: Output json and md file contents
-      shell: pwsh
       run: |
         cat ${{ github.workspace }}/mlc-json-result-2.json
         cat ${{ github.workspace }}/mlc-md-result-2.md
