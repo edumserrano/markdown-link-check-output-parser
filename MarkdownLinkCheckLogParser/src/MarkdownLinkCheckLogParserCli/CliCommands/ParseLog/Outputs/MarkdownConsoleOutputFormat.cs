@@ -12,7 +12,13 @@ internal class MarkdownConsoleOutputFormat : IOutputFormat
     public async Task WriteAsync(MarkdownLinkCheckOutput output)
     {
         output.NotNull();
-        var markdownText = output.ToMarkdownText();
+        // need to replace newline characters because this output is set as a GitHub
+        // step output and without this all newlines are lost.
+        // See https://github.community/t/set-output-truncates-multiline-strings/16852/3
+        var markdownText = output
+            .ToMarkdownText()
+            .Replace("\n", "%0A", StringComparison.InvariantCulture)
+            .Replace("\r", "%0D", StringComparison.InvariantCulture);
         await _console.Output.WriteAsync(markdownText);
     }
 }
