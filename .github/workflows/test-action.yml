@@ -223,8 +223,6 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md -Raw
-        $file = $file -replace "`n","%0A"
-        $file = $file -replace "`r","%0D"
         $stepOutput = "${{ steps.mlc-log-parser-3.outputs.mlc-result }}"
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
