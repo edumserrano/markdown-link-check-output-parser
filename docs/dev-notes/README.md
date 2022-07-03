@@ -75,7 +75,7 @@ This action is published to the [GitHub marketplace](https://github.com/marketpl
 
 ## Note about the Docker container action
 
-This repo provides a [Docker container action](https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action). If parsing the GitHub issue form fails then the action [will fail](https://docs.github.com/en/enterprise-cloud@latest/actions/creating-actions/setting-exit-codes-for-actions#setting-a-failure-exit-code-in-a-docker-container-action). See here for more information about the [syntax for a Docker container action](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-container-actions).
+This repo provides a [Docker container action](https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action). If parsing the log from the `Markdown Link Check` action fails then the action [will fail](https://docs.github.com/en/enterprise-cloud@latest/actions/creating-actions/setting-exit-codes-for-actions#setting-a-failure-exit-code-in-a-docker-container-action). See here for more information about the [syntax for a Docker container action](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-docker-container-actions).
 
 To understand better how the action builds and executes the Docker container look at the log for the steps that build and run the action.
 
