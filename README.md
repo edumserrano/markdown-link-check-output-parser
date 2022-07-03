@@ -105,31 +105,38 @@ Error:
 ## Action inputs
 
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
-| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description | Required | Default &nbsp; &nbsp; &nbsp;
-| --- | --- | --- | --- |
-| `auth-token` | GitHub token used to access workflow run logs. | yes | ---
-| `repo` | The repository for the workflow run in the format of {owner}/{repo}. | yes | ---
-| `run-id` | The unique identifier of the workflow run that contains the markdown link check step. | yes | ---
-| `job-name` | The name of the job that contains the markdown link check step. | yes | ---
-| `step-name` | The name of the markdown link check step. | yes | ---
-| `only-errors` | Whether the output information contains file errors only or all files. | no | true
-| `output` | How to output the markdown file check result. It must be one of or a comma separated list of the following values: step-json, step-md file-json, file-md. | no | step-json
-| `json-filepath` | The filepath for the output JSON file, relative to the github workspace folder.  | no | ---
-| `markdown-filepath` | The filepath for the output markdown file, relative to the github workspace folder. | no | ---
+| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description                                                                                                                                               | Required | Default &nbsp; &nbsp; &nbsp; |
+| ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------- |
+| `auth-token`                                                                                                                       | GitHub token used to access workflow run logs.                                                                                                            | yes      | ---                          |
+| `repo`                                                                                                                             | The repository for the workflow run in the format of {owner}/{repo}.                                                                                      | yes      | ---                          |
+| `run-id`                                                                                                                           | The unique identifier of the workflow run that contains the markdown link check step.                                                                     | yes      | ---                          |
+| `job-name`                                                                                                                         | The name of the job that contains the markdown link check step.                                                                                           | yes      | ---                          |
+| `step-name`                                                                                                                        | The name of the markdown link check step.                                                                                                                 | yes      | ---                          |
+| `only-errors`                                                                                                                      | Whether the output information contains file errors only or all files.                                                                                    | no       | true                         |
+| `output`                                                                                                                           | How to output the markdown file check result. It must be one of or a comma separated list of the following values: step-json, step-md file-json, file-md. | no       | step-json                    |
+| `json-filepath`                                                                                                                    | The filepath for the output JSON file, relative to the github workspace folder.                                                                           | no       | ---                          |
+| `markdown-filepath`                                                                                                                | The filepath for the output markdown file, relative to the github workspace folder.                                                                       | no       | ---                          |
+
+| Output option | Description                                                     |
+| ------------- | --------------------------------------------------------------- |
+| `step-json`   | Writes the log parser result as JSON to the step's outputs.     |
+| `step-md`     | Writes the log parser result as markdown to the step's outputs. |
+| `file-json`   | Writes the log parser result as JSON to a file.                 |
+| `file-md`     | Writes the log parser result as markdown to a file.             |
 
 ## Action outputs
 
-| Name | Description
-| --- | --- |
+| Name         | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
 | `mlc-result` | The result from the Markdown Link Check action in JSON format. |
 
 Note that the action also allows outputing the result from the Markdown Link Check action into a JSON file or into a Markdown files through the use of the appropriate action inputs.
 
 ## Tips
 
-- You can use the markdown file that is produced by this action and display it on the [job summary](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/), or on a Pull Request, or on an Issue.
+- You can use the markdown file or the markdown step output that is produced by this action and display it on the [job summary](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/), or on a Pull Request, or on an Issue.
 - If you want a custom markdown file instead of the one that is produced by default you can process the JSON output from the `Markdown Link Check log parser` step or the JSON file produced and create a markdown to your liking.
-- You can then upload the files produced by this action as [build artifacts](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) for later retrieval.
+- You can upload the files produced by this action as [build artifacts](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) for later retrieval.
 - The `json-filepath` and `markdown-filepath` inputs from this action are relative to the github workspace folder. This means that if you specify a path such as `./output.json` then the file will be created at `${{ github.workspace }}/output.json`. Note that the github workspace is the default working directory on the runner for steps, and the default location of your repository when using the checkout action. For example, /home/runner/work/my-repo-name/my-repo-name.
 
 ## Examples of the JSON file produced
