@@ -50,12 +50,10 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
-        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-json-result-1.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json        
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
@@ -70,11 +68,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-md-result-1.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
@@ -89,11 +85,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
         $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-json-result-1.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
@@ -108,11 +102,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-md-result-1.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
@@ -149,11 +141,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
         $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-json-result-2.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
@@ -168,11 +158,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-md-result-2.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
@@ -187,11 +175,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
         $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-json-result-2.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
@@ -206,11 +192,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
-        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
-        Write-Output ""
-        cat ${{ github.workspace }}/mlc-md-result-2.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
+        Write-Output ''
         if($compareResult)
         {
           Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
