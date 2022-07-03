@@ -21,6 +21,7 @@ if(![string]::IsNullOrWhitespace($markdownFilepath))
     $command += " --markdown-filepath '$markdownFilepath'"
 }
 
+Write-Output "Executing: $command"
 $output = Invoke-Expression $command
 if($LASTEXITCODE -ne 0 ) {
     Write-Output "::error::Markdown link check log parser didn't complete successfully. See the step's log for more details."
