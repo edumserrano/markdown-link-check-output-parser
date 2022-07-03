@@ -83,59 +83,61 @@ To understand better how the action builds and executes the Docker container loo
 
 ```
 /usr/bin/docker build 
--t 2bcf09:d996dfb6f4ec40c1a59c1e244bdd3374 
--f "/home/runner/work/_actions/edumserrano/github-issue-forms-parser/v1/Dockerfile" 
-"/home/runner/work/_actions/edumserrano/github-issue-forms-parser/v1"
+-t 4cd98f:236c6972581e50e94bc7f786208c8965 
+-f "/home/runner/work/markdown-link-check-log-parser/markdown-link-check-log-parser/v1/Dockerfile" 
+"/home/runner/work/_actions/edumserrano/markdown-link-check-log-parser/v1"
 ```
 
-Note that the `docker build` command points to the Dockerfile on `/home/runner/work/_actions/edumserrano/github-issue-forms-parser/v1/Dockerfile`. What is happening here is that GitHub clones the action's repository into the GitHub runner's working directory of the repo making use of this action. The clone of action's repo will be under the `_actions` folder.
+Note that the `docker build` command points to the Dockerfile at `/home/runner/work/markdown-link-check-log-parser/markdown-link-check-log-parser/v1/Dockerfile`. What is happening here is that GitHub clones the action's repository into the GitHub runner's working directory of the repo making use of this action. The clone of action's repo will be under the `_actions` folder.
 
 This way it can successfully build the Dockerfile for this action which would otherwise fail since the Dockerfile references files in the action's repository which would not be present in the repository making use of this action.
 
 **Example:**
 
-- Repository `hello-world` creates a workflow that uses the `GitHub issue forms parser` action.
-- When the workflow is executing, it contains a setup step that runs befor any of the workflow defined steps. This step will clone the `GitHub issue forms parser` action repo into the runner's workding directory under the `_actions` folder and build the Docker container.
-- This allows the Dockerfile to reference files in the `GitHub issue forms parser` repo even though the workflow has not explicitly checked it out.
+- Repository `hello-world` creates a workflow that uses the `Markdown Link Check log parser` action.
+- When the workflow is executing, it contains a setup step that runs before any of the workflow defined steps. This step will clone the `Markdown Link Check log parser` action's repo into the runner's working directory under the `_actions` folder and build the Docker container.
+- This allows the Dockerfile to reference files in the `Markdown Link Check log parser` repo even though the workflow has not explicitly checked it out.
 
 ### As of writing this, the log for running the docker action looks as follows
 
 ```
-/usr/bin/docker run 
---name bcf09d996dfb6f4ec40c1a59c1e244bdd3374_381201 
---label 2bcf09 
---workdir /github/workspace 
---rm 
--e INPUT_TEMPLATE-FILEPATH -e INPUT_ISSUE-FORM-BODY -e HOME 
--e GITHUB_JOB -e GITHUB_REF -e GITHUB_SHA 
--e GITHUB_REPOSITORY -e GITHUB_REPOSITORY_OWNER -e GITHUB_RUN_ID 
--e GITHUB_RUN_NUMBER -e GITHUB_RETENTION_DAYS -e GITHUB_RUN_ATTEMPT 
--e GITHUB_ACTOR -e GITHUB_WORKFLOW -e GITHUB_HEAD_REF 
--e GITHUB_BASE_REF -e GITHUB_EVENT_NAME -e GITHUB_SERVER_URL 
--e GITHUB_API_URL -e GITHUB_GRAPHQL_URL -e GITHUB_REF_NAME 
--e GITHUB_REF_PROTECTED -e GITHUB_REF_TYPE -e GITHUB_WORKSPACE 
--e GITHUB_ACTION -e GITHUB_EVENT_PATH -e GITHUB_ACTION_REPOSITORY 
--e GITHUB_ACTION_REF -e GITHUB_PATH -e GITHUB_ENV 
--e GITHUB_STEP_SUMMARY -e RUNNER_OS -e RUNNER_ARCH 
--e RUNNER_NAME -e RUNNER_TOOL_CACHE -e RUNNER_TEMP 
--e RUNNER_WORKSPACE -e ACTIONS_RUNTIME_URL -e ACTIONS_RUNTIME_TOKEN 
--e ACTIONS_CACHE_URL -e GITHUB_ACTIONS=true -e CI=true 
--v "/var/run/docker.sock":"/var/run/docker.sock" 
--v "/home/runner/work/_temp/_github_home":"/github/home" 
--v "/home/runner/work/_temp/_github_workflow":"/github/workflow" 
--v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" 
--v "/home/runner/work/github-issue-forms-parser/github-issue-forms-parser":"/github/workspace" 
-2bcf09:d996dfb6f4ec40c1a59c1e244bdd3374  <template-file-path> <issue-form-body>
+/usr/bin/docker run
+--name cd98f236c6972581e50e94bc7f786208c8965_460ab9
+--label 4cd98f
+--workdir /github/workspace
+--rm
+-e INPUT_AUTH-TOKEN -e INPUT_REPO -e INPUT_RUN-ID
+-e INPUT_JOB-NAME -e INPUT_STEP-NAME -e INPUT_ONLY-ERRORS
+-e INPUT_OUTPUT -e INPUT_JSON-FILEPATH -e INPUT_MARKDOWN-FILEPATH
+-e HOME -e GITHUB_JOB -e GITHUB_REF
+-e GITHUB_SHA -e GITHUB_REPOSITORY -e GITHUB_REPOSITORY_OWNER
+-e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_RETENTION_DAYS
+-e GITHUB_RUN_ATTEMPT -e GITHUB_ACTOR -e GITHUB_WORKFLOW
+-e GITHUB_HEAD_REF -e GITHUB_BASE_REF-e GITHUB_EVENT_NAME
+-e GITHUB_SERVER_URL -e GITHUB_API_URL -e GITHUB_GRAPHQL_URL
+-e GITHUB_REF_NAME -e GITHUB_REF_PROTECTED -e GITHUB_REF_TYPE
+-e GITHUB_WORKSPACE -e GITHUB_ACTION-e GITHUB_EVENT_PATH
+-e GITHUB_ACTION_REPOSITORY -e GITHUB_ACTION_REF -e GITHUB_PATH
+-e GITHUB_ENV -e GITHUB_STEP_SUMMARY -e RUNNER_OS
+-e RUNNER_ARCH -e RUNNER_NAME -e RUNNER_TOOL_CACHE
+-e RUNNER_TEMP -e RUNNER_WORKSPACE -e ACTIONS_RUNTIME_URL
+-e ACTIONS_RUNTIME_TOKEN -e ACTIONS_CACHE_URL -e GITHUB_ACTIONS=true -e CI=true
+-v "/var/run/docker.sock":"/var/run/docker.sock"
+-v "/home/runner/work/_temp/_github_home":"/github/home"
+-v "/home/runner/work/_temp/_github_workflow":"/github/workflow"
+-v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands"
+-v "/home/runner/work/markdown-link-check-log-parser/markdown-link-check-log-parser":"/github/workspace" 
+4cd98f:236c6972581e50e94bc7f786208c8965 <action input parameters>
+
 ```
 
 When running the docker container there are lots of docker parameters set. Besides all the environment variables note that there are several volume mounts. More importantly, note that the contents of the checked out repo where the action is executing is mounted into the container at `/github/workspace` and that the `workdir` is also set to `/github/workspace`.
 
-This allows the GitHub action to access the files checked out by the workflow and is what allows users to pass in a relative path to their repository for the `template-filepath` action's input parameter.
+This allows the GitHub action to access the files checked out by the workflow and is what allows users to then access the JSON/Markdown files produced by this action once the action finishes and the docker container is terminated.
 
 **Example:**
 
-- Repository `hello-world` has an issue form template file at `.github\ISSUE_TEMPLATE\my-template.yml`.
-- We create a workflow in the `hello-world` repository that checks out the `hello-world` repo and makes use of the `GitHub issue forms parser` action.
-- We set the `template-filepath` input parameter of the `GitHub issue forms parser` action to `.github\ISSUE_TEMPLATE\my-template.yml`.
-- When the workflow is executing the Docker container is able to get to `.github\ISSUE_TEMPLATE\my-template.yml` because the contents of the checked out `hello-world` repo are mounted into the Docker container at `/github/workspace`. Furthermore the `template-filepath` input parameter doesn't need to start with `/github/workspace` because the `workdir` parameter is set to `/github/workspace` when executing the Docker container.
-
+- Repository `hello-world` creates a workflow that uses the `Markdown Link Check log parser` action.
+- We set the `output` input parameter of the `Markdown Link Check log parser` action to `json, md` and we set the `json-filepath` to `./output.json` and the `markdown-filepath` to `./output.md`.
+- When the workflow is executing the Docker container is will output the JSON/Markdown file to the github workspace with the chosen names because because the contents of the checked out `hello-world` repo are mounted into the Docker container at `/github/workspace`. Furthermore the `json-filepath`  and `markdown-filepath` input parameters don't need to start with `/github/workspace` because the `workdir` parameter is set to `/github/workspace` when executing the Docker container.
+- When the action finishes and the container is terminated the user can access the JSON file at `${{ github.workspace}}/output.json` and the Markdown file at `${{ github.workspace}}/output.md`.
