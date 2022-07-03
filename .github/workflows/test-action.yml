@@ -224,6 +224,13 @@ jobs:
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
         $stepOutput = "${{ steps.mlc-log-parser-3.outputs.mlc-result }}"
+
+        Write-Output "-----------FILE-----------------------"
+        Write-Output $file
+        Write-Output "-----------STEP-------------------"
+        Write-Output $stepOutput
+        Write-Output "----------------------------------"
+
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
