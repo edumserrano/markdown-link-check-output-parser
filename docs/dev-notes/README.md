@@ -34,7 +34,7 @@ The steps below show how to run the Docker container action against a set of tes
 2) Run `docker build -t mlc-log-parser .`
 3) Run the docker container and pass at least the required inputs by executing:
 
-```docker
+```
 docker run --rm -v ${pwd}:/workspace --workdir /workspace github-issue-parser `
 --auth-token <github token> `
 --repo <repo> `
