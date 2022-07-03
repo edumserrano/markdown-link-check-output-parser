@@ -15,7 +15,6 @@
 
 Links checked: 1
 Errors: 0
-
 ---
 
 ### .github/workflows/markdown-link-check-files/with-errors/with-errors.md

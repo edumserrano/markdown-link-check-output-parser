@@ -63,17 +63,15 @@ internal class MarkdownFileOutputFormat : IOutputFormat
             await streamWriter.WriteLineAsync();
             await streamWriter.WriteLineAsync($"Links checked: {checkedFile.LinksChecked}");
             await streamWriter.WriteLineAsync($"Errors: {checkedFile.ErrorCount}");
-            await streamWriter.WriteLineAsync();
             if (checkedFile.HasErrors)
             {
+                await streamWriter.WriteLineAsync();
                 await streamWriter.WriteLineAsync("| Link | Status code");
                 await streamWriter.WriteLineAsync("| --- | --- |");
                 foreach (var (link, statusCode) in checkedFile.Errors)
                 {
                     await streamWriter.WriteLineAsync($"| {link} | {statusCode}");
                 }
-
-                await streamWriter.WriteLineAsync();
             }
 
             if (i != output.Files.Count - 1)
