@@ -1,4 +1,4 @@
-name: Test Markdown Link Check log parser
+name: Test GitHub action
 
 on:
   workflow_run:
