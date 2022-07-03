@@ -13,8 +13,9 @@
 
 ### .github/workflows/markdown-link-check-files/with-errors/with-errors.md
 
-Links checked: 2
-Errors: 1
+| Links checked | Errors
+| --- | --- |
+| 2 | 1 |
 
 | Link | Status code
 | --- | --- |

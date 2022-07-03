@@ -13,15 +13,17 @@
 
 ### .github/workflows/markdown-link-check-files/with-errors/without-errors.md
 
-Links checked: 1 </br>
-Errors: 0
+| Links checked | Errors
+| --- | --- |
+| 1 | 0 |
 
 ---
 
 ### .github/workflows/markdown-link-check-files/with-errors/with-errors.md
 
-Links checked: 2 </br>
-Errors: 1 </br>
+| Links checked | Errors
+| --- | --- |
+| 2 | 1 |
 
 | Link | Status code
 | --- | --- |
