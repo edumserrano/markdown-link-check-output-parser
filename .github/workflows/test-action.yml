@@ -51,6 +51,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
         $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-json-result-1.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -67,6 +70,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-md-result-1.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -83,6 +89,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
         $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-json-result-1.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -99,6 +108,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-md-result-1.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -137,6 +149,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
         $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-json-result-2.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -153,6 +168,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-md-result-2.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -169,6 +187,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
         $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-json-result-2.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -185,6 +206,9 @@ jobs:
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
         $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
+        cat  ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
+        Write-Output ""
+        cat ${{ github.workspace }}/mlc-md-result-2.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
         Write-Output $compareResult
         if($compareResult)
@@ -203,7 +227,7 @@ jobs:
       with:
         auth-token:  '${{ secrets.GITHUB_TOKEN }}'
         repo: '${{ github.repository }}'
-        run-id: '1'
+        run-id: '1' # invalid run id
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
     - name: The action should fail the step if it encounters an error
