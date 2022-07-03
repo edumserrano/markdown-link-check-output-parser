@@ -22,7 +22,7 @@ internal class GitHubWorkflowRunLogs
 
         using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
         var markdownLinkCheckLogsZipEntrys = workflowRunLogsZip.Entries.
-            Where(e => e.FullName.Contains($"{jobName}/", StringComparison.InvariantCultureIgnoreCase) && e.Name.Contains(stepName, StringComparison.InvariantCultureIgnoreCase))
+            Where(e => e.FullName.Contains($"{jobName}/", StringComparison.OrdinalIgnoreCase) && e.Name.Contains(stepName, StringComparison.OrdinalIgnoreCase))
             .ToList();
         if (markdownLinkCheckLogsZipEntrys.Count == 0)
         {

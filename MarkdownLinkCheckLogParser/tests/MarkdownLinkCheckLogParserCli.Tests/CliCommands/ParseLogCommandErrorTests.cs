@@ -94,11 +94,11 @@ Error:
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         const string expectedErrorMessage = @"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- Found more than one match in the logs for a step with name 'Markdown link check' as part of the job with name 'Markdown link check'.";
+- Found more than one match in the logs for a step name that contains 'Markdown link check' as part of the job with name 'Markdown link check'.";
 
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<JobOrStepMoreThanOneMatchException>();
-        exception.InnerException.Message.ShouldBe("Found more than one match in the logs for a step with name 'Markdown link check' as part of the job with name 'Markdown link check'.");
+        exception.InnerException.Message.ShouldBe("Found more than one match in the logs for a step name that contains 'Markdown link check' as part of the job with name 'Markdown link check'.");
     }
 }
