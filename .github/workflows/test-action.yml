@@ -58,12 +58,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output JSON file matches expected JSON file."
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
-          Exit 1
+          Write-Output "Output JSON file matches expected JSON file."
         }
     - name: Verify md file output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
@@ -77,12 +77,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output Markdown file matches expected Markdown file."
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
-          Exit 1
+          Write-Output "Output Markdown file matches expected Markdown file."
         }
     - name: Verify json file output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
@@ -96,12 +96,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output JSON file matches expected JSON file."
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
-          Exit 1
+          Write-Output "Output JSON file matches expected JSON file."
         }
     - name: Verify md file output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
@@ -115,12 +115,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output Markdown file matches expected Markdown file."
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
-          Exit 1
+          Write-Output "Output Markdown file matches expected Markdown file."
         }
     - uses: actions/checkout@v3
     - name: Run markdown link check log parser with only errors set to false
@@ -156,12 +156,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output JSON file matches expected JSON file."
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
-          Exit 1
+          Write-Output "Output JSON file matches expected JSON file."
         }
     - name: Verify md file output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
@@ -175,12 +175,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output Markdown file matches expected Markdown file."
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
-          Exit 1
+          Write-Output "Output Markdown file matches expected Markdown file."
         }
     - name: Verify json file output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
@@ -194,12 +194,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output JSON file matches expected JSON file."
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
-          Exit 1
+          Write-Output "Output JSON file matches expected JSON file."
         }
     - name: Verify md file output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
@@ -213,12 +213,12 @@ jobs:
         Write-Output $compareResult
         if($compareResult)
         {
-          Write-Output "Output Markdown file matches expected Markdown file."
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
         }
         else
         {
-          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
-          Exit 1
+          Write-Output "Output Markdown file matches expected Markdown file."
         }
     - name: Run markdown link check log parser with bad input
       id: mlc-log-parser-bad-input
