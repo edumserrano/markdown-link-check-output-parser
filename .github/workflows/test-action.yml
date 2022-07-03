@@ -218,12 +218,12 @@ jobs:
         markdown-filepath: './mlc-md-result-3.md'
     - name: Dump outputs from previous step
       run: |
-        Write-Output '${{ steps.mlc-log-parser-3.outputs.mlc-result }}'
+        Write-Output "${{ steps.mlc-log-parser-3.outputs.mlc-result }}"
     - name: Verify md file output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
-        $stepOutput ='${{ steps.mlc-log-parser-3.outputs.mlc-result }}'
+        $stepOutput = "${{ steps.mlc-log-parser-3.outputs.mlc-result }}"
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -240,7 +240,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
-        $stepOutput ='${{ steps.mlc-log-parser-3.outputs.mlc-result }}'
+        $stepOutput = "${{ steps.mlc-log-parser-3.outputs.mlc-result }}"
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
