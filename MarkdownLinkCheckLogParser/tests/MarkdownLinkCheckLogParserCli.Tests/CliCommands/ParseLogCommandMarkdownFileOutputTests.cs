@@ -31,7 +31,7 @@ public class ParseLogCommandMarkdownFileOutputTests
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            OutputOptions = "md",
+            OutputOptions = "file-md",
             OutputMarkdownFilepath = mdFilepath,
         };
         using var console = new FakeInMemoryConsole();
@@ -72,7 +72,7 @@ public class ParseLogCommandMarkdownFileOutputTests
             JobName = "Markdown link check",
             StepName = "Markdown link check",
             CaptureErrorsOnly = false,
-            OutputOptions = "md",
+            OutputOptions = "file-md",
             OutputMarkdownFilepath = mdFilepath,
         };
         using var console = new FakeInMemoryConsole();
@@ -112,7 +112,7 @@ public class ParseLogCommandMarkdownFileOutputTests
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            OutputOptions = "md",
+            OutputOptions = "file-md",
             OutputMarkdownFilepath = mdFilepath,
         };
         using var console = new FakeInMemoryConsole();
@@ -148,7 +148,7 @@ public class ParseLogCommandMarkdownFileOutputTests
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            OutputOptions = "md",
+            OutputOptions = "file-md",
             OutputJsonFilepath = markdownFilepath,
         };
         using var console = new FakeInMemoryConsole();

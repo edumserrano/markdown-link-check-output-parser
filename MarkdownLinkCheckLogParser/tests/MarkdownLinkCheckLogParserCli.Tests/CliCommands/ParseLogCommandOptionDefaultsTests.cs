@@ -76,11 +76,11 @@ public class ParseLogCommandOptionDefaultsTests
     /// Validation test for the <see cref="ParseLogCommand.OutputOptions"/> command option default value.
     /// </summary>
     [Fact]
-    public void OutputOptionsDefaultsToStep()
+    public void OutputOptionsDefaultsToStepJson()
     {
         using var console = new FakeInMemoryConsole();
         var command = new ParseLogCommand();
-        command.OutputOptions.ShouldBe("step");
+        command.OutputOptions.ShouldBe("step-json");
     }
 
     /// <summary>

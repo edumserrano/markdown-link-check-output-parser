@@ -59,8 +59,8 @@ public class ParseLogCommand : ICommand
     [CommandOption(
         "output",
         Validators = new Type[] { typeof(OutputOptionValidator) },
-        Description = "How to output the markdown file check result. It must be one of or a comma separated list of the following values: step,json,md.")]
-    public string OutputOptions { get; init; } = "step";
+        Description = "How to output the markdown file check result. It must be one of or a comma separated list of the following values: step-json,step-md,file-json,file-md.")]
+    public string OutputOptions { get; init; } = "step-json";
 
     [CommandOption("json-filepath", Description = "The filepath for the output JSON file.")]
     public string OutputJsonFilepath { get; init; } = string.Empty;

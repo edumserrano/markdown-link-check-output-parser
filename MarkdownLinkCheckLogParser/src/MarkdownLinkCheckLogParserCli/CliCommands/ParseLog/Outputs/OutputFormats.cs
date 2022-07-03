@@ -21,12 +21,17 @@ internal sealed class OutputFormats : IReadOnlyList<IOutputFormat>
         OutputMarkdownFilepathOption markdownFilepathOption)
     {
         var outputFormats = new List<IOutputFormat>();
-        if (outputOptions.HasOption(OutputOptionsTypes.Step))
+        if (outputOptions.HasOption(OutputOptionsTypes.StepJson))
         {
             outputFormats.Add(new JsonConsoleOutputFormat(console));
         }
 
-        if (outputOptions.HasOption(OutputOptionsTypes.JsonFile))
+        if (outputOptions.HasOption(OutputOptionsTypes.StepMd))
+        {
+            outputFormats.Add(new MarkdownConsoleOutputFormat(console));
+        }
+
+        if (outputOptions.HasOption(OutputOptionsTypes.FileJson))
         {
             if (string.IsNullOrWhiteSpace(jsonFilepathOption.Value))
             {
@@ -37,7 +42,7 @@ internal sealed class OutputFormats : IReadOnlyList<IOutputFormat>
             outputFormats.Add(new JsonFileOutputFormat(file, jsonFilePath));
         }
 
-        if (outputOptions.HasOption(OutputOptionsTypes.MarkdownFile))
+        if (outputOptions.HasOption(OutputOptionsTypes.FileMarkdown))
         {
             if (string.IsNullOrWhiteSpace(markdownFilepathOption.Value))
             {

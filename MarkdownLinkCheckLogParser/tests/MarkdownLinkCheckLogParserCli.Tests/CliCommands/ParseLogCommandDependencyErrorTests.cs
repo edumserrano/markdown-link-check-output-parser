@@ -65,7 +65,7 @@ Error:
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            OutputOptions = "json",
+            OutputOptions = "file-json",
             OutputJsonFilepath = "some-file-path",
         };
         using var console = new FakeInMemoryConsole();
@@ -103,7 +103,7 @@ Error:
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            OutputOptions = "md",
+            OutputOptions = "file-md",
             OutputMarkdownFilepath = "some-file-path",
         };
         using var console = new FakeInMemoryConsole();

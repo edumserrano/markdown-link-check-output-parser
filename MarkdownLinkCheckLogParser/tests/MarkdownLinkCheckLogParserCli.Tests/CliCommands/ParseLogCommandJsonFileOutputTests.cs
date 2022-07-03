@@ -32,7 +32,7 @@ public class ParseLogCommandJsonFileOutputTests
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            OutputOptions = "json",
+            OutputOptions = "file-json",
             OutputJsonFilepath = jsonFilepath,
         };
         using var console = new FakeInMemoryConsole();
@@ -92,7 +92,7 @@ public class ParseLogCommandJsonFileOutputTests
             RunId = "run-id",
             JobName = "Markdown link check",
             StepName = "Markdown link check",
-            OutputOptions = "json",
+            OutputOptions = "file-json",
             OutputJsonFilepath = jsonFilepath,
         };
         using var console = new FakeInMemoryConsole();

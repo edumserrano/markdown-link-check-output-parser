@@ -4,7 +4,7 @@ namespace MarkdownLinkCheckLogParserCli.Tests.CliCommands;
 /// These tests make sure that the <see cref="ParseLogCommand"/> outputs the expected JSON value to the console.
 /// </summary>
 [Trait("Category", XUnitCategories.Commands)]
-public class ParseLogCommandConsoleOutputTests
+public class ParseLogCommandJsonConsoleOutputTests
 {
     /// <summary>
     /// Tests that the <see cref="ParseLogCommand"/> produces the expected JSON output to the console.
@@ -12,7 +12,7 @@ public class ParseLogCommandConsoleOutputTests
     /// Uses logs that contain files with markdown errors.
     /// </summary>
     [Fact]
-    public async Task ParseLogCommandConsoleTest1()
+    public async Task ParseLogCommandJsonConsoleTest1()
     {
         var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
         var httpClient = new HttpClient(handler)
@@ -69,7 +69,7 @@ public class ParseLogCommandConsoleOutputTests
     /// Uses logs that contain files with markdown errors.
     /// </summary>
     [Fact]
-    public async Task ParseLogCommandConsoleTest2()
+    public async Task ParseLogCommandJsonConsoleTest2()
     {
         var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
         var httpClient = new HttpClient(handler)
@@ -123,7 +123,7 @@ public class ParseLogCommandConsoleOutputTests
     /// so all the statistics will be zero.
     /// </summary>
     [Fact]
-    public async Task ParseLogCommandConsoleTest3()
+    public async Task ParseLogCommandJsonConsoleTest3()
     {
         var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-without-errors.zip");
         var httpClient = new HttpClient(handler)

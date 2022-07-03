@@ -9,19 +9,24 @@ internal sealed class OutputOptions
         outputOptions.NotNullOrWhiteSpace();
         _values = new List<OutputOptionsTypes>();
         var outputOptionsSplit = outputOptions.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-        if (outputOptionsSplit.Contains("step"))
+        if (outputOptionsSplit.Contains("step-json"))
         {
-            _values.Add(OutputOptionsTypes.Step);
+            _values.Add(OutputOptionsTypes.StepJson);
         }
 
-        if (outputOptionsSplit.Contains("json"))
+        if (outputOptionsSplit.Contains("step-md"))
         {
-            _values.Add(OutputOptionsTypes.JsonFile);
+            _values.Add(OutputOptionsTypes.StepMd);
         }
 
-        if (outputOptionsSplit.Contains("md"))
+        if (outputOptionsSplit.Contains("file-json"))
         {
-            _values.Add(OutputOptionsTypes.MarkdownFile);
+            _values.Add(OutputOptionsTypes.FileJson);
+        }
+
+        if (outputOptionsSplit.Contains("file-md"))
+        {
+            _values.Add(OutputOptionsTypes.FileMarkdown);
         }
     }
 
