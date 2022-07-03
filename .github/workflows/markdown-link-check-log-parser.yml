@@ -1,4 +1,4 @@
-name: Markdown Link Check log parser
+name: Test Markdown Link Check log parser
 
 on:
   workflow_run:
@@ -132,7 +132,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
-        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
         if($compareResult)
         {
@@ -147,7 +147,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
-        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
         if($compareResult)
         {
@@ -162,7 +162,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
-        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
         if($compareResult)
         {
@@ -177,7 +177,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
         $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
-        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
         $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2 -IncludeEqual
         if($compareResult)
         {
