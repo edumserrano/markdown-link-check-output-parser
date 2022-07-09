@@ -350,7 +350,7 @@ jobs:
     ]
     if: github.event.workflow_run.event == 'pull_request' && always()
     permissions:
-      contents: read
+      statuses: write
     runs-on: ubuntu-latest
     steps:
     - name: Dump github co ntext for debug purposes
@@ -367,10 +367,10 @@ jobs:
         $testFailureJobResult = '${{ needs.test-failure.result }}'
 
         if ($onlyErrorsTrueJobResult -eq 'success' `
-          && $onlyErrorsFalseJobResult -eq 'success' `
-          && $mdStepOutputJobResult -eq 'success' `
-          && $defaultArgsJobResult -eq 'success' `
-          && $testFailureJobResult -eq 'success')
+            && $onlyErrorsFalseJobResult -eq 'success' `
+            && $mdStepOutputJobResult -eq 'success' `
+            && $defaultArgsJobResult -eq 'success' `
+            && $testFailureJobResult -eq 'success')
         {
           $description = 'Successful'
           $state = 'success'
