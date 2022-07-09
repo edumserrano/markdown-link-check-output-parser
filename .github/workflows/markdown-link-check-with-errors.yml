@@ -39,3 +39,6 @@ jobs:
 
         $value2 = '${{ github.job == 'main' && format('{0}', 'main') || '--json-filepath' }}'
         Write-Output $value2
+
+        $value3 = '${{ github.job == 'main' && format('{0}', '') || '--json-filepath' }}'
+        Write-Output $value3
