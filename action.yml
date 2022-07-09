@@ -52,7 +52,7 @@ runs:
     - --output ${{ inputs.output }}
     # The syntax for the optional parameters with empty values is a way of doing a ternary operator. See https://github.com/actions/runner/issues/409
     # I don't want to include them in the call to the CLI if the values are the default empty value. Or else the CLI will say the value for that option is missing
-    - ${{ inputs.json-filepath == ''  && '' || --json-filepath }}           
+    - ${{ inputs.json-filepath == ''  && '' || '--json-filepath' }}
     - ${{ inputs.json-filepath == ''  && '' || inputs.json-filepath }}
-    - ${{ inputs.markdown-filepath == ''  && '' || --markdown-filepath }}
+    - ${{ inputs.markdown-filepath == ''  && '' || '--markdown-filepath' }}
     - ${{ inputs.markdown-filepath == ''  && '' || inputs.markdown-filepath }}
