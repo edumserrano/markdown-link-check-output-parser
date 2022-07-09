@@ -367,10 +367,10 @@ jobs:
         $testFailureJobResult = '${{ needs.test-failure.result }}'
 
         if ($onlyErrorsTrueJobResult -eq 'success' `
-          && $onlyErrorsFalseJobResult -eq 'success' `
-          && $mdStepOutputJobResult -eq 'success' `
-          && $defaultArgsJobResult -eq 'success' `
-          && $testFailureJobResult -eq 'success')
+            && $onlyErrorsFalseJobResult -eq 'success' `
+            && $mdStepOutputJobResult -eq 'success' `
+            && $defaultArgsJobResult -eq 'success' `
+            && $testFailureJobResult -eq 'success')
         {
           $description = 'Successful'
           $state = 'success'
