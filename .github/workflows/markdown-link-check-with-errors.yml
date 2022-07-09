@@ -32,16 +32,4 @@ jobs:
         config-file: .github/markdown-link-check-config.json
         folder-path: .github/workflows/markdown-link-check-files/with-errors/
         use-quiet-mode: no
-    - name: Test something
-      run: |
-        $value = '${{ github.job == 'wtf' && format('{0}', 'wtf') || '--json-filepath' }}'
-        Write-Output $value
 
-        $value2 = '${{ github.job == 'main' && format('{0}', 'main') || '--json-filepath' }}'
-        Write-Output $value2
-
-        $value3 = '${{ github.job == 'main' && format('{0}', '') || '--json-filepath' }}'
-        Write-Output $value3
-
-        $value4 = '${{ github.job == 'main' && ' ' || '--json-filepath' }}'
-        Write-Output $value4
