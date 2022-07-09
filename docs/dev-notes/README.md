@@ -1,5 +1,21 @@
 # Dev notes
 
+- [Building the MarkdownLinkCheckLogParser solution](#building-the-markdownlinkchecklogparser-solution)
+  - [Building with Visual Studio](#building-with-visual-studio)
+  - [Building with dotnet CLI](#building-with-dotnet-cli)
+- [Running MarkdownLinkCheckLogParser solution tests](#running-markdownlinkchecklogparser-solution-tests)
+  - [Run tests with Visual Studio](#run-tests-with-visual-studio)
+  - [Run tests with dotnet CLI](#run-tests-with-dotnet-cli)
+- [Building and running the Docker container action](#building-and-running-the-docker-container-action)
+- [Projects wide configuration](#projects-wide-configuration)
+- [Deterministic Build configuration](#deterministic-build-configuration)
+- [Repository configuration](#repository-configuration)
+- [GitHub Workflows](#github-workflows)
+- [GitHub marketplace](#github-marketplace)
+- [Note about the Docker container action](#note-about-the-docker-container-action)
+  - [As of writing this, the log for building the docker action looks as follows](#as-of-writing-this-the-log-for-building-the-docker-action-looks-as-follows)
+  - [As of writing this, the log for running the docker action looks as follows](#as-of-writing-this-the-log-for-running-the-docker-action-looks-as-follows)
+
 ## Building the MarkdownLinkCheckLogParser solution
 
 ### Building with Visual Studio
