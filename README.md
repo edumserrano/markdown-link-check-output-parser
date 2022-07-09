@@ -77,7 +77,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Run markdown link check log parser
       id: mlc-log-parser
-      uses: edumserrano/markdown-link-check-log-parser@v1
+      uses: edumserrano/markdown-link-check-log-parser@v1.1
       with:
         auth-token:  '${{ secrets.GITHUB_TOKEN }}'
         repo: '${{ github.repository }}'
