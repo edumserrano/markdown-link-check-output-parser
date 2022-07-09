@@ -253,6 +253,25 @@ jobs:
         {
           Write-Output "Markdown step output matches expected Markdown."
         }
+    - name: Run markdown link check log parser with default action args
+      id: mlc-log-parser-bad-input
+      uses: ./
+      with:
+        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+    - name: The action should fail the step if it encounters an error
+      run: |
+        $errorOutcome = '${{ steps.mlc-log-parser-bad-input.outcome }}'
+        if($errorOutcome -eq 'success') {
+          Write-Output "::error title=Action check:Action should have failed the workflow because of invalid input but it didn't."
+          Exit 1
+        }
+        else {
+          Write-Output "::notice title=Action check::Action would have failed the workflow given invalid input. You should see an error message on the action's Annotations."
+        }
     - name: Run markdown link check log parser with bad input
       id: mlc-log-parser-bad-input
       uses: ./
