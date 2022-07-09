@@ -34,8 +34,8 @@ jobs:
         use-quiet-mode: no
     - name: Test something
       run: |
-        $value = '${{ github.job == 'wtf' && format('{0}', '') || '--json-filepath' }}'
+        $value = '${{ github.job == 'wtf' && format('{0}', 'wtf') || '--json-filepath' }}'
         Write-Output $value
 
-        $value2 = '${{ github.job == 'main' && format('{0}', '') || '--json-filepath' }}'
+        $value2 = '${{ github.job == 'main' && format('{0}', 'main') || '--json-filepath' }}'
         Write-Output $value2
