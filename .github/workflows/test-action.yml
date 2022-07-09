@@ -14,13 +14,11 @@ defaults:
     shell: pwsh
 
 jobs:
-  main:
-    name: Markdown Link Check log parser
+  only-errors-true:
+    name: only-errors set to true
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    env:
-      MLC_WORKFLOW_INFO_ARTIFACT : markdown-link-check-workflow-info
     steps:
     - name: Dump github co ntext for debug purposes
       env:
@@ -116,6 +114,18 @@ jobs:
         {
           Write-Output "Output Markdown file matches expected Markdown file."
         }
+  
+  only-errors-false:
+    name: only-errors set to true
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github co ntext for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
     - name: Run markdown link check log parser with only errors set to false
       id: mlc-log-parser-2
       uses: ./
@@ -205,6 +215,18 @@ jobs:
         {
           Write-Output "Output Markdown file matches expected Markdown file."
         }
+
+  md-step-output:
+    name: md step output
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github co ntext for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
     - name: Run markdown link check log parser with markdown step output
       id: mlc-log-parser-3
       uses: ./
@@ -255,8 +277,19 @@ jobs:
         {
           Write-Output "Markdown step output matches expected Markdown."
         }
+
+  default-args:
+    name: default args
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github co ntext for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
     - name: Run markdown link check log parser with default action args
-      id: mlc-log-parser-bad-input
       uses: ./
       with:
         auth-token:  '${{ secrets.GITHUB_TOKEN }}'
@@ -264,16 +297,18 @@ jobs:
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
-    - name: The action should fail the step if it encounters an error
-      run: |
-        $errorOutcome = '${{ steps.mlc-log-parser-bad-input.outcome }}'
-        if($errorOutcome -eq 'success') {
-          Write-Output "::error title=Action check:Action should have failed the workflow because of invalid input but it didn't."
-          Exit 1
-        }
-        else {
-          Write-Output "::notice title=Action check::Action would have failed the workflow given invalid input. You should see an error message on the action's Annotations."
-        }
+
+  test-failure:
+    name: test failure
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github co ntext for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
     - name: Run markdown link check log parser with bad input
       id: mlc-log-parser-bad-input
       uses: ./
@@ -307,6 +342,63 @@ jobs:
           description = Successful
           target_url = 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
           state = success
+        } | ConvertTo-Json -compress
+
+        Invoke-RestMethod -Method 'Post' -Uri $uri -Headers $headers -Body $body
+
+  pr-status:
+    name: Set PR status
+    needs: [
+      only-errors-true,
+      only-errors-false,
+      md-step-output,
+      default-args,
+      test-failure,
+    ]
+    if: github.event.workflow_run.event == 'pull_request' && always()
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github co ntext for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+    - name: Create GitHub status on PR
+      run: |
+        $onlyErrorsTrueJobResult = "${{ needs.only-errors-true.result }}"
+        $onlyErrorsFalseJobResult = "${{ needs.only-errors-false.result }}"
+        $mdStepOutputJobResult = "${{ needs.md-step-output.result }}"
+        $defaultArgsJobResult = "${{ needs.default-args.result }}"
+        $testFailureJobResult = "${{ needs.test-failure.result }}"
+
+        if ($onlyErrorsTrueJobResult -eq 'success'
+          && $onlyErrorsFalseJobResult -eq 'success'
+          && $mdStepOutputJobResult -eq 'success'
+          && $defaultArgsJobResult -eq 'success'
+          && $testFailureJobResult -eq 'success')
+        {
+          $description = 'Successful'
+          $state = 'success'
+        }
+        else
+        {
+          $description = 'Error'
+          $state = 'error'
+        }
+
+
+        $uri = "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_sha }}"
+        $headers = @{
+          Accept = "application/vnd.github.v3+json"
+          Authorization = "Bearer ${{ secrets.GITHUB_TOKEN }}"
+        }
+        $body = @{
+          context = '${{ github.workflow }} / ${{ github.event.workflow_run }} (${{ github.event_name }})' # mimic format from github
+          description = $description
+          target_url = 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+          state = $state
         } | ConvertTo-Json -compress
 
         Invoke-RestMethod -Method 'Post' -Uri $uri -Headers $headers -Body $body
