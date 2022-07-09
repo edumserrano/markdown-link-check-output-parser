@@ -3,6 +3,7 @@ function Main()
   [OutputType([Void])]
   param ([string[]] $inputArgs)
 
+  # Remove any arg that is empty or whitespace
   $argsAsList = [Collections.Generic.List[String]]::new()
   foreach ($arg in $inputArgs)
   {
@@ -20,8 +21,7 @@ function Main()
       exit $LASTEXITCODE
   }
   
-  Write-Output "::set-output name=mlc-result::$output"
-  
+  Write-Output "::set-output name=mlc-result::$output"  
 }
 
 # invoke entrypoint function
