@@ -52,6 +52,7 @@ The steps below show how to run the Docker container action against a set of tes
 
 ```
 docker run --rm -v ${pwd}:/workspace --workdir /workspace mlc-log-parser `
+parse-log `
 --auth-token <github token> `
 --repo <repo> `
 --run-id <run id> `
