@@ -291,12 +291,21 @@ jobs:
     - uses: actions/checkout@v3
     - name: Run markdown link check log parser with default action args
       uses: ./
+      id: mlc-log-parser-4
       with:
         auth-token:  '${{ secrets.GITHUB_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
+    - name: Dump outputs from previous step
+      run: |
+        $result = '${{ steps.mlc-log-parser-4.outputs.mlc-result }}' | ConvertFrom-Json
+        Write-Output "Total files checked: $($result.TotalFilesChecked)"
+        Write-Output "Total links chedked: $($result.TotalLinksChecked)"
+        Write-Output "Has erros: $($result.HasErrors)"
+        $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result 
+        Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
 
   test-failure:
     name: test failure
