@@ -8,6 +8,7 @@
 - Is triggered from a workflow that runs the `Markdown Link Check` which **has errors** in the log.
 - Contains a step that executes the GitHub action provided by this repo.
 - Checks that the output produced by the action is as expected.
-- Checks that action should have failed the workflow.
+- Checks that action should fail the workflow if the action fails.
+- If the workflow that triggered it was from a Pull Request, then upon completion it will update the PR with a status check.
 
 Since this workflow executes the [Docker container action](https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action) it will build and execute the docker container so if there are any issues with the action's [Dockerfile](/Dockerfile) this workflow will detect it.
