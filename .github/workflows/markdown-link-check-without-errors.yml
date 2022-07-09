@@ -19,8 +19,6 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    env:
-      WORKFLOW_INFO_ARTIFACT_FILEPATH: ${{github.workspace}}/markdown-link-check-workflow-info.json
     steps:
     - name: Dump github context for debug purposes
       env:
