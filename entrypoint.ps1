@@ -1,3 +1,4 @@
+Write-Output "Executing: dotnet '/app/MarkdownLinkCheckLogParserCli.dll' $args"
 $output = dotnet '/app/MarkdownLinkCheckLogParserCli.dll' $args
 
 if($LASTEXITCODE -ne 0 ) {
