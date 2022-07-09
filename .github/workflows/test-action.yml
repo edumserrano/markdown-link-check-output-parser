@@ -19,6 +19,8 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
+    env:
+      MLC_WORKFLOW_INFO_ARTIFACT : markdown-link-check-workflow-info
     steps:
     - name: Dump github co ntext for debug purposes
       env:
@@ -292,3 +294,19 @@ jobs:
         else {
           Write-Output "::notice title=Action check::Action would have failed the workflow given invalid input. You should see an error message on the action's Annotations."
         }
+    - name: Create GitHub status on PR
+      if: github.event.workflow_run.event == 'pull_request'
+      run: |
+        $uri = "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.workflow_run.head_sha }}"
+        $headers = @{
+          Accept = "application/vnd.github.v3+json"
+          Authorization = "Bearer ${{ secrets.GITHUB_TOKEN }}"
+        }
+        $body = @{
+          context = '${{ github.workflow }} / ${{ github.event.workflow_run }} (${{ github.event_name }})' # mimic format from github
+          description = Successful
+          target_url = 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+          state = success
+        } | ConvertTo-Json -compress
+
+        Invoke-RestMethod -Method 'Post' -Uri $uri -Headers $headers -Body $body
