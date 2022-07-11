@@ -307,8 +307,6 @@ jobs:
       uses: ./
       id: mlc-log-parser-4
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
-        repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'

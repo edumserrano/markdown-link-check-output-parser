@@ -7,9 +7,11 @@ inputs:
   auth-token:
     description: 'GitHub token used to access workflow run logs.'
     required: true
+    default: ${{ github.token }}
   repo:
     description: 'The repository for the workflow run in the format of {owner}/{repo}.'
     required: true
+    default: ${{ github.repository }}
   run-id:
     description: 'The unique identifier of the workflow run that contains the markdown link check step.'
     required: true
