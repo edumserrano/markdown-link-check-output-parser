@@ -3,7 +3,8 @@ function Main()
   [OutputType([Void])]
   param ([string[]] $inputArgs)
 
-  # Remove any arg that is empty or whitespace
+  # Remove any arg that is empty or whitespace. This removes empty strings that are passed from the action.yml.
+  # This is a workaround to deal with non-required action inputs when this script is called via the action.yml.
   $argsAsList = [Collections.Generic.List[String]]::new()
   foreach ($arg in $inputArgs)
   {
