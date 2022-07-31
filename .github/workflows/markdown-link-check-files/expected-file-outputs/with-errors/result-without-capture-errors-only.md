@@ -11,14 +11,6 @@
 <details>
 <summary><strong>Files</strong></summary>
 
-### .github/workflows/markdown-link-check-files/with-errors/without-errors.md
-
-| Links checked | Errors
-| --- | --- |
-| 1 | 0 |
-
----
-
 ### .github/workflows/markdown-link-check-files/with-errors/with-errors.md
 
 | Links checked | Errors
@@ -28,3 +20,11 @@
 | Link | Status code
 | --- | --- |
 | file:///github/workspace/docs/some-file.md | 400
+
+---
+  
+### .github/workflows/markdown-link-check-files/with-errors/without-errors.md
+
+| Links checked | Errors
+| --- | --- |
+| 1 | 0 |
