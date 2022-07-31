@@ -22,7 +22,7 @@
 | file:///github/workspace/docs/some-file.md | 400
 
 ---
-  
+
 ### .github/workflows/markdown-link-check-files/with-errors/without-errors.md
 
 | Links checked | Errors
