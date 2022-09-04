@@ -149,7 +149,7 @@ jobs:
     - name: Verify json step output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json -Raw
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
@@ -166,7 +166,7 @@ jobs:
     - name: Verify json step output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
@@ -362,7 +362,7 @@ jobs:
     - name: Verify json step output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json -Raw
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
@@ -379,7 +379,7 @@ jobs:
     - name: Verify json step output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
