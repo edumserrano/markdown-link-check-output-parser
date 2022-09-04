@@ -6,13 +6,6 @@
   "TotalErrors": 1,
   "Files": [
     {
-      "Filename": ".github/workflows/markdown-link-check-files/with-errors/without-errors.md",
-      "LinksChecked": 1,
-      "ErrorCount": 0,
-      "HasErrors": false,
-      "Errors": []
-    },
-    {
       "Filename": ".github/workflows/markdown-link-check-files/with-errors/with-errors.md",
       "LinksChecked": 2,
       "ErrorCount": 1,
@@ -23,6 +16,13 @@
           "StatusCode": 400
         }
       ]
+    },
+    {
+      "Filename": ".github/workflows/markdown-link-check-files/with-errors/without-errors.md",
+      "LinksChecked": 1,
+      "ErrorCount": 0,
+      "HasErrors": false,
+      "Errors": []
     }
   ]
 }

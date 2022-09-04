@@ -149,8 +149,12 @@ jobs:
     - name: Verify json step output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json -Raw
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        # Need to split the $stepOutput to an array of strings per line or I would have to add "-Raw" to the Get-Content call above.
+        # This is better because the Compare-Object below will present diffs by line instead and without this everything would be
+        # only 1 line, not great for diff results.
+        $stepOutput = $stepOutput.Split("`n")
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -166,8 +170,12 @@ jobs:
     - name: Verify json step output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        # Need to split the $stepOutput to an array of strings per line or I would have to add "-Raw" to the Get-Content call above.
+        # This is better because the Compare-Object below will present diffs by line instead and without this everything would be
+        # only 1 line, not great for diff results.
+        $stepOutput = $stepOutput.Split("`n")
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -362,8 +370,12 @@ jobs:
     - name: Verify json step output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json -Raw
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        # Need to split the $stepOutput to an array of strings per line or I would have to add "-Raw" to the Get-Content call above.
+        # This is better because the Compare-Object below will present diffs by line instead and without this everything would be
+        # only 1 line, not great for diff results.
+        $stepOutput = $stepOutput.Split("`n")
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -379,8 +391,12 @@ jobs:
     - name: Verify json step output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
-        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        # Need to split the $stepOutput to an array of strings per line or I would have to add "-Raw" to the Get-Content call above.
+        # This is better because the Compare-Object below will present diffs by line instead and without this everything would be
+        # only 1 line, not great for diff results.
+        $stepOutput = $stepOutput.Split("`n")
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
