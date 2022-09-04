@@ -14,7 +14,7 @@ internal class JsonConsoleOutputFormat : IOutputFormat
         output.NotNull();
         var serializeOptions = new JsonSerializerOptions
         {
-            WriteIndented = false,
+            WriteIndented = true,
         };
         var outputAsJson = JsonSerializer.Serialize(output, serializeOptions);
         await _console.Output.WriteLineAsync(outputAsJson);
