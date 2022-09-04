@@ -77,7 +77,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Run markdown link check log parser
       id: mlc-log-parser
-      uses: edumserrano/markdown-link-check-log-parser@v1.2
+      uses: edumserrano/markdown-link-check-log-parser@v1.3
       with:
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -92,7 +92,7 @@ jobs:
         Write-Output "Total files checked: $($result.TotalFilesChecked)"
         Write-Output "Total links chedked: $($result.TotalLinksChecked)"
         Write-Output "Has erros: $($result.HasErrors)"
-        $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result 
+        $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result
         Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
     - name: Dump JSON file output
       run: |
