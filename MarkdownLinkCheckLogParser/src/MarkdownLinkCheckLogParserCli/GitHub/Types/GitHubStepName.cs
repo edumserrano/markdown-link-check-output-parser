@@ -4,14 +4,14 @@ internal sealed class GitHubStepName
 {
     private readonly string _value;
 
-    public GitHubStepName(string gitHubStepName)
+    public GitHubStepName(string stepName)
     {
-        _value = gitHubStepName.NotNullOrWhiteSpace();
+        _value = stepName.NotNullOrWhiteSpace();
     }
 
-    public static implicit operator string(GitHubStepName gitHubAuthToken)
+    public static implicit operator string(GitHubStepName stepaName)
     {
-        return gitHubAuthToken._value;
+        return stepaName._value;
     }
 
     public override string ToString() => (string)this;

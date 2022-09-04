@@ -4,14 +4,14 @@ internal sealed class GitHubRunId
 {
     private readonly string _value;
 
-    public GitHubRunId(string gitHubRunId)
+    public GitHubRunId(string runId)
     {
-        _value = gitHubRunId.NotNullOrWhiteSpace();
+        _value = runId.NotNullOrWhiteSpace();
     }
 
-    public static implicit operator string(GitHubRunId gitHubAuthToken)
+    public static implicit operator string(GitHubRunId rundId)
     {
-        return gitHubAuthToken._value;
+        return rundId._value;
     }
 
     public override string ToString() => (string)this;

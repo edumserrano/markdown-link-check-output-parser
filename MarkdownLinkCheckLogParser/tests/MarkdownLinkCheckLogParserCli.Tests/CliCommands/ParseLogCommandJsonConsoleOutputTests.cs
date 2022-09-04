@@ -42,25 +42,25 @@ public class ParseLogCommandJsonConsoleOutputTests
         markdownLinkCheckOutputJson.Files.ShouldNotBeNull();
         markdownLinkCheckOutputJson.Files.Count.ShouldBe(13);
         // just going to check the first 2 out of 13 files
-        markdownLinkCheckOutputJson.Files[0].Filename.ShouldBe("./docs/dev-notes/workflows/pr-dotnet-format-check-workflow.md");
-        markdownLinkCheckOutputJson.Files[0].LinksChecked.ShouldBe(5);
-        markdownLinkCheckOutputJson.Files[0].ErrorCount.ShouldBe(2);
-        markdownLinkCheckOutputJson.Files[0].HasErrors.ShouldBeTrue();
-        markdownLinkCheckOutputJson.Files[0].Errors.ShouldNotBeNull();
-        markdownLinkCheckOutputJson.Files[0].Errors.Count.ShouldBe(2);
-        markdownLinkCheckOutputJson.Files[0].Errors[0].Link.ShouldBe("https://github.com/edumserrano/dotnet-sdk-extensions/actions/workflows/pr-dotnet-format-check.yml/badge.svg");
-        markdownLinkCheckOutputJson.Files[0].Errors[0].StatusCode.ShouldBe(404);
-        markdownLinkCheckOutputJson.Files[0].Errors[1].Link.ShouldBe("file:///github/workspace/.github/workflows/pr-dotnet-format-check.yml");
-        markdownLinkCheckOutputJson.Files[0].Errors[1].StatusCode.ShouldBe(400);
+        markdownLinkCheckOutputJson.Files[7].Filename.ShouldBe("./docs/dev-notes/workflows/pr-dotnet-format-check-workflow.md");
+        markdownLinkCheckOutputJson.Files[7].LinksChecked.ShouldBe(5);
+        markdownLinkCheckOutputJson.Files[7].ErrorCount.ShouldBe(2);
+        markdownLinkCheckOutputJson.Files[7].HasErrors.ShouldBeTrue();
+        markdownLinkCheckOutputJson.Files[7].Errors.ShouldNotBeNull();
+        markdownLinkCheckOutputJson.Files[7].Errors.Count.ShouldBe(2);
+        markdownLinkCheckOutputJson.Files[7].Errors[1].Link.ShouldBe("https://github.com/edumserrano/dotnet-sdk-extensions/actions/workflows/pr-dotnet-format-check.yml/badge.svg");
+        markdownLinkCheckOutputJson.Files[7].Errors[1].StatusCode.ShouldBe(404);
+        markdownLinkCheckOutputJson.Files[7].Errors[0].Link.ShouldBe("file:///github/workspace/.github/workflows/pr-dotnet-format-check.yml");
+        markdownLinkCheckOutputJson.Files[7].Errors[0].StatusCode.ShouldBe(400);
 
-        markdownLinkCheckOutputJson.Files[1].Filename.ShouldBe("./docs/dev-notes/workflows/pr-test-results-comment-workflow.md");
-        markdownLinkCheckOutputJson.Files[1].LinksChecked.ShouldBe(5);
-        markdownLinkCheckOutputJson.Files[1].ErrorCount.ShouldBe(1);
-        markdownLinkCheckOutputJson.Files[1].HasErrors.ShouldBeTrue();
-        markdownLinkCheckOutputJson.Files[1].Errors.ShouldNotBeNull();
-        markdownLinkCheckOutputJson.Files[1].Errors.Count.ShouldBe(1);
-        markdownLinkCheckOutputJson.Files[1].Errors[0].Link.ShouldBe("file:///github/workspace/.github/workflows/pr-pr-test-results-comment.yml");
-        markdownLinkCheckOutputJson.Files[1].Errors[0].StatusCode.ShouldBe(400);
+        markdownLinkCheckOutputJson.Files[9].Filename.ShouldBe("./docs/dev-notes/workflows/pr-test-results-comment-workflow.md");
+        markdownLinkCheckOutputJson.Files[9].LinksChecked.ShouldBe(5);
+        markdownLinkCheckOutputJson.Files[9].ErrorCount.ShouldBe(1);
+        markdownLinkCheckOutputJson.Files[9].HasErrors.ShouldBeTrue();
+        markdownLinkCheckOutputJson.Files[9].Errors.ShouldNotBeNull();
+        markdownLinkCheckOutputJson.Files[9].Errors.Count.ShouldBe(1);
+        markdownLinkCheckOutputJson.Files[9].Errors[0].Link.ShouldBe("file:///github/workspace/.github/workflows/pr-pr-test-results-comment.yml");
+        markdownLinkCheckOutputJson.Files[9].Errors[0].StatusCode.ShouldBe(400);
     }
 
     /// <summary>
@@ -100,19 +100,19 @@ public class ParseLogCommandJsonConsoleOutputTests
         markdownLinkCheckOutputJson.Files.ShouldNotBeNull();
         markdownLinkCheckOutputJson.Files.Count.ShouldBe(42);
         // just going to check the first 2 out of 42 files
-        markdownLinkCheckOutputJson.Files[7].Filename.ShouldBe("./docs/integration-tests/http-mocking-in-process.md");
-        markdownLinkCheckOutputJson.Files[7].LinksChecked.ShouldBe(9);
-        markdownLinkCheckOutputJson.Files[7].ErrorCount.ShouldBe(0);
-        markdownLinkCheckOutputJson.Files[7].HasErrors.ShouldBeFalse();
-        markdownLinkCheckOutputJson.Files[7].Errors.ShouldNotBeNull();
-        markdownLinkCheckOutputJson.Files[7].Errors.Count.ShouldBe(0);
+        markdownLinkCheckOutputJson.Files[23].Filename.ShouldBe("./docs/integration-tests/disable-logs-integration-tests.md");
+        markdownLinkCheckOutputJson.Files[23].LinksChecked.ShouldBe(2);
+        markdownLinkCheckOutputJson.Files[23].ErrorCount.ShouldBe(0);
+        markdownLinkCheckOutputJson.Files[23].HasErrors.ShouldBeFalse();
+        markdownLinkCheckOutputJson.Files[23].Errors.ShouldNotBeNull();
+        markdownLinkCheckOutputJson.Files[23].Errors.Count.ShouldBe(0);
 
-        markdownLinkCheckOutputJson.Files[8].Filename.ShouldBe("./docs/integration-tests/disable-logs-integration-tests.md");
-        markdownLinkCheckOutputJson.Files[8].LinksChecked.ShouldBe(2);
-        markdownLinkCheckOutputJson.Files[8].ErrorCount.ShouldBe(0);
-        markdownLinkCheckOutputJson.Files[8].HasErrors.ShouldBeFalse();
-        markdownLinkCheckOutputJson.Files[8].Errors.ShouldNotBeNull();
-        markdownLinkCheckOutputJson.Files[8].Errors.Count.ShouldBe(0);
+        markdownLinkCheckOutputJson.Files[26].Filename.ShouldBe("./docs/integration-tests/http-mocking-in-process.md");
+        markdownLinkCheckOutputJson.Files[26].LinksChecked.ShouldBe(9);
+        markdownLinkCheckOutputJson.Files[26].ErrorCount.ShouldBe(0);
+        markdownLinkCheckOutputJson.Files[26].HasErrors.ShouldBeFalse();
+        markdownLinkCheckOutputJson.Files[26].Errors.ShouldNotBeNull();
+        markdownLinkCheckOutputJson.Files[26].Errors.Count.ShouldBe(0);
     }
 
     /// <summary>

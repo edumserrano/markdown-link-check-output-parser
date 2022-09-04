@@ -4,14 +4,14 @@ internal sealed class GitHubRepository
 {
     private readonly string _value;
 
-    public GitHubRepository(string gitHubRepository)
+    public GitHubRepository(string repository)
     {
-        _value = gitHubRepository.NotNullOrWhiteSpace();
+        _value = repository.NotNullOrWhiteSpace();
     }
 
-    public static implicit operator string(GitHubRepository gitHubAuthToken)
+    public static implicit operator string(GitHubRepository repository)
     {
-        return gitHubAuthToken._value;
+        return repository._value;
     }
 
     public override string ToString() => (string)this;

@@ -252,12 +252,10 @@ jobs:
         step-name: 'Markdown Link Check'
         only-errors: 'false'
         output: 'step-md'
-        json-filepath: './mlc-json-result-3.json'
-        markdown-filepath: './mlc-md-result-3.md'
     - name: Dump outputs from previous step
       run: |
         Write-Output "${{ steps.mlc-log-parser-3.outputs.mlc-result }}"
-    - name: Verify md file output for mlc with errors
+    - name: Verify md step output for mlc with errors
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md -Raw
@@ -274,7 +272,7 @@ jobs:
         {
           Write-Output "Markdown step output matches expected Markdown."
         }
-    - name: Verify md file output for mlc without errors
+    - name: Verify md step output for mlc without errors
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md  -Raw

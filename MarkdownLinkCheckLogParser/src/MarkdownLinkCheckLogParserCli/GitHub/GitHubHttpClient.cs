@@ -9,7 +9,7 @@ internal class GitHubHttpClient
         _httpClient = httpClient.NotNull();
     }
 
-    public static HttpClient Create(GitHubAuthToken authToken)
+    public static HttpClient CreateHttpClient(GitHubAuthToken authToken)
     {
         authToken.NotNull();
         var httpClient = new HttpClient
@@ -18,7 +18,7 @@ internal class GitHubHttpClient
         };
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", authToken);
         httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/vnd.github.v3+json");
-        httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "markdown-link-check-log-parser");
+        httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "edumserrano/markdown-link-check-log-parser");
         return httpClient;
     }
 

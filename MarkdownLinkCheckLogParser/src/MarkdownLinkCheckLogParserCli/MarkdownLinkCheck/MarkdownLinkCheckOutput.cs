@@ -5,9 +5,10 @@ internal class MarkdownLinkCheckOutput
     public MarkdownLinkCheckOutput(IReadOnlyList<MarkdownFileCheck> files, bool captureErrorsOnly)
     {
         files.NotNull();
+        var orderedByFilename = files.OrderBy(x => x.Filename);
         Files = captureErrorsOnly
-            ? files.Where(x => x.HasErrors).ToList()
-            : files;
+            ? orderedByFilename.Where(x => x.HasErrors).ToList()
+            : orderedByFilename.ToList();
         TotalFilesChecked = files.Count;
         TotalLinksChecked = files.Sum(x => x.LinksChecked);
         TotalErrors = files.Sum(x => x.ErrorCount);

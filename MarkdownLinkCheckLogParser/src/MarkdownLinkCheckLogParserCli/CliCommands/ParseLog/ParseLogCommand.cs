@@ -83,7 +83,7 @@ public class ParseLogCommand : ICommand
             var outputMarkdownFilePath = new OutputMarkdownFilepathOption(OutputMarkdownFilepath);
             var outputFormats = OutputFormats.Create(outputOptions, _file, console, outputJsonFilePath, outputMarkdownFilePath);
 
-            using var httpClient = _httpClient ?? GitHubHttpClient.Create(authToken);
+            using var httpClient = _httpClient ?? GitHubHttpClient.CreateHttpClient(authToken);
             var gitHubHttpClient = new GitHubHttpClient(httpClient);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
             var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(repo, runId, jobName, stepName);

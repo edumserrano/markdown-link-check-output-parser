@@ -1,5 +1,7 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
+// This is part of the Visitor pattern implement to handle the parsing of each log line of the mlc output
+// This class would be equivalent to the IVisitor in this example https://refactoring.guru/design-patterns/visitor/csharp/example
 internal class ParserState
 {
     private MarkdownFileCheck? _current;

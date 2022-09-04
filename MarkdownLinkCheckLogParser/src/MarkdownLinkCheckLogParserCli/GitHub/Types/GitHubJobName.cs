@@ -4,14 +4,14 @@ internal sealed class GitHubJobName
 {
     private readonly string _value;
 
-    public GitHubJobName(string gitHubJobName)
+    public GitHubJobName(string jobName)
     {
-        _value = gitHubJobName.NotNullOrWhiteSpace();
+        _value = jobName.NotNullOrWhiteSpace();
     }
 
-    public static implicit operator string(GitHubJobName gitHubAuthToken)
+    public static implicit operator string(GitHubJobName jobName)
     {
-        return gitHubAuthToken._value;
+        return jobName._value;
     }
 
     public override string ToString() => (string)this;
