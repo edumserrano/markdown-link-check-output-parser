@@ -16,8 +16,8 @@ public class ParseLogCommandDependencyErrorTests
     [InlineData(HttpStatusCode.InternalServerError)]
     public async Task GitHubHttpClientFailsToDownloadLogs(HttpStatusCode gitHubHttpClientResponseStatusCode)
     {
-        var handler = new StatusCodeHandler(gitHubHttpClientResponseStatusCode);
-        var httpClient = new HttpClient(handler)
+        using var handler = new StatusCodeHandler(gitHubHttpClientResponseStatusCode);
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
@@ -50,8 +50,8 @@ Error:
     [Fact]
     public async Task ParseLogCommandJsonFileTest()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
@@ -88,8 +88,8 @@ Error:
     [Fact]
     public async Task ParseLogCommandMarkdownFileTest()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };

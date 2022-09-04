@@ -14,8 +14,8 @@ public class ParseLogCommandJsonFileOutputTests
     [Fact]
     public async Task ParseLogCommandJsonFileTest1()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
@@ -79,8 +79,8 @@ public class ParseLogCommandJsonFileOutputTests
     [InlineData("   ")]
     public async Task ParseLogCommandJsonFileTest2(string jsonFilepath)
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };

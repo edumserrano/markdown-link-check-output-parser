@@ -12,8 +12,8 @@ public class ParseLogCommandErrorTests
     [Fact]
     public async Task JobNameNotFound()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
@@ -44,8 +44,8 @@ Error:
     [Fact]
     public async Task StepNameNotFound()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
@@ -76,8 +76,8 @@ Error:
     [Fact]
     public async Task AmbiguousStepName()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-ambiguous-step.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-ambiguous-step.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
