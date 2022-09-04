@@ -31,11 +31,10 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var markdownLinkCheckOutputMd = console.ReadOutputString();
-        var expectedMarkdown = NormalizedLineEndingsFileReader
-            .ReadAllText("./TestFiles/output-with-errors-capture-errors-only.md")
-            .Replace("\n", "%0A", StringComparison.InvariantCulture)
-            .Replace("\r", "%0D", StringComparison.InvariantCulture);
+        var markdownLinkCheckOutputMd = console
+            .ReadOutputString()
+            .UnEscapeGitHubStepOutput();
+        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-with-errors-capture-errors-only.md");
         markdownLinkCheckOutputMd.ShouldBe(expectedMarkdown);
     }
 
@@ -65,11 +64,10 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var markdownLinkCheckOutputMd = console.ReadOutputString();
-        var expectedMarkdown = NormalizedLineEndingsFileReader
-            .ReadAllText("./TestFiles/output-with-errors-all-files.md")
-            .Replace("\n", "%0A", StringComparison.InvariantCulture)
-            .Replace("\r", "%0D", StringComparison.InvariantCulture);
+        var markdownLinkCheckOutputMd = console
+            .ReadOutputString()
+            .UnEscapeGitHubStepOutput();
+        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-with-errors-all-files.md");
         markdownLinkCheckOutputMd.ShouldBe(expectedMarkdown);
     }
 
@@ -100,11 +98,10 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var markdownLinkCheckOutputMd = console.ReadOutputString();
-        var expectedMarkdown = NormalizedLineEndingsFileReader
-            .ReadAllText("./TestFiles/output-without-errors.md")
-            .Replace("\n", "%0A", StringComparison.InvariantCulture)
-            .Replace("\r", "%0D", StringComparison.InvariantCulture);
+        var markdownLinkCheckOutputMd = console
+            .ReadOutputString()
+            .UnEscapeGitHubStepOutput();
+        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-without-errors.md");
         markdownLinkCheckOutputMd.ShouldBe(expectedMarkdown);
     }
 }

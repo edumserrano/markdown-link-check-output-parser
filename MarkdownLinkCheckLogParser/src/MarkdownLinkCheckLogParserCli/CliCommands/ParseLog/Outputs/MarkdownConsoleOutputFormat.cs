@@ -17,8 +17,7 @@ internal class MarkdownConsoleOutputFormat : IOutputFormat
         // See https://github.community/t/set-output-truncates-multiline-strings/16852/3
         var markdownText = output
             .ToMarkdownText()
-            .Replace("\n", "%0A", StringComparison.InvariantCulture)
-            .Replace("\r", "%0D", StringComparison.InvariantCulture);
+            .EscapeGitHubStepOutput();
         await _console.Output.WriteAsync(markdownText);
     }
 }

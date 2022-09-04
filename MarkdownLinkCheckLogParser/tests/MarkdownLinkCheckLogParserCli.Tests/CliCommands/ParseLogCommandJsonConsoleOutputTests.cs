@@ -30,7 +30,9 @@ public class ParseLogCommandJsonConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var output = console.ReadOutputString();
+        var output = console
+            .ReadOutputString()
+            .UnEscapeGitHubStepOutput();
 
         var markdownLinkCheckOutputJson = JsonSerializer.Deserialize<MarkdownLinkCheckOutputJsonModel>(output);
         markdownLinkCheckOutputJson.ShouldNotBeNull();
@@ -88,7 +90,9 @@ public class ParseLogCommandJsonConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var output = console.ReadOutputString();
+        var output = console
+            .ReadOutputString()
+            .UnEscapeGitHubStepOutput();
 
         var markdownLinkCheckOutputJson = JsonSerializer.Deserialize<MarkdownLinkCheckOutputJsonModel>(output);
         markdownLinkCheckOutputJson.ShouldNotBeNull();
@@ -141,7 +145,9 @@ public class ParseLogCommandJsonConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var output = console.ReadOutputString();
+        var output = console
+            .ReadOutputString()
+            .UnEscapeGitHubStepOutput();
 
         var markdownLinkCheckOutputJson = JsonSerializer.Deserialize<MarkdownLinkCheckOutputJsonModel>(output);
         markdownLinkCheckOutputJson.ShouldNotBeNull();
