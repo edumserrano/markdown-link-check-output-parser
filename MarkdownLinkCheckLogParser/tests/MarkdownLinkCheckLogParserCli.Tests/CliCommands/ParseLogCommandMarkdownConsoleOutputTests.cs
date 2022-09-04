@@ -14,8 +14,8 @@ public class ParseLogCommandMarkdownConsoleOutputTests
     [Fact]
     public async Task ParseLogCommandMarkdownConsoleTest1()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
@@ -46,8 +46,8 @@ public class ParseLogCommandMarkdownConsoleOutputTests
     [Fact]
     public async Task ParseLogCommandMarkdownConsoleTest2()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
@@ -81,8 +81,8 @@ public class ParseLogCommandMarkdownConsoleOutputTests
     [Fact]
     public async Task ParseLogCommandMarkdownConsoleTest3()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-without-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-without-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };

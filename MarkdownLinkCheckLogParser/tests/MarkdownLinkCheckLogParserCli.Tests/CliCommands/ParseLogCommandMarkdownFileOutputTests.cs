@@ -14,16 +14,16 @@ public class ParseLogCommandMarkdownFileOutputTests
     [Fact]
     public async Task ParseLogCommandMarkdownFileTest1()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
         const string mdFilepath = "output.md";
         var file = Substitute.For<IFile>();
-        var markdownMemoryStream = new MemoryStream();
+        using var markdownMemoryStream = new MemoryStream();
         file.CreateFileStreamWriter(Arg.Any<string>())
-            .Returns(new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
+            .Returns(_ => new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
         var command = new ParseLogCommand(httpClient, file)
         {
             AuthToken = "auth-token",
@@ -40,7 +40,7 @@ public class ParseLogCommandMarkdownFileOutputTests
 
         consoleOutput.ShouldBeNullOrEmpty();
         markdownMemoryStream.Seek(0, SeekOrigin.Begin);
-        var markdownStreamReader = new StreamReader(markdownMemoryStream);
+        using var markdownStreamReader = new StreamReader(markdownMemoryStream);
         var markdownAsString = await markdownStreamReader.ReadToEndAsync();
         var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-with-errors-capture-errors-only.md");
         markdownAsString.ShouldBe(expectedMarkdown);
@@ -54,16 +54,16 @@ public class ParseLogCommandMarkdownFileOutputTests
     [Fact]
     public async Task ParseLogCommandMarkdownFileTest2()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
         const string mdFilepath = "output.md";
         var file = Substitute.For<IFile>();
-        var markdownMemoryStream = new MemoryStream();
+        using var markdownMemoryStream = new MemoryStream();
         file.CreateFileStreamWriter(Arg.Any<string>())
-            .Returns(new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
+            .Returns(_ => new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
         var command = new ParseLogCommand(httpClient, file)
         {
             AuthToken = "auth-token",
@@ -81,7 +81,7 @@ public class ParseLogCommandMarkdownFileOutputTests
 
         consoleOutput.ShouldBeNullOrEmpty();
         markdownMemoryStream.Seek(0, SeekOrigin.Begin);
-        var markdownStreamReader = new StreamReader(markdownMemoryStream);
+        using var markdownStreamReader = new StreamReader(markdownMemoryStream);
         var markdownAsString = await markdownStreamReader.ReadToEndAsync();
         var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-with-errors-all-files.md");
         markdownAsString.ShouldBe(expectedMarkdown);
@@ -95,16 +95,16 @@ public class ParseLogCommandMarkdownFileOutputTests
     [Fact]
     public async Task ParseLogCommandMarkdownFileTest3()
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-without-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-without-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };
         const string mdFilepath = "output.md";
         var file = Substitute.For<IFile>();
-        var markdownMemoryStream = new MemoryStream();
+        using var markdownMemoryStream = new MemoryStream();
         file.CreateFileStreamWriter(Arg.Any<string>())
-            .Returns(new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
+            .Returns(_ => new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
         var command = new ParseLogCommand(httpClient, file)
         {
             AuthToken = "auth-token",
@@ -121,7 +121,7 @@ public class ParseLogCommandMarkdownFileOutputTests
 
         consoleOutput.ShouldBeNullOrEmpty();
         markdownMemoryStream.Seek(0, SeekOrigin.Begin);
-        var markdownStreamReader = new StreamReader(markdownMemoryStream);
+        using var markdownStreamReader = new StreamReader(markdownMemoryStream);
         var markdownAsString = await markdownStreamReader.ReadToEndAsync();
         var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-without-errors.md");
         markdownAsString.ShouldBe(expectedMarkdown);
@@ -135,8 +135,8 @@ public class ParseLogCommandMarkdownFileOutputTests
     [InlineData("   ")]
     public async Task ParseLogCommandMarkdownFileTest4(string markdownFilepath)
     {
-        var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
-        var httpClient = new HttpClient(handler)
+        using var handler = new InMemoryGitHubWorkflowRunHandler("./TestFiles/logs-with-errors.zip");
+        using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
         };

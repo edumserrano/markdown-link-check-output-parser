@@ -1,7 +1,7 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.CliCommands;
 
 /// <summary>
-/// These tests check the default values for the the <see cref="ParseLogCommand"/>.
+/// These tests check the default values for the <see cref="ParseLogCommand"/>.
 /// </summary>
 [Trait("Category", XUnitCategories.Validation)]
 public class ParseLogCommandOptionDefaultsTests
