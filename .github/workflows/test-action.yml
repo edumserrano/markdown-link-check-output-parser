@@ -150,7 +150,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json -Raw
-        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -167,7 +167,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json  -Raw
-        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -242,7 +242,7 @@ jobs:
         }
 
   only-errors-false-files-output:
-    name: only-errors set to false
+    name: only-errors set to false - files output
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -363,7 +363,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check with errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json -Raw
-        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -380,7 +380,7 @@ jobs:
       if: github.event.workflow_run.name == 'Markdown Link Check without errors'
       run: |
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json  -Raw
-        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
