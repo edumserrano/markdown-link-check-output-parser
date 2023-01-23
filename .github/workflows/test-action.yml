@@ -579,13 +579,13 @@ jobs:
         $testFailureJobResult = '${{ needs.test-failure.result }}'
 
         if ($onlyErrorsTrueFilesOutputJobResult -eq 'success' `
-            && $onlyErrorsTrueJsonStepOutputJobResult -eq 'success' `
-            && $onlyErrorsTrueMdStepOutputJobResult -eq 'success' `
-            && $onlyErrorsFalseFilesOutputJobResult -eq 'success' `
-            && $onlyErrorsFalseJsonStepOutputJobResult -eq 'success' `
-            && $onlyErrorsFalseMdStepOutputJobResult -eq 'success' `
-            && $defaultArgsJobResult -eq 'success' `
-            && $testFailureJobResult -eq 'success')
+            -and $onlyErrorsTrueJsonStepOutputJobResult -eq 'success' `
+            -and $onlyErrorsTrueMdStepOutputJobResult -eq 'success' `
+            -and $onlyErrorsFalseFilesOutputJobResult -eq 'success' `
+            -and $onlyErrorsFalseJsonStepOutputJobResult -eq 'success' `
+            -and $onlyErrorsFalseMdStepOutputJobResult -eq 'success' `
+            -and $defaultArgsJobResult -eq 'success' `
+            -and $testFailureJobResult -eq 'success')
         {
           $description = 'Successful'
           $state = 'success'
