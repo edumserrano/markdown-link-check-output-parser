@@ -42,7 +42,7 @@ outputs:
     description: 'The result from the Markdown Link Check action in JSON format.'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/edumserrano/markdown-link-check-log-parser:main'
+  image: '../Dockerfile'
   args:
     - parse-log
     - --auth-token
