@@ -31,11 +31,9 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var markdownLinkCheckOutputMd = console
-            .ReadOutputString()
-            .UnEscapeGitHubStepOutput();
-        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-with-errors-capture-errors-only.md");
-        markdownLinkCheckOutputMd.ShouldBe(expectedMarkdown);
+        var markdownLinkCheckOutputMd = console.ReadOutputString();
+        var expectedMarkdown = File.ReadAllText("./TestFiles/output-with-errors-capture-errors-only.md");
+        markdownLinkCheckOutputMd.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 
     /// <summary>
@@ -64,11 +62,9 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var markdownLinkCheckOutputMd = console
-            .ReadOutputString()
-            .UnEscapeGitHubStepOutput();
-        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-with-errors-all-files.md");
-        markdownLinkCheckOutputMd.ShouldBe(expectedMarkdown);
+        var markdownLinkCheckOutputMd = console.ReadOutputString();
+        var expectedMarkdown = File.ReadAllText("./TestFiles/output-with-errors-all-files.md");
+        markdownLinkCheckOutputMd.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 
     /// <summary>
@@ -98,10 +94,8 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         };
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
-        var markdownLinkCheckOutputMd = console
-            .ReadOutputString()
-            .UnEscapeGitHubStepOutput();
-        var expectedMarkdown = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/output-without-errors.md");
-        markdownLinkCheckOutputMd.ShouldBe(expectedMarkdown);
+        var markdownLinkCheckOutputMd = console.ReadOutputString();
+        var expectedMarkdown = File.ReadAllText("./TestFiles/output-without-errors.md");
+        markdownLinkCheckOutputMd.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 }

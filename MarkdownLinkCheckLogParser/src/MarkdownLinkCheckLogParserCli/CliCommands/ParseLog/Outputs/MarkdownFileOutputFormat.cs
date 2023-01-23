@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
 
-internal class MarkdownFileOutputFormat : IOutputFormat
+internal sealed class MarkdownFileOutputFormat : IOutputFormat
 {
     private readonly IFile _file;
     private readonly OutputMarkdownFilepath _filepath;

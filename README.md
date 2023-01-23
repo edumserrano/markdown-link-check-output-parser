@@ -77,7 +77,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Run markdown link check log parser
       id: mlc-log-parser
-      uses: edumserrano/markdown-link-check-log-parser@v1.3.0
+      uses: edumserrano/markdown-link-check-log-parser@v1
       with:
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'

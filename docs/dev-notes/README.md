@@ -35,7 +35,7 @@
 1) Clone the repo and open the **MarkdownLinkCheckLogParser.sln** solution file at `/MarkdownLinkCheckLogParser`.
 2) Go to the test explorer in Visual Studio and run tests.
 
-**Note:** [Remote testing](https://docs.microsoft.com/en-us/visualstudio/test/remote-testing?view=vs-2022) with WSL is configured on the solution which enables you to run the tests locally on Linux or on Windows. You can view the configuration file at [testenvironments.json](/MarkdownLinkCheckLogParser/testenvironments.json). To run the tests on Linux you need to have at least `Visual Studio 2022` and the Linux distro `Ubuntu-20.04` installed on [WSL](https://docs.microsoft.com/en-us/windows/wsl/install).
+**Note:** [Remote testing](https://docs.microsoft.com/en-us/visualstudio/test/remote-testing?view=vs-2022) with WSL is configured on the solution which enables you to run the tests locally on Linux or on Windows. You can view the configuration file at [testenvironments.json](/MarkdownLinkCheckLogParser/testenvironments.json). To run the tests on Linux you need to have at least `Visual Studio 2022` and the Linux distro `Ubuntu-22.04` installed on [WSL](https://docs.microsoft.com/en-us/windows/wsl/install).
 
 ### Run tests with dotnet CLI
 
@@ -99,9 +99,9 @@ To understand better how the action builds and executes the Docker container loo
 ### As of writing this, the log for building the docker action looks as follows
 
 ```
-/usr/bin/docker build 
--t 4cd98f:236c6972581e50e94bc7f786208c8965 
--f "/home/runner/work/markdown-link-check-log-parser/markdown-link-check-log-parser/v1/Dockerfile" 
+/usr/bin/docker build
+-t 4cd98f:236c6972581e50e94bc7f786208c8965
+-f "/home/runner/work/markdown-link-check-log-parser/markdown-link-check-log-parser/v1/Dockerfile"
 "/home/runner/work/_actions/edumserrano/markdown-link-check-log-parser/v1"
 ```
 
@@ -143,7 +143,7 @@ This way it can successfully build the Dockerfile for this action which would ot
 -v "/home/runner/work/_temp/_github_home":"/github/home"
 -v "/home/runner/work/_temp/_github_workflow":"/github/workflow"
 -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands"
--v "/home/runner/work/markdown-link-check-log-parser/markdown-link-check-log-parser":"/github/workspace" 
+-v "/home/runner/work/markdown-link-check-log-parser/markdown-link-check-log-parser":"/github/workspace"
 4cd98f:236c6972581e50e94bc7f786208c8965 <action input parameters>
 
 ```

@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.Files;
 
-internal class OutputFile : IFile
+internal sealed class OutputFile : IFile
 {
     public StreamWriter CreateFileStreamWriter(string filename)
     {

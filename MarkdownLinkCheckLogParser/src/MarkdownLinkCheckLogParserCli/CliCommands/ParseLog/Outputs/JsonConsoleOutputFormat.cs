@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
 
-internal class JsonConsoleOutputFormat : IOutputFormat
+internal sealed class JsonConsoleOutputFormat : IOutputFormat
 {
     private readonly IConsole _console;
 
@@ -16,9 +16,7 @@ internal class JsonConsoleOutputFormat : IOutputFormat
         {
             WriteIndented = true,
         };
-        var outputAsJson = JsonSerializer
-            .Serialize(output, serializeOptions)
-            .EscapeGitHubStepOutput();
+        var outputAsJson = JsonSerializer.Serialize(output, serializeOptions);
         await _console.Output.WriteLineAsync(outputAsJson);
     }
 }

@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.GitHub;
 
-internal class GitHubWorkflowRunLogs
+internal sealed class GitHubWorkflowRunLogs
 {
     private readonly GitHubHttpClient _gitHubHttpClient;
 

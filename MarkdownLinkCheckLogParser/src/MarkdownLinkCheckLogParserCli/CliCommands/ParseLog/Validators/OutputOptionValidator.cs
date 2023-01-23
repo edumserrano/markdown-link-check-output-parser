@@ -1,7 +1,7 @@
 namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Validators;
 
 #pragma warning disable CA1812 // Avoid uninstantiated internal classes. Referenced via typeof(OutputOptionValidator) usage
-internal class OutputOptionValidator : BindingValidator<string>
+internal sealed class OutputOptionValidator : BindingValidator<string>
 {
     public override BindingValidationError? Validate(string? value)
     {

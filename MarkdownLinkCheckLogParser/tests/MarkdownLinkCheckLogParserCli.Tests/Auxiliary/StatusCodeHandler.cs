@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.Auxiliary;
 
-internal class StatusCodeHandler : DelegatingHandler
+internal sealed class StatusCodeHandler : DelegatingHandler
 {
     private readonly HttpStatusCode _statusCode;
 

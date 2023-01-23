@@ -13,16 +13,20 @@ function Main()
       $argsAsList.Add($arg)
     }
   }
-  
+
   Write-Output "Executing: dotnet '/app/MarkdownLinkCheckLogParserCli.dll' $argsAsList"
   $output = dotnet '/app/MarkdownLinkCheckLogParserCli.dll' $argsAsList
-  
+
   if($LASTEXITCODE -ne 0 ) {
       Write-Output "::error::Markdown link check log parser didn't complete successfully. See the step's log for more details."
       exit $LASTEXITCODE
   }
-  
-  Write-Output "::set-output name=mlc-result::$output"  
+
+  $random = Get-Random
+  $delimiter = "EOF_$random"
+  Write-Output "mlc-result<<$delimiter" >> $env:GITHUB_OUTPUT
+  Write-Output $output >> $env:GITHUB_OUTPUT
+  Write-Output $delimiter >> $env:GITHUB_OUTPUT
 }
 
 # invoke entrypoint function

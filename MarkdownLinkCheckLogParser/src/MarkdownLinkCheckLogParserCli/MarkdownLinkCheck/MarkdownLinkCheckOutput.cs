@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
-internal class MarkdownLinkCheckOutput
+internal sealed class MarkdownLinkCheckOutput
 {
     public MarkdownLinkCheckOutput(IReadOnlyList<MarkdownFileCheck> files, bool captureErrorsOnly)
     {
