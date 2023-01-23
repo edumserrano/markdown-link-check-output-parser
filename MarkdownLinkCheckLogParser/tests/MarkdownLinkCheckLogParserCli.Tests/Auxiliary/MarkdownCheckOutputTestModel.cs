@@ -1,7 +1,7 @@
 namespace MarkdownLinkCheckLogParserCli.Tests.Auxiliary;
 
 #pragma warning disable CA1812 // Avoid uninstantiated internal classes. Referenced via JsonSerializer.Deserialize<MarkdownLinkCheckOutputJsonModel> usage
-internal class MarkdownLinkCheckOutputJsonModel
+internal sealed class MarkdownLinkCheckOutputJsonModel
 {
     public MarkdownLinkCheckOutputJsonModel()
     {
@@ -21,7 +21,7 @@ internal class MarkdownLinkCheckOutputJsonModel
     public List<MarkdownFileCheckJsonModel> Files { get; set; }
 }
 
-internal class MarkdownFileCheckJsonModel
+internal sealed class MarkdownFileCheckJsonModel
 {
     public MarkdownFileCheckJsonModel()
     {
@@ -39,7 +39,7 @@ internal class MarkdownFileCheckJsonModel
     public List<MarkdownLinkErrorJsonModel> Errors { get; set; }
 }
 
-internal class MarkdownLinkErrorJsonModel
+internal sealed class MarkdownLinkErrorJsonModel
 {
     public string? Link { get; set; }
 

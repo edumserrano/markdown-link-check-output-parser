@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.GitHub;
 
-internal class GitHubStepLog
+internal sealed class GitHubStepLog
 {
     private readonly Memory<char> _log;
 

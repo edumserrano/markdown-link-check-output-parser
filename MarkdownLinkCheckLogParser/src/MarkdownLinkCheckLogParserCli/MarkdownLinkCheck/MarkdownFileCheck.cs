@@ -1,6 +1,6 @@
 namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
-internal class MarkdownFileCheck
+internal sealed class MarkdownFileCheck
 {
     private readonly List<MarkdownLinkError> _errors;
 
@@ -28,4 +28,4 @@ internal class MarkdownFileCheck
     }
 }
 
-internal record MarkdownLinkError(string Link, int StatusCode);
+internal sealed record MarkdownLinkError(string Link, int StatusCode);

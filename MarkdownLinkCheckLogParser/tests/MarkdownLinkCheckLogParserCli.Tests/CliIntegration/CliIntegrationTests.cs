@@ -166,8 +166,8 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-auth-token-validation.txt");
-        error.ShouldBe(error);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-auth-token-validation.txt");
+        error.ShouldBeWithNormalizedNewlines(error);
     }
 
     /// <summary>
@@ -193,8 +193,8 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-repo-validation.txt");
-        error.ShouldBe(expectedError);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-repo-validation.txt");
+        error.ShouldBeWithNormalizedNewlines(expectedError);
     }
 
     /// <summary>
@@ -220,8 +220,8 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-run-id-validation.txt");
-        error.ShouldBe(expectedError);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-run-id-validation.txt");
+        error.ShouldBeWithNormalizedNewlines(expectedError);
     }
 
     /// <summary>
@@ -247,8 +247,8 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-job-name-validation.txt");
-        error.ShouldBe(expectedError);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-job-name-validation.txt");
+        error.ShouldBeWithNormalizedNewlines(expectedError);
     }
 
     /// <summary>
@@ -274,8 +274,8 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-step-name-validation.txt");
-        error.ShouldBe(expectedError);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-step-name-validation.txt");
+        error.ShouldBeWithNormalizedNewlines(expectedError);
     }
 
     /// <summary>
@@ -303,8 +303,8 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-output-validation1.txt");
-        error.ShouldBe(expectedError);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-output-validation1.txt");
+        error.ShouldBeWithNormalizedNewlines(expectedError);
     }
 
     /// <summary>
@@ -330,8 +330,8 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-output-validation2.txt");
-        error.ShouldBe(expectedError);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-output-validation2.txt");
+        error.ShouldBeWithNormalizedNewlines(expectedError);
     }
 
     /// <summary>
@@ -357,7 +357,7 @@ public class CliIntegrationTests
         };
         await app.RunAsync(args);
         var error = console.ReadErrorString();
-        var expectedError = NormalizedLineEndingsFileReader.ReadAllText("./TestFiles/cli-output-error-output-validation3.txt");
-        error.ShouldBe(expectedError);
+        var expectedError = File.ReadAllText("./TestFiles/cli-output-error-output-validation3.txt");
+        error.ShouldBeWithNormalizedNewlines(expectedError);
     }
 }
