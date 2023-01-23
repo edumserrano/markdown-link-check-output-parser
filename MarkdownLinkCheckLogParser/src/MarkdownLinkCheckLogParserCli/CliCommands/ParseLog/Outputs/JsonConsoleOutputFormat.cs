@@ -16,9 +16,7 @@ internal sealed class JsonConsoleOutputFormat : IOutputFormat
         {
             WriteIndented = true,
         };
-        var outputAsJson = JsonSerializer
-            .Serialize(output, serializeOptions)
-            .EscapeGitHubStepOutput();
+        var outputAsJson = JsonSerializer.Serialize(output, serializeOptions);
         await _console.Output.WriteLineAsync(outputAsJson);
     }
 }
