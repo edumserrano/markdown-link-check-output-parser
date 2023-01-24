@@ -152,9 +152,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -173,9 +173,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -220,9 +220,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -241,9 +241,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -381,9 +381,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -402,9 +402,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -449,9 +449,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
@@ -470,9 +470,9 @@ jobs:
         # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
         # everything would be only 1 line, not great for diff results.
         $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md -Raw
-        $file = $file.Split("`n")
+        $file = $file.Split([System.Environment]::NewLine)
         $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
-        $stepOutput = $stepOutput.Split("`n")
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
         $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
         Write-Output $compareResult
         Write-Output ''
