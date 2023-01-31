@@ -79,7 +79,7 @@ jobs:
       id: mlc-log-parser
       uses: edumserrano/markdown-link-check-log-parser@v1
       with:
-        auth-token: <token with repo scope, see docs below>
+        auth-token: <token with repo scope, see action inputs section below>
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
