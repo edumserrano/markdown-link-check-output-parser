@@ -27,7 +27,7 @@ This workflow uses a custom secret `TEST_GITHUB_ACTION_GH_TOKEN`. This secret co
 
 > **Note**
 >
-> Before the `GITHUB_TOKEN` from the workflow run was enough, there was no need for a custom token. However, around the time for commit, the app started failing due to a `500` when downloading workflow run logs using the `GITHUB_TOKEN`.
+> Before the `GITHUB_TOKEN` from the workflow run was enough, there was no need for a custom token. However, around the time of commit 42bd774ebbf09450a4e7a2dcad33cc17995aa5af, the app started failing due to a `500` when downloading workflow run logs using the `GITHUB_TOKEN`.
 >
 > Couldn't find any information as to what might have changed in GitHub to cause this so I decided to fix the problem using a custom token. However, in the future, I might try again using the `GITHUB_TOKEN` to see if the problem has been remediated.
 
