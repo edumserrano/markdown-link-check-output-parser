@@ -39,6 +39,8 @@ jobs:
 
   only-errors-true-files-output:
     name: only-errors set to true - files output
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
     - name: Dump github context for debug purposes
@@ -52,7 +54,7 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        auth-token: '${{ secrets.TEST_ACTION_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
