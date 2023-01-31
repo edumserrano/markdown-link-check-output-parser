@@ -13,6 +13,15 @@ defaults:
   run:
     shell: pwsh
 
+env:
+  # Need to checkout the same commit from the workflow run that triggered this workflow.
+  # By default the checkout step gets the latest from master but that's not what we want.
+  # Without checking out the workflow run head sha the errors that we get into are like:
+  # - Create a PR, that will run the workflows that trigger this one but then, instead of
+  # checking commit from the PR, we get the commit from master. This would mean we would
+  # run this workflow which builds the docker image and runs tests using the incorrect commit.
+  WORKFLOW_HEAD_SHA : ${{ github.event.workflow_run.head_sha }}
+
 jobs:
   trigger-info:
     name: Trigger info
@@ -39,6 +48,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with only errors set to true
       id: mlc-log-parser
       uses: ./action-local
@@ -132,6 +143,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with only errors set to true
       id: mlc-log-parser
       uses: ./action-local
@@ -200,6 +213,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with markdown step output
       id: mlc-log-parser
       uses: ./action-local
@@ -268,6 +283,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with only errors set to false
       id: mlc-log-parser
       uses: ./action-local
@@ -361,6 +378,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with only errors set to false
       id: mlc-log-parser
       uses: ./action-local
@@ -429,6 +448,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with markdown step output
       id: mlc-log-parser
       uses: ./action-local
@@ -497,6 +518,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with default action args
       uses: ./action-local
       id: mlc-log-parser
@@ -524,6 +547,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with bad input
       id: mlc-log-parser-bad-input
       uses: ./action-local
@@ -566,7 +591,6 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: $env:GITHUB_CONTEXT
-    - uses: actions/checkout@v3
     - name: Create GitHub status on PR
       run: |
         $onlyErrorsTrueFilesOutputJobResult = '${{ needs.only-errors-true-files-output.result }}'
