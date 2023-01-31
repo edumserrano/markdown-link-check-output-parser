@@ -16,7 +16,7 @@ public class ParseLogCommandDependencyErrorTests
     [InlineData(HttpStatusCode.InternalServerError)]
     public async Task GitHubHttpClientFailsToDownloadLogs(HttpStatusCode gitHubHttpClientResponseStatusCode)
     {
-        var errorResponseBody = "Oops, something went wrong.";
+        const string errorResponseBody = "Oops, something went wrong.";
         using var handler = new StatusCodeHandler(gitHubHttpClientResponseStatusCode, errorResponseBody);
         using var httpClient = new HttpClient(handler)
         {
