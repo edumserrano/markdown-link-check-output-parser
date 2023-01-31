@@ -39,8 +39,6 @@ jobs:
 
   only-errors-true-files-output:
     name: only-errors set to true - files output
-    permissions:
-      contents: read
     runs-on: ubuntu-latest
     steps:
     - name: Dump github context for debug purposes
