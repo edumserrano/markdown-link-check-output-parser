@@ -54,7 +54,7 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token: '${{ secrets.TEST_ACTION_TOKEN }}'
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -149,7 +149,7 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -219,7 +219,7 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -289,7 +289,7 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -384,7 +384,7 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -454,7 +454,7 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -554,7 +554,7 @@ jobs:
       uses: ./action-local
       continue-on-error: true
       with:
-        auth-token:  '${{ secrets.GITHUB_TOKEN }}'
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '1' # invalid run id
         job-name: 'Run Markdown Link Check'
