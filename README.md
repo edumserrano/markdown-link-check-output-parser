@@ -79,6 +79,7 @@ jobs:
       id: mlc-log-parser
       uses: edumserrano/markdown-link-check-log-parser@v1
       with:
+        auth-token: <token with repo scope, see docs below>
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
@@ -115,7 +116,7 @@ Error:
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
 | Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description                                                                                                                                               | Required | Default                                  |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------- |
-| `auth-token`                                                                                                                                                                        | GitHub token used to access workflow run logs (GITHUB_TOKEN or a repo scoped PAT)                                                                         | yes      | `github.token` (job token)               |
+| `auth-token`                                                                                                                                                                        | GitHub token used to access workflow run logs (GITHUB_TOKEN or a repo scoped PAT). See warning below.                                                                         | yes      | `github.token` (job token)               |
 | `repo`                                                                                                                                                                              | The full name of the repository for the workflow run in the format of {owner}/{repo}.                                                                     | yes      | `github.repository` (current repository) |
 | `run-id`                                                                                                                                                                            | The unique identifier of the workflow run that contains the markdown link check step.                                                                     | yes      | ---                                      |
 | `job-name`                                                                                                                                                                          | The name of the job that contains the markdown link check step.                                                                                           | yes      | ---                                      |
@@ -124,6 +125,10 @@ Error:
 | `output`                                                                                                                                                                            | How to output the markdown file check result. It must be one of or a comma separated list of the following values: step-json, step-md file-json, file-md. | no       | `step-json`                              |
 | `json-filepath`                                                                                                                                                                     | The filepath for the output JSON file, relative to the github workspace folder.                                                                           | no       | ---                                      |
 | `markdown-filepath`                                                                                                                                                                 | The filepath for the output markdown file, relative to the github workspace folder.                                                                       | no       | ---                                      |
+
+> **Warning**
+>
+> The default value for `auth-token` might not work. In some scenarios I was getting a 500 when trying to download workflow run logs using the GITHUB_TOKEN. If you get a similar error consider using a custom PAT with repo scoped permissions.
 
 | Output option | Description                                                                                                                 |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
