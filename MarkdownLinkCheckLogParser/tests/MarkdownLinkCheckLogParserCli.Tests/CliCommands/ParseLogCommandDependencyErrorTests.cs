@@ -16,7 +16,8 @@ public class ParseLogCommandDependencyErrorTests
     [InlineData(HttpStatusCode.InternalServerError)]
     public async Task GitHubHttpClientFailsToDownloadLogs(HttpStatusCode gitHubHttpClientResponseStatusCode)
     {
-        using var handler = new StatusCodeHandler(gitHubHttpClientResponseStatusCode);
+        var errorResponseBody = "Oops, something went wrong.";
+        using var handler = new StatusCodeHandler(gitHubHttpClientResponseStatusCode, errorResponseBody);
         using var httpClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.github.com"),
@@ -34,11 +35,13 @@ public class ParseLogCommandDependencyErrorTests
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         var expectedErrorMessage = @$"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.";
+- Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.
+With response body:
+{errorResponseBody}";
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<GitHubHttpClientException>();
-        exception.InnerException.Message.ShouldBe($"Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.");
+        exception.InnerException.Message.ShouldBe($"Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.{Environment.NewLine}With response body:{Environment.NewLine}{errorResponseBody}");
     }
 
     /// <summary>

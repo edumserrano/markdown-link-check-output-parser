@@ -32,7 +32,8 @@ internal sealed class GitHubHttpClient
         var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
         if (!httpResponse.IsSuccessStatusCode)
         {
-            throw new GitHubHttpClientException(httpResponse.StatusCode, httpRequest.Method, httpRequest.RequestUri);
+            var errorResponseBody = await httpResponse.Content.ReadAsStringAsync();
+            throw new GitHubHttpClientException(httpRequest.Method, httpRequest.RequestUri, httpResponse.StatusCode, errorResponseBody);
         }
 
         var responseStream = await httpResponse.Content.ReadAsStreamAsync();
