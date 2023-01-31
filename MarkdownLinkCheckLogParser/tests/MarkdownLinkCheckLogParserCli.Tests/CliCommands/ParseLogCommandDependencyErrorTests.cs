@@ -35,13 +35,11 @@ public class ParseLogCommandDependencyErrorTests
         var exception = await Should.ThrowAsync<CommandException>(() => command.ExecuteAsync(console).AsTask());
         var expectedErrorMessage = @$"An error occurred trying to execute the command to parse the log from a Markdown link check step.
 Error:
-- Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.
-With response body:
-{errorResponseBody}";
+- Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.";
         exception.Message.ShouldBe(expectedErrorMessage);
         exception.InnerException.ShouldNotBeNull();
         exception.InnerException.ShouldBeAssignableTo<GitHubHttpClientException>();
-        exception.InnerException.Message.ShouldBe($"Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.{Environment.NewLine}With response body:{Environment.NewLine}{errorResponseBody}");
+        exception.InnerException.Message.ShouldBe($"Failed to download workflow run logs. Got {(int)gitHubHttpClientResponseStatusCode} {gitHubHttpClientResponseStatusCode} from GET https://api.github.com/repos/repo-name/actions/runs/run-id/logs.");
     }
 
     /// <summary>
