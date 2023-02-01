@@ -86,9 +86,18 @@ For more information about the GitHub workflows configured for this repo go [her
 
 ## GitHub marketplace
 
-This action is published to the [GitHub marketplace](https://github.com/marketplace/actions/markdown-link-check-log-parser). See here for more information on [how to publish or remove an action from the marketplace](https://docs.github.com/en/actions/creating-actions/publishing-actions-in-github-marketplace).
+This action is published to the [GitHub marketplace](https://github.com/marketplace/actions/markdown-link-check-log-parser).
 
-**Currently there is no workflow setup to publish this action to the marketplace. The publishing act is a manual process following the instructions above.**
+**Currently there is no workflow setup to publish this action to the marketplace. The publishing act is a manual process following the instructions below.**
+
+When publishing a new version:
+
+- the docker image tag for `docker://ghcr.io/edumserrano/markdown-link-check-log-parser` in the [action.yml](/action.yml) file needs to be updated to a new version.
+- a new tag with the new version must be created. One option is to tag the commit that updates the `action.yml` mentioned in the point above.
+
+Once a new tag is pushed the workflow to publish a docker image will execute and publish a docker image to GitHub packages that will contain a docker image tag that matches the new GitHub tag.
+
+From here on you can follow the instruction at [how to publish or remove an action from the marketplace](https://docs.github.com/en/actions/creating-actions/publishing-actions-in-github-marketplace).
 
 ## Note about the Docker container action
 
