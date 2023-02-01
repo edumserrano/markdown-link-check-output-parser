@@ -601,7 +601,7 @@ jobs:
         $onlyErrorsTrueJsonStepOutputJobResult = '${{ needs.only-errors-true-json-step-output.result }}'
         $onlyErrorsTrueMdStepOutputJobResult = '${{ needs.only-errors-true-md-step-output.result }}'
         $onlyErrorsFalseFilesOutputJobResult = '${{ needs.only-errors-false-files-output.result }}'
-        $onlyErrorsFalseJsonStepOutputJobResult = '${{ needs.only-errors-false-json-output.result }}'
+        $onlyErrorsFalseJsonStepOutputJobResult = '${{ needs.only-errors-false-json-step-output.result }}'
         $onlyErrorsFalseMdStepOutputJobResult = '${{ needs.only-errors-false-md-step-output.result }}'
         $defaultArgsJobResult = '${{ needs.default-args.result }}'
         $testFailureJobResult = '${{ needs.test-failure.result }}'
