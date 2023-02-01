@@ -34,7 +34,7 @@ function Main()
     # Not sure if this is expected behavior wehn setting the output of the GitHub step or if I'm missing something else.
     # I do have tests that show that the app is producing an output that ends with a new line.
     # Right adding another new line is this the only workaround/fix I've managed to find.
-    Write-Output "[System.Environment]::NewLine" >> $env:GITHUB_OUTPUT
+    Write-Output "${[System.Environment]::NewLine}" >> $env:GITHUB_OUTPUT
     Write-Output $delimiter >> $env:GITHUB_OUTPUT
   }
 }
