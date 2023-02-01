@@ -17,7 +17,6 @@ internal static class OutputToMarkdownText
         else
         {
             sb.AppendLine(":heavy_check_mark: Markdown link check didn't find any broken links in your markdown files.");
-            sb.AppendLine();
             /* The Markdown Link Check action doesn't output anything when there aren't any broken links.
              * It only outputs:
              * =========================> MARKDOWN LINK CHECK <=========================
@@ -64,7 +63,6 @@ internal static class OutputToMarkdownText
             }
         }
 
-        sb.AppendLine();
         return sb.ToString();
     }
 }

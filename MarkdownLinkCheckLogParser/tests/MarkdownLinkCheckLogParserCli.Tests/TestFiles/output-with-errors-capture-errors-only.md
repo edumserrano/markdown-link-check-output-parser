@@ -204,4 +204,3 @@
 | Link | Status code
 | --- | --- |
 | https://www.linkedin.com/in/eduardomserrano/ | 999
-
