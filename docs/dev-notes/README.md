@@ -55,8 +55,8 @@ The steps below show how to run the Docker container action against a set of tes
 docker run --rm --env GITHUB_OUTPUT=/workspace/github-step-output.txt `
 -v ${pwd}:/workspace `
 -v ${pwd}/github-step-output.txt:/workspace/github-step-output.txt `
---workdir /workspace mlc-log-parser `
-parse-log `
+--workdir /workspace `
+mlc-log-parser parse-log `
 --auth-token <github token> `
 --repo <repo> `
 --run-id <run id> `
@@ -113,7 +113,7 @@ To understand better how the action builds and executes the Docker container loo
 
 > **Note**
 >
-> This is the log when building the docker image for the action, which only happens on the [test-action workflow](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/test-action.yml) because the log for the action when it's published to the GitHub Marketplace will download the published packaged from the GitHub packages.
+> This is the log when building the docker image for the action, which only happens on the [test-action workflow](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/test-action.yml) because using the published action from GitHub Marketplace will download the package from the GitHub packages and so the log will look different.
 >
 > The information mentioned here is still valuable to understand more about how GitHub Docker actions work.
 
@@ -138,7 +138,7 @@ This way it can successfully build the Dockerfile for this action which would ot
 
 > **Note**
 >
-> This is the log when building the docker image for the action, which only happens on the [test-action workflow](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/test-action.yml) because the log for the action when it's published to the GitHub Marketplace will download the published packaged from the GitHub packages.
+> This is the log when building the docker image for the action, which only happens on the [test-action workflow](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/test-action.yml) because using the published action from GitHub Marketplace will download the package from the GitHub packages and so the log will look different.
 >
 > The information mentioned here is still valuable to understand more about how GitHub Docker actions work.
 

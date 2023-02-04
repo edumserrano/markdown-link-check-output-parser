@@ -28,6 +28,10 @@ function Main()
   Write-Output "mlc-result<<$delimiter" >> $env:GITHUB_OUTPUT
   Write-Output $output >> $env:GITHUB_OUTPUT
   Write-Output $delimiter >> $env:GITHUB_OUTPUT
+
+  Write-Output "::group::Markdown link check log parser output"
+  Write-Output $output
+  Write-Output "::endgroup::"
 }
 
 # invoke entrypoint function
