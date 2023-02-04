@@ -20,14 +20,3 @@ Since this workflow executes the [Docker container action](https://docs.github.c
 > The downside of this approach is that I need to keep both `action.yml` files, the one at the root of the repo and the one at `/action-local`, in sync.
 >
 > Alternativel, I could try to setup the workflows so that this test workflow only runs after the Docker image has been published. However this approach also has problems to solve such as making sure that the checks work as expected in a pull request scenario. The current approach eliminates all problems of this type with the only downside of keeping the `action.yml` files in sync.
-
-## Secrets
-
-This workflow uses a custom secret `TEST_GITHUB_ACTION_GH_TOKEN`. This secret contains a GitHub token with permissions to access public repositories and has no expiration date. This token is required to run the app on this `test-action` workflow.
-
-> **Note**
->
-> Before the `GITHUB_TOKEN` from the workflow run was enough, there was no need for a custom token. However, around the time of commit 42bd774ebbf09450a4e7a2dcad33cc17995aa5af, the app started failing due to a `500` when downloading workflow run logs using the `GITHUB_TOKEN`.
->
-> Couldn't find any information as to what might have changed in GitHub to cause this so I decided to fix the problem using a custom token. However, in the future, I might try again using the `GITHUB_TOKEN` to see if the problem has been remediated.
-
