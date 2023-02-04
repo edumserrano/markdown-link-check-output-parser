@@ -111,6 +111,12 @@ To understand better how the action builds and executes the Docker container loo
 
 ### As of writing this, the log for building the docker action looks as follows
 
+> **Note**
+>
+> This is the log when building the docker image for the action, which only happens on the [test-action workflow](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/test-action.yml) because the log for the action when it's published to the GitHub Marketplace will download the published packaged from the GitHub packages.
+>
+> The information mentioned here is still valuable to understand more about how GitHub Docker actions work.
+
 ```
 /usr/bin/docker build
 -t 4cd98f:236c6972581e50e94bc7f786208c8965
@@ -129,6 +135,12 @@ This way it can successfully build the Dockerfile for this action which would ot
 - This allows the Dockerfile to reference files in the `Markdown Link Check log parser` repo even though the workflow has not explicitly checked it out.
 
 ### As of writing this, the log for running the docker action looks as follows
+
+> **Note**
+>
+> This is the log when building the docker image for the action, which only happens on the [test-action workflow](https://github.com/edumserrano/markdown-link-check-log-parser/actions/workflows/test-action.yml) because the log for the action when it's published to the GitHub Marketplace will download the published packaged from the GitHub packages.
+>
+> The information mentioned here is still valuable to understand more about how GitHub Docker actions work.
 
 ```
 /usr/bin/docker run
