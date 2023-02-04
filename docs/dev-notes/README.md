@@ -47,11 +47,15 @@
 The steps below show how to run the Docker container action against a set of test data provided by the repo. However you can follow the same steps and provide any data you wish to test.
 
 1) Clone the repo and browse to the repo's directory.
-2) Run `docker build -t mlc-log-parser .`
-3) Run the docker container and pass at least the required inputs by executing:
+2) Create an empty file named `github-step-output.txt` that will store the output of the action. This will only contain the output of the action when the `output` actions's input parameter of the action is set to `step-json` or `step-md`. To create an empty file you can do something like `echo $null >> github-step-output.txt`.
+3) Run `docker build -t mlc-log-parser .`
+4) Run the docker container and pass at least the required inputs by executing:
 
 ```
-docker run --rm -v ${pwd}:/workspace --workdir /workspace mlc-log-parser `
+docker run --rm --env GITHUB_OUTPUT=/workspace/github-step-output.txt `
+-v ${pwd}:/workspace `
+-v ${pwd}/github-step-output.txt:/workspace/github-step-output.txt `
+--workdir /workspace mlc-log-parser `
 parse-log `
 --auth-token <github token> `
 --repo <repo> `
