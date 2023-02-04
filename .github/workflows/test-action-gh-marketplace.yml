@@ -1,0 +1,575 @@
+name: Test GitHub action from GH Marketplace
+
+on:
+  workflow_run:
+    workflows: [
+      "Markdown Link Check with errors",
+      "Markdown Link Check without errors",
+    ]
+    types:
+    - completed
+
+defaults:
+  run:
+    shell: pwsh
+
+env:
+  # Need to checkout the same commit from the workflow run that triggered this workflow.
+  # By default the checkout step gets the latest from master but that's not what we want.
+  # Without checking out the workflow run head sha the errors that we get into are like:
+  # - Create a PR, that will run the workflows that trigger this one but then, instead of
+  # checking commit from the PR, we get the commit from master. This would mean we would
+  # run this workflow which builds the docker image and runs tests using the incorrect commit.
+  WORKFLOW_HEAD_SHA : ${{ github.event.workflow_run.head_sha }}
+
+jobs:
+  trigger-info:
+    name: Trigger info
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - name: Trigger info
+      run: |
+        Write-Output "::notice::This worklfow was triggered by a 'workflow_run' from '${{ github.event.workflow_run.name }}'."
+
+  only-errors-true-files-output:
+    name: only-errors set to true - files output
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with only errors set to true
+      id: mlc-log-parser
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      with:
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+        only-errors: 'true'
+        output: 'file-json, file-md'
+        json-filepath: './mlc-json-result-1.json'
+        markdown-filepath: './mlc-md-result-1.md'
+    - name: Verify json file output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output JSON file matches expected JSON file."
+        }
+    - name: Verify md file output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output Markdown file matches expected Markdown file."
+        }
+    - name: Verify json file output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-1.json
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output JSON file matches expected JSON file."
+        }
+    - name: Verify md file output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-1.md
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output Markdown file matches expected Markdown file."
+        }
+
+  only-errors-true-json-step-output:
+    name: only-errors set to true - json step output
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with only errors set to true
+      id: mlc-log-parser
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      with:
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+        only-errors: 'true'
+        output: 'step-json'
+    - name: Dump outputs from previous step
+      run: |
+        Write-Output "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+    - name: Verify json step output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.json -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::JSON step output doesn't match expected JSON. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "JSON step output matches expected JSON."
+        }
+    - name: Verify json step output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::JSON step output doesn't match expected JSON. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "JSON step output matches expected JSON."
+        }
+
+  only-errors-true-md-step-output:
+    name: only-errors set to true - md step output
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with markdown step output
+      id: mlc-log-parser
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      with:
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+        only-errors: 'true'
+        output: 'step-md'
+    - name: Dump outputs from previous step
+      run: |
+        Write-Output "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+    - name: Verify md step output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-with-capture-errors-only.md -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Markdown step output doesn't match expected Markdown. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Markdown step output matches expected Markdown."
+        }
+    - name: Verify md step output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Markdown step output doesn't match expected Markdown. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Markdown step output matches expected Markdown."
+        }
+
+  only-errors-false-files-output:
+    name: only-errors set to false - files output
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with only errors set to false
+      id: mlc-log-parser
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      with:
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+        only-errors: 'false'
+        output: 'file-json, file-md'
+        json-filepath: './mlc-json-result-2.json'
+        markdown-filepath: './mlc-md-result-2.md'
+    - name: Verify json file output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output JSON file matches expected JSON file."
+        }
+    - name: Verify md file output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output Markdown file matches expected Markdown file."
+        }
+    - name: Verify json file output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json
+        $file2 = Get-Content ${{ github.workspace }}/mlc-json-result-2.json
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output JSON file doesn't match expected JSON file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output JSON file matches expected JSON file."
+        }
+    - name: Verify md file output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        $file1 = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md
+        $file2 = Get-Content ${{ github.workspace }}/mlc-md-result-2.md
+        $compareResult = Compare-Object -ReferenceObject $file1 -DifferenceObject $file2
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Output Markdown file doesn't match expected Markdown file. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Output Markdown file matches expected Markdown file."
+        }
+
+  only-errors-false-json-step-output:
+    name: only-errors set to false - json step output
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with only errors set to false
+      id: mlc-log-parser
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      with:
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+        only-errors: 'false'
+        output: 'step-json'
+    - name: Dump outputs from previous step
+      run: |
+        Write-Output "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+    - name: Verify json step output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.json -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::JSON step output doesn't match expected JSON. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "JSON step output matches expected JSON."
+        }
+    - name: Verify json step output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.json -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = '${{ steps.mlc-log-parser.outputs.mlc-result }}'
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::JSON step output doesn't match expected JSON. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "JSON step output matches expected JSON."
+        }
+
+  only-errors-false-md-step-output:
+    name: only-errors set to false - md step output
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with markdown step output
+      id: mlc-log-parser
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      with:
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+        only-errors: 'false'
+        output: 'step-md'
+    - name: Dump outputs from previous step
+      run: |
+        Write-Output "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+    - name: Verify md step output for mlc with errors
+      if: github.event.workflow_run.name == 'Markdown Link Check with errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/with-errors/result-without-capture-errors-only.md -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Markdown step output doesn't match expected Markdown. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Markdown step output matches expected Markdown."
+        }
+    - name: Verify md step output for mlc without errors
+      if: github.event.workflow_run.name == 'Markdown Link Check without errors'
+      run: |
+        # Split expected output and received output by newlines because the Compare-Object below will present diffs by line and without this
+        # everything would be only 1 line, not great for diff results.
+        $file = Get-Content ${{ github.workspace }}/.github/workflows/markdown-link-check-files/expected-file-outputs/without-errors/result.md -Raw
+        $file = $file.Split([System.Environment]::NewLine)
+        $stepOutput = "${{ steps.mlc-log-parser.outputs.mlc-result }}"
+        $stepOutput = $stepOutput.Split([System.Environment]::NewLine)
+        $compareResult = Compare-Object -ReferenceObject $file -DifferenceObject $stepOutput
+        Write-Output $compareResult
+        Write-Output ''
+        if($compareResult)
+        {
+          Write-Output "::error::Markdown step output doesn't match expected Markdown. See failed step for more information."
+          Exit 1
+        }
+        else
+        {
+          Write-Output "Markdown step output matches expected Markdown."
+        }
+
+  default-args:
+    name: default args
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with default action args
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      id: mlc-log-parser
+      with:
+        # The auth-token arg shouldn't be set but the default arg for it is to use the GITHUB_TOKEN and something changed
+        # on GitHub that is causing a 500 when trying to download the workflow run logs using that token.
+        # For now I'm not testing the default value for this arg.
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        run-id: '${{ github.event.workflow_run.id }}'
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+    - name: Dump outputs from previous step
+      run: |
+        $result = '${{ steps.mlc-log-parser.outputs.mlc-result }}' | ConvertFrom-Json
+        Write-Output "Total files checked: $($result.TotalFilesChecked)"
+        Write-Output "Total links chedked: $($result.TotalLinksChecked)"
+        Write-Output "Has erros: $($result.HasErrors)"
+        $resultAsJsonIndented = ConvertTo-Json -Depth 4 $result
+        Write-Output $resultAsJsonIndented # outputs the markdown link check result as an indented JSON string
+
+  test-failure:
+    name: test failure
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump github context for debug purposes
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: $env:GITHUB_CONTEXT
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.WORKFLOW_HEAD_SHA }}
+    - name: Run markdown link check log parser with bad input
+      id: mlc-log-parser-bad-input
+      uses: edumserrano/markdown-link-check-log-parser@v1
+      continue-on-error: true
+      with:
+        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
+        repo: '${{ github.repository }}'
+        run-id: '1' # invalid run id
+        job-name: 'Run Markdown Link Check'
+        step-name: 'Markdown Link Check'
+    - name: The action should fail the step if it encounters an error
+      run: |
+        $errorOutcome = '${{ steps.mlc-log-parser-bad-input.outcome }}'
+        if($errorOutcome -eq 'success') {
+          Write-Output "::error title=Action check:Action should have failed the workflow because of invalid input but it didn't."
+          Exit 1
+        }
+        else {
+          Write-Output "::notice title=Action check::Action would have failed the workflow given invalid input. You should see an error message on the action's Annotations."
+        }
