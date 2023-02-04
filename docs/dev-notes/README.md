@@ -92,8 +92,8 @@ This action is published to the [GitHub marketplace](https://github.com/marketpl
 
 When publishing a new version:
 
-- the docker image tag for `docker://ghcr.io/edumserrano/markdown-link-check-log-parser` in the [action.yml](/action.yml) file needs to be updated to a new version.
-- a new tag with the new version must be created. One option is to tag the commit that updates the `action.yml` mentioned in the point above.
+- the docker image tag for `docker://ghcr.io/edumserrano/markdown-link-check-log-parser` in the [action.yml](/action.yml) file needs to be updated to a new major version if a new major version has been published.
+- a tag with the new major version must be created as part of the release.
 
 Once a new tag is pushed the workflow to publish a docker image will execute and publish a docker image to GitHub packages that will contain a docker image tag that matches the new GitHub tag.
 
