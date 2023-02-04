@@ -41,6 +41,9 @@ jobs:
     name: only-errors set to true - files output
     permissions:
       contents: read
+    strategy:
+      matrix:
+        action-source: [./action-local, edumserrano/markdown-link-check-log-parser@v1]
     runs-on: ubuntu-latest
     steps:
     - name: Dump github context for debug purposes
@@ -52,7 +55,7 @@ jobs:
         ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with only errors set to true
       id: mlc-log-parser
-      uses: ./action-local
+      uses: ${{ matrix.action-source }}
       with:
         auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
