@@ -55,7 +55,7 @@ jobs:
         ref: ${{ env.WORKFLOW_HEAD_SHA }}
     - name: Run markdown link check log parser with only errors set to true
       id: mlc-log-parser
-      uses: ${{ matrix.action-source }}
+      uses: '${{ matrix.action-source }}'
       with:
         auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
