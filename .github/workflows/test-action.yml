@@ -54,7 +54,6 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -149,7 +148,6 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -219,7 +217,6 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -289,7 +286,6 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -384,7 +380,6 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -454,7 +449,6 @@ jobs:
       id: mlc-log-parser
       uses: ./action-local
       with:
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
@@ -524,10 +518,6 @@ jobs:
       uses: ./action-local
       id: mlc-log-parser
       with:
-        # The auth-token arg shouldn't be set but the default arg for it is to use the GITHUB_TOKEN and something changed
-        # on GitHub that is causing a 500 when trying to download the workflow run logs using that token.
-        # For now I'm not testing the default value for this arg.
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         run-id: '${{ github.event.workflow_run.id }}'
         job-name: 'Run Markdown Link Check'
         step-name: 'Markdown Link Check'
@@ -558,7 +548,6 @@ jobs:
       uses: ./action-local
       continue-on-error: true
       with:
-        auth-token: '${{ secrets.TEST_GITHUB_ACTION_GH_TOKEN }}'
         repo: '${{ github.repository }}'
         run-id: '1' # invalid run id
         job-name: 'Run Markdown Link Check'
