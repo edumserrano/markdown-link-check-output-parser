@@ -8,7 +8,7 @@ internal static class MemoryExtensions
         return new LineSplitEnumerator(memory);
     }
 
-    public struct LineSplitEnumerator
+    public sealed class LineSplitEnumerator
     {
         private ReadOnlyMemory<char> _str;
 
