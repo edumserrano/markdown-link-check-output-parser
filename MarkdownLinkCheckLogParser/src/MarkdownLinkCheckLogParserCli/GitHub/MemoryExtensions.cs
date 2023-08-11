@@ -57,6 +57,7 @@ internal static class MemoryExtensions
         }
     }
 
+    [StructLayout(LayoutKind.Auto)]
     public readonly struct LineSplitEntry
     {
         public LineSplitEntry(ReadOnlyMemory<char> line, ReadOnlyMemory<char> separator)
