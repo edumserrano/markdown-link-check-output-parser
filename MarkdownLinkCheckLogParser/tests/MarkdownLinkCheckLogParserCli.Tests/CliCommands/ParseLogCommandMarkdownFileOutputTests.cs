@@ -42,7 +42,7 @@ public class ParseLogCommandMarkdownFileOutputTests
         markdownMemoryStream.Seek(0, SeekOrigin.Begin);
         using var markdownStreamReader = new StreamReader(markdownMemoryStream);
         var markdownAsString = await markdownStreamReader.ReadToEndAsync();
-        var expectedMarkdown = File.ReadAllText("./TestFiles/output-with-errors-capture-errors-only.md");
+        var expectedMarkdown = await File.ReadAllTextAsync("./TestFiles/output-with-errors-capture-errors-only.md");
         markdownAsString.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 
@@ -83,7 +83,7 @@ public class ParseLogCommandMarkdownFileOutputTests
         markdownMemoryStream.Seek(0, SeekOrigin.Begin);
         using var markdownStreamReader = new StreamReader(markdownMemoryStream);
         var markdownAsString = await markdownStreamReader.ReadToEndAsync();
-        var expectedMarkdown = File.ReadAllText("./TestFiles/output-with-errors-all-files.md");
+        var expectedMarkdown = await File.ReadAllTextAsync("./TestFiles/output-with-errors-all-files.md");
         markdownAsString.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 
@@ -123,7 +123,7 @@ public class ParseLogCommandMarkdownFileOutputTests
         markdownMemoryStream.Seek(0, SeekOrigin.Begin);
         using var markdownStreamReader = new StreamReader(markdownMemoryStream);
         var markdownAsString = await markdownStreamReader.ReadToEndAsync();
-        var expectedMarkdown = File.ReadAllText("./TestFiles/output-without-errors.md");
+        var expectedMarkdown = await File.ReadAllTextAsync("./TestFiles/output-without-errors.md");
         markdownAsString.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 
