@@ -9,24 +9,24 @@ internal static class LineEndings
     /// <returns>A string containing line endings matching the OS expected line endings.</returns>
     public static string NormalizeLineEndings(this string original)
     {
-        if (Environment.OSVersion.Platform == PlatformID.Win32NT && original.Contains(CR + LF, StringComparison.Ordinal))
+        if (Environment.OSVersion.Platform == PlatformID.Win32NT && original.Contains(CR + LF, StringComparison.InvariantCulture))
         {
             // if it's a Windows OS and contains Windows line endings then do nothing
             return original;
         }
 
-        if (Environment.OSVersion.Platform == PlatformID.Win32NT && original.Contains(LF, StringComparison.Ordinal))
+        if (Environment.OSVersion.Platform == PlatformID.Win32NT && original.Contains(LF, StringComparison.InvariantCulture))
         {
             // if it's a Windows OS and doesn't contain Windows line endings then replace
             // new lines with Windows line endings
-            return original.Replace(LF, Environment.NewLine, StringComparison.Ordinal);
+            return original.Replace(LF, Environment.NewLine, StringComparison.InvariantCulture);
         }
 
-        if (Environment.OSVersion.Platform == PlatformID.Unix && original.Contains(CR + LF, StringComparison.Ordinal))
+        if (Environment.OSVersion.Platform == PlatformID.Unix && original.Contains(CR + LF, StringComparison.InvariantCulture))
         {
             // if it's a Linux OS and contains Windows line endings then replace
             // new lines with Linux line endings
-            return original.Replace(CR + LF, Environment.NewLine, StringComparison.Ordinal);
+            return original.Replace(CR + LF, Environment.NewLine, StringComparison.InvariantCulture);
         }
 
         return original;

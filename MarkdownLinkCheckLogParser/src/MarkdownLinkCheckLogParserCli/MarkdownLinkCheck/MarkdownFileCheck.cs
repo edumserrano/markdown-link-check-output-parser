@@ -18,7 +18,7 @@ internal sealed class MarkdownFileCheck
 
     public bool HasErrors => ErrorCount > 0;
 
-    public IReadOnlyList<MarkdownLinkError> Errors => _errors.OrderBy(x => x.Link).ToList();
+    public IReadOnlyList<MarkdownLinkError> Errors => _errors.OrderBy(x => x.Link, StringComparer.InvariantCulture).ToList();
 
     internal void AddError(string link, int statusCode)
     {

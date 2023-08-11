@@ -11,10 +11,10 @@ internal sealed class OutputOptionValidator : BindingValidator<string>
         }
 
         var outputOptions = value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-        var containsStepJson = outputOptions.Contains("step-json");
-        var containsStepMd = outputOptions.Contains("step-md");
-        var containsFileJson = outputOptions.Contains("file-json");
-        var containsFileMd = outputOptions.Contains("file-md");
+        var containsStepJson = outputOptions.Contains("step-json", StringComparer.InvariantCulture);
+        var containsStepMd = outputOptions.Contains("step-md", StringComparer.InvariantCulture);
+        var containsFileJson = outputOptions.Contains("file-json", StringComparer.InvariantCulture);
+        var containsFileMd = outputOptions.Contains("file-md", StringComparer.InvariantCulture);
         if (containsStepJson && containsStepMd)
         {
             return new BindingValidationError("Invalid value. Cannot specify 'step-json' and 'step-md' at the same time. They are mutually exclusive.");
