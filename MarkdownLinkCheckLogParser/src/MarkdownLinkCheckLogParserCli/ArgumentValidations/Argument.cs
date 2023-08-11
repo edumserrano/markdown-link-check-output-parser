@@ -7,7 +7,7 @@ internal static class Argument
         var message = $"{name} must be a positive value.";
         return value >= 0
             ? value
-            : throw new ArgumentException(message);
+            : throw new ArgumentException(message, name);
     }
 
     public static T NotNull<T>([NotNull] this T? value, [CallerArgumentExpression(nameof(value))] string name = "")
@@ -20,7 +20,7 @@ internal static class Argument
     {
         var message = $"{name} cannot be null or whitespace.";
         return string.IsNullOrWhiteSpace(value)
-            ? throw new ArgumentException(message)
+            ? throw new ArgumentException(message, name)
             : value;
     }
 }

@@ -5,7 +5,7 @@ internal sealed class MarkdownLinkCheckOutput
     public MarkdownLinkCheckOutput(IReadOnlyList<MarkdownFileCheck> files, bool captureErrorsOnly)
     {
         files.NotNull();
-        var orderedByFilename = files.OrderBy(x => x.Filename);
+        var orderedByFilename = files.OrderBy(x => x.Filename, StringComparer.InvariantCulture);
         Files = captureErrorsOnly
             ? orderedByFilename.Where(x => x.HasErrors).ToList()
             : orderedByFilename.ToList();

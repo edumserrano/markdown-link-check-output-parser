@@ -17,7 +17,7 @@ internal sealed class MarkdownFileOutputFormat : IOutputFormat
         try
         {
             var markdownText = output.ToMarkdownText();
-            using var streamWriter = _file.CreateFileStreamWriter(_filepath);
+            await using var streamWriter = _file.CreateFileStreamWriter(_filepath);
             await streamWriter.WriteAsync(markdownText);
         }
         catch (Exception e)

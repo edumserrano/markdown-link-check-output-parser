@@ -32,7 +32,7 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
         var markdownLinkCheckOutputMd = console.ReadOutputString();
-        var expectedMarkdown = File.ReadAllText("./TestFiles/output-with-errors-capture-errors-only.md");
+        var expectedMarkdown = await File.ReadAllTextAsync("./TestFiles/output-with-errors-capture-errors-only.md");
         markdownLinkCheckOutputMd.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 
@@ -63,7 +63,7 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
         var markdownLinkCheckOutputMd = console.ReadOutputString();
-        var expectedMarkdown = File.ReadAllText("./TestFiles/output-with-errors-all-files.md");
+        var expectedMarkdown = await File.ReadAllTextAsync("./TestFiles/output-with-errors-all-files.md");
         markdownLinkCheckOutputMd.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 
@@ -95,7 +95,7 @@ public class ParseLogCommandMarkdownConsoleOutputTests
         using var console = new FakeInMemoryConsole();
         await command.ExecuteAsync(console);
         var markdownLinkCheckOutputMd = console.ReadOutputString();
-        var expectedMarkdown = File.ReadAllText("./TestFiles/output-without-errors.md");
+        var expectedMarkdown = await File.ReadAllTextAsync("./TestFiles/output-without-errors.md");
         markdownLinkCheckOutputMd.ShouldBeWithNormalizedNewlines(expectedMarkdown);
     }
 }

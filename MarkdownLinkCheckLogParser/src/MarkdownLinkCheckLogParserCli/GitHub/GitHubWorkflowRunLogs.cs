@@ -22,7 +22,7 @@ internal sealed class GitHubWorkflowRunLogs
 
         using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
         var markdownLinkCheckLogsZipEntrys = workflowRunLogsZip.Entries.
-            Where(e => e.FullName.Contains($"{jobName}/", StringComparison.OrdinalIgnoreCase) && e.Name.Contains(stepName, StringComparison.OrdinalIgnoreCase))
+            Where(e => e.FullName.Contains($"{jobName}/", StringComparison.InvariantCultureIgnoreCase) && e.Name.Contains(stepName, StringComparison.InvariantCultureIgnoreCase))
             .ToList();
         if (markdownLinkCheckLogsZipEntrys.Count == 0)
         {
@@ -35,7 +35,7 @@ internal sealed class GitHubWorkflowRunLogs
         }
 
         var logAsZip = markdownLinkCheckLogsZipEntrys[0];
-        using var logAsStream = logAsZip.Open();
+        await using var logAsStream = logAsZip.Open();
         using var streamReader = new StreamReader(logAsStream, Encoding.UTF8);
         var memory = new Memory<char>(new char[logAsZip.Length]);
         await streamReader.ReadAsync(memory);

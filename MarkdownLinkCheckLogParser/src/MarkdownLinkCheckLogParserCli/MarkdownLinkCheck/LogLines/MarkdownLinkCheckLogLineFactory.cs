@@ -29,7 +29,7 @@ internal static class MarkdownLinkCheckLogLineFactory
         // example line:
         // FILE: ./tests/liquid-test-logger-template.md
         const string marker = "FILE: ";
-        var startOfFileSummaryIdx = line.IndexOf(marker);
+        var startOfFileSummaryIdx = line.IndexOf(marker, StringComparison.InvariantCulture);
         if (startOfFileSummaryIdx >= 0)
         {
             var filename = line
@@ -47,7 +47,7 @@ internal static class MarkdownLinkCheckLogLineFactory
         // example line:
         // 0 links checked.
         const string marker = " links checked.";
-        var linksCheckedIdx = line.IndexOf(marker);
+        var linksCheckedIdx = line.IndexOf(marker, StringComparison.InvariantCulture);
         if (linksCheckedIdx >= 0)
         {
             var endOfLinesCheckedIdx = line.Length - marker.Length;
@@ -72,8 +72,8 @@ internal static class MarkdownLinkCheckLogLineFactory
         // [✖] https://github.com/edumserrano/dotnet-sdk-extensions/actions/workflows/pr-dotnet-format-check.yml/badge.svg → Status: 404
         const string errorMarker = "[✖] ";
         const string statusCodeMarker = " → Status: ";
-        var errorIdx = line.IndexOf(errorMarker);
-        var statusCodeIdx = line.IndexOf(statusCodeMarker);
+        var errorIdx = line.IndexOf(errorMarker, StringComparison.InvariantCulture);
+        var statusCodeIdx = line.IndexOf(statusCodeMarker, StringComparison.InvariantCulture);
         if (errorIdx >= 0 && statusCodeIdx >= 0)
         {
             var range = new Range(start: errorIdx + errorMarker.Length, end: statusCodeIdx);

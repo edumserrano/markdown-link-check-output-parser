@@ -58,7 +58,7 @@ Error:
         };
         var file = Substitute.For<IFile>();
         file.WriteAllTextAsync(Arg.Any<string>(), Arg.Any<string>())
-            .Returns(_ => throw new ArgumentException("Oops"));
+            .Returns(_ => throw new InvalidOperationException("Oops"));
         var command = new ParseLogCommand(httpClient, file)
         {
             AuthToken = "auth-token",
@@ -96,7 +96,7 @@ Error:
         };
         var file = Substitute.For<IFile>();
         file.CreateFileStreamWriter(Arg.Any<string>())
-            .Returns(_ => throw new ArgumentException("Oops"));
+            .Returns(_ => throw new InvalidOperationException("Oops"));
         var command = new ParseLogCommand(httpClient, file)
         {
             AuthToken = "auth-token",
