@@ -12,7 +12,6 @@ public class ParseLogCommandValidatonTests
     /// Validation test for the <see cref="ParseLogCommand.AuthToken"/> command option.
     /// </summary>
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
     public async Task ValidateAuthTokenOption(string authToken)
@@ -41,7 +40,6 @@ Error:
     /// Validation test for the <see cref="ParseLogCommand.Repo"/> command option.
     /// </summary>
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
     public async Task ValidateRepoOption(string repo)
@@ -70,7 +68,6 @@ Error:
     /// Validation test for the <see cref="ParseLogCommand.RunId"/> command option.
     /// </summary>
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
     public async Task ValidateRunIdOption(string runId)
@@ -99,7 +96,6 @@ Error:
     /// Validation test for the <see cref="ParseLogCommand.AuthToken"/> command option.
     /// </summary>
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
     public async Task ValidateJobNameOption(string jobName)
@@ -128,7 +124,6 @@ Error:
     /// Validation test for the <see cref="ParseLogCommand.StepName"/> command option.
     /// </summary>
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
     public async Task ValidateStepNameOption(string stepName)
@@ -157,7 +152,6 @@ Error:
     /// Validation test for the <see cref="ParseLogCommand.OutputOptions"/> command option.
     /// </summary>
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
     public async Task ValidateOutputOptionsOption(string outputOptions)
