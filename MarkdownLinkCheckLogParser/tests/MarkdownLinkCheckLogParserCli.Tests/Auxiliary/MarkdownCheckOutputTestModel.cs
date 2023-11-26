@@ -5,7 +5,7 @@ internal sealed class MarkdownLinkCheckOutputJsonModel
 {
     public MarkdownLinkCheckOutputJsonModel()
     {
-        Files = new List<MarkdownFileCheckJsonModel>();
+        Files = [];
     }
 
     public int TotalFilesChecked { get; set; }
@@ -25,7 +25,7 @@ internal sealed class MarkdownFileCheckJsonModel
 {
     public MarkdownFileCheckJsonModel()
     {
-        Errors = new List<MarkdownLinkErrorJsonModel>();
+        Errors = [];
     }
 
     public string? Filename { get; set; }

@@ -2,12 +2,11 @@ namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs.Types;
 
 internal sealed class OutputOptions
 {
-    private readonly List<OutputOptionsTypes> _values;
+    private readonly List<OutputOptionsTypes> _values = [];
 
     public OutputOptions(string outputOptions)
     {
         outputOptions.NotNullOrWhiteSpace();
-        _values = new List<OutputOptionsTypes>();
         var outputOptionsSplit = outputOptions.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
         if (outputOptionsSplit.Contains("step-json", StringComparer.InvariantCulture))
         {

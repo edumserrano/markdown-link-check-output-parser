@@ -21,35 +21,35 @@ public class ParseLogCommand : ICommand
     [CommandOption(
         "auth-token",
         IsRequired = true,
-        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
+        Validators = [typeof(NotNullOrWhitespaceOptionValidator)],
         Description = "GitHub token used to access workflow run logs.")]
     public string AuthToken { get; init; } = default!;
 
     [CommandOption(
         "repo",
         IsRequired = true,
-        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
+        Validators = [typeof(NotNullOrWhitespaceOptionValidator)],
         Description = "The repository for the workflow run in the format of {owner}/{repo}.")]
     public string Repo { get; init; } = default!;
 
     [CommandOption(
         "run-id",
         IsRequired = true,
-        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
+        Validators = [typeof(NotNullOrWhitespaceOptionValidator)],
         Description = "The unique identifier of the workflow run that contains the markdown link check step.")]
     public string RunId { get; init; } = default!;
 
     [CommandOption(
         "job-name",
         IsRequired = true,
-        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
+        Validators = [typeof(NotNullOrWhitespaceOptionValidator)],
         Description = "The name of the job that contains the markdown link check step.")]
     public string JobName { get; init; } = default!;
 
     [CommandOption(
         "step-name",
         IsRequired = true,
-        Validators = new Type[] { typeof(NotNullOrWhitespaceOptionValidator) },
+        Validators = [typeof(NotNullOrWhitespaceOptionValidator)],
         Description = "The name of the markdown link check step.")]
     public string StepName { get; init; } = default!;
 
@@ -58,7 +58,7 @@ public class ParseLogCommand : ICommand
 
     [CommandOption(
         "output",
-        Validators = new Type[] { typeof(OutputOptionValidator) },
+        Validators = [typeof(OutputOptionValidator)],
         Description = "How to output the markdown file check result. It must be one of or a comma separated list of the following values: step-json,step-md,file-json,file-md.")]
     public string OutputOptions { get; init; } = "step-json";
 

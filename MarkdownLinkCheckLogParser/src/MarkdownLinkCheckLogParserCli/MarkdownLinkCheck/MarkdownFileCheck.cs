@@ -2,12 +2,11 @@ namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 
 internal sealed class MarkdownFileCheck
 {
-    private readonly List<MarkdownLinkError> _errors;
+    private readonly List<MarkdownLinkError> _errors = [];
 
     public MarkdownFileCheck(string filename)
     {
         Filename = filename.NotNull();
-        _errors = new List<MarkdownLinkError>();
     }
 
     public string Filename { get; }

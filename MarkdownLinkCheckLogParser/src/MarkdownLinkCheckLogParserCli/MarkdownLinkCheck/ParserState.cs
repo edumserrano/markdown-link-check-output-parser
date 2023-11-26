@@ -5,7 +5,7 @@ namespace MarkdownLinkCheckLogParserCli.MarkdownLinkCheck;
 internal sealed class ParserState
 {
     private MarkdownFileCheck? _current;
-    private readonly List<MarkdownFileCheck> _files = new List<MarkdownFileCheck>();
+    private readonly List<MarkdownFileCheck> _files = [];
 
     public IReadOnlyList<MarkdownFileCheck> Files => _files;
 
