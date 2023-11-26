@@ -17,7 +17,7 @@ defaults:
 
 jobs:
   main:
-    name: Run Markdown Link Check without errors
+    name: Run Markdown Link Check
     permissions:
       contents: read
     runs-on: ubuntu-latest
