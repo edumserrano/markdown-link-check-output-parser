@@ -7,8 +7,8 @@ internal sealed class MarkdownLinkCheckOutput
         files.NotNull();
         var orderedByFilename = files.OrderBy(x => x.Filename, StringComparer.InvariantCulture);
         Files = captureErrorsOnly
-            ? orderedByFilename.Where(x => x.HasErrors).ToList()
-            : orderedByFilename.ToList();
+            ? [.. orderedByFilename.Where(x => x.HasErrors)]
+            : [.. orderedByFilename];
         TotalFilesChecked = files.Count;
         TotalLinksChecked = files.Sum(x => x.LinksChecked);
         TotalErrors = files.Sum(x => x.ErrorCount);
