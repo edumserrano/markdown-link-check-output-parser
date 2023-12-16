@@ -21,7 +21,7 @@ public class ParseLogCommandMarkdownFileOutputTests
         };
         const string mdFilepath = "output.md";
         var file = Substitute.For<IFile>();
-        using var markdownMemoryStream = new MemoryStream();
+        await using var markdownMemoryStream = new MemoryStream();
         file.CreateFileStreamWriter(Arg.Any<string>())
             .Returns(_ => new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
         var command = new ParseLogCommand(httpClient, file)
@@ -61,7 +61,7 @@ public class ParseLogCommandMarkdownFileOutputTests
         };
         const string mdFilepath = "output.md";
         var file = Substitute.For<IFile>();
-        using var markdownMemoryStream = new MemoryStream();
+        await using var markdownMemoryStream = new MemoryStream();
         file.CreateFileStreamWriter(Arg.Any<string>())
             .Returns(_ => new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
         var command = new ParseLogCommand(httpClient, file)
@@ -102,7 +102,7 @@ public class ParseLogCommandMarkdownFileOutputTests
         };
         const string mdFilepath = "output.md";
         var file = Substitute.For<IFile>();
-        using var markdownMemoryStream = new MemoryStream();
+        await using var markdownMemoryStream = new MemoryStream();
         file.CreateFileStreamWriter(Arg.Any<string>())
             .Returns(_ => new StreamWriter(markdownMemoryStream, Encoding.UTF8, bufferSize: -1, leaveOpen: true));
         var command = new ParseLogCommand(httpClient, file)
