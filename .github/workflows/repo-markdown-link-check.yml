@@ -1,4 +1,4 @@
-name: Markdown link check
+name: Repo markdown link check
 
 on:
   workflow_dispatch:
@@ -32,14 +32,14 @@ jobs:
       if: github.event_name != 'pull_request'
       with:
         use-quiet-mode: yes
-        config-file: .github/markdown-link-check-config.json
+        config-file: .github/markdown-link-check-config-for-repo.json
     - name: Markdown link check
       id: mlc-pr
       uses: gaurav-nelson/github-action-markdown-link-check@1.0.15
       if: github.event_name == 'pull_request'
       with:
         use-quiet-mode: yes
-        config-file: .github/markdown-link-check-config.json
+        config-file: .github/markdown-link-check-config-for-repo.json
         check-modified-files-only: yes
         base-branch: main
     - name: Set has broken links variable
