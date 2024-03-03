@@ -3,7 +3,6 @@ namespace MarkdownLinkCheckLogParserCli.CliCommands.ParseLog.Outputs;
 internal static class OutputToMarkdownText
 {
 #pragma warning disable CA1305 // Specify IFormatProvider
-#pragma warning disable RCS1197 // Optimize StringBuilder.Append/AppendLine call.
     public static string ToMarkdownText(this MarkdownLinkCheckOutput output)
     {
         output.NotNull();
@@ -66,5 +65,4 @@ internal static class OutputToMarkdownText
         return sb.ToString();
     }
 }
-#pragma warning restore RCS1197 // Optimize StringBuilder.Append/AppendLine call.
 #pragma warning restore CA1305 // Specify IFormatProvider
