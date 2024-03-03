@@ -24,7 +24,7 @@ internal static class MarkdownLinkCheckLogLineFactory
         return UnknownLogLine.Instance;
     }
 
-    private static (bool isStartOfFile, string filename) IsStartOfFileSummary(ReadOnlySpan<char> line)
+    private static (bool IsStartOfFile, string Filename) IsStartOfFileSummary(ReadOnlySpan<char> line)
     {
         // example line:
         // FILE: ./tests/liquid-test-logger-template.md
@@ -42,7 +42,7 @@ internal static class MarkdownLinkCheckLogLineFactory
         return (false, string.Empty);
     }
 
-    private static (bool isLinksChecked, int linksChecked) IsLinksCheckedLine(ReadOnlySpan<char> line)
+    private static (bool IsLinksChecked, int LinksChecked) IsLinksCheckedLine(ReadOnlySpan<char> line)
     {
         // example line:
         // 0 links checked.
