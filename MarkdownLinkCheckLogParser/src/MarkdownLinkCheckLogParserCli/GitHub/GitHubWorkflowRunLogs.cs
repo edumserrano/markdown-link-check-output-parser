@@ -13,14 +13,15 @@ internal sealed class GitHubWorkflowRunLogs
         GitHubRepository repo,
         GitHubRunId runId,
         GitHubJobName jobName,
-        GitHubStepName stepName)
+        GitHubStepName stepName,
+        CancellationToken cancellationToken)
     {
         repo.NotNull();
         runId.NotNull();
         jobName.NotNull();
         stepName.NotNull();
 
-        using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId);
+        using var workflowRunLogsZip = await _gitHubHttpClient.DownloadWorkflowRunLogsAsync(repo, runId, cancellationToken);
         var markdownLinkCheckLogsZipEntrys = workflowRunLogsZip.Entries.
             Where(e => e.FullName.Contains($"{jobName}/", StringComparison.InvariantCultureIgnoreCase) && e.Name.Contains(stepName, StringComparison.InvariantCultureIgnoreCase))
             .ToList();
@@ -38,7 +39,7 @@ internal sealed class GitHubWorkflowRunLogs
         await using var logAsStream = logAsZip.Open();
         using var streamReader = new StreamReader(logAsStream, Encoding.UTF8);
         var memory = new Memory<char>(new char[logAsZip.Length]);
-        await streamReader.ReadAsync(memory);
+        await streamReader.ReadAsync(memory, cancellationToken);
         return new GitHubStepLog(memory);
     }
 }

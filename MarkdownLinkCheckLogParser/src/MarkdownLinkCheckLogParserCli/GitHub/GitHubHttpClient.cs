@@ -23,19 +23,22 @@ internal sealed class GitHubHttpClient
     }
 
     // see https://docs.github.com/en/rest/actions/workflow-runs#download-workflow-run-logs
-    public async Task<ZipArchive> DownloadWorkflowRunLogsAsync(GitHubRepository repo, GitHubRunId runId)
+    public async Task<ZipArchive> DownloadWorkflowRunLogsAsync(
+        GitHubRepository repo,
+        GitHubRunId runId,
+        CancellationToken cancellationToken)
     {
         repo.NotNull();
         runId.NotNull();
 
         using var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"repos/{repo}/actions/runs/{runId}/logs");
-        var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
+        var httpResponse = await _httpClient.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         if (!httpResponse.IsSuccessStatusCode)
         {
             throw new GitHubHttpClientException(httpRequest.Method, httpRequest.RequestUri, httpResponse.StatusCode);
         }
 
-        var responseStream = await httpResponse.Content.ReadAsStreamAsync();
+        var responseStream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
         return new ZipArchive(responseStream, ZipArchiveMode.Read);
     }
 }

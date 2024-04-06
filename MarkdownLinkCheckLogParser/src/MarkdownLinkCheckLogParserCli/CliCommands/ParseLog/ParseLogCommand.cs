@@ -86,7 +86,7 @@ public class ParseLogCommand : ICommand
             using var httpClient = _httpClient ?? GitHubHttpClient.CreateHttpClient(authToken);
             var gitHubHttpClient = new GitHubHttpClient(httpClient);
             var gitHubWorkflowRunLogs = new GitHubWorkflowRunLogs(gitHubHttpClient);
-            var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(repo, runId, jobName, stepName);
+            var stepLog = await gitHubWorkflowRunLogs.GetStepLogAsync(repo, runId, jobName, stepName, CancellationToken.None);
             var output = MarkdownLinkCheckOutputParser.Parse(stepLog, CaptureErrorsOnly);
             foreach (var outputFormat in outputFormats)
             {
